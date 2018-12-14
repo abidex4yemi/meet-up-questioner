@@ -1,0 +1,25 @@
+{
+  "name": "meet-up-questioner",
+  "version": "1.0.0",
+  "description": "Crowd-source questions for a meetup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abidex4yemi/meet-up-questioner.git"
+  },
+  "author": "Sulaiman Hammed Abidemi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abidex4yemi/meet-up-questioner/issues"
+  },
+  "homepage": "https://github.com/abidex4yemi/meet-up-questioner#readme",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sourcemaps": "^2.6.4"
+  }
+}
