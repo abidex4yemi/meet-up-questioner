@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:600|Domine|Playfair+Display" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <title>Questioner | User Dashboard</title>
+  <title>Questioner | Admin Dashboard</title>
 </head>
 
 <body>
@@ -15,12 +15,12 @@
     <header class="header">
       <div class="dashboard__container">
         <div class="header__content">
-<a href="index.html" class="header__logo header__logo__dashboard--back">&LeftArrow; Back-To-Home</a>
+          <a href="index.html" class="header__logo header__logo__dashboard--back">
+            &LeftArrow; Back-To-Home</a>
           <!--/.header__logo-->
-
           <nav class="nav">
             <ul class="nav__item">
-              <li class="nav__list"><span>Yemi</span></li>
+              <li class="nav__list"><span>Abidex4yemi</span></li>
               <li class="nav__list"><a href="index.html" class="nav__link btn btn__primary--color">Logout</a></li>
             </ul>
           </nav>
@@ -48,6 +48,14 @@
                 <span class="sidebar__item__list__value">60</span>
               </li>
             </ul>
+
+            <div class="meetup">
+              <button type="button" class="btn btn__success--color btn-block" id="create-meetup">Create Meet
+                UP</button>
+
+              <button type="button" class="btn btn__danger--color btn-block" id="delete-meetup">Delete Meet
+                UP</button>
+            </div>
           </div>
           <!--/.dashboard-content__sidebar-->
 
@@ -132,6 +140,80 @@
     </div>
   </section>
   <!--/.footer-->
+
+
+  <!--==========create-meetup-modal Modal window body======================-->
+  <!-- Modal -->
+  <div id="create-meetup-modal" class="modal">
+    <!-- Modal content -->
+    <div class="">
+      <div class="form__container modal-content" id="create-meetup-form">
+        <form action="" class="form form-s-w">
+          <span class="close">&times;</span></span>
+          <div class="form__input__group">
+            <label for="meetup-topic" class="form__label">Meet Up Topic <span class="required">*</span></label>
+            <input type="text" class="form__input" id="meetup-topic" placeholder="Using GitFlow">
+          </div>
+          <!--/.form__input__container-->
+
+          <div class="form__input__group">
+            <label for="meetup-location" class="form__label">location <span class="required">*</span></label>
+            <input type="text" class="form__input" id="meetup-location" placeholder="Kano">
+          </div>
+          <!--/.form__input__container-->
+
+          <div class="form__input__group">
+            <label for="meetup-tags" class="form__label">Tags <span class="required">*</span></label>
+            <input type="text" class="form__input" id="meetup-tags" placeholder="workflow, branching">
+          </div>
+          <!--/.form__input__container-->
+
+          <div class="form__input__group">
+            <label for="meetup-date" class="form__label">Date <span class="required">*</span></label>
+            <input type="date" class="form__input" id="meetup-date">
+          </div>
+          <!--/.form__input__container-->
+
+          <div class="form__input__group">
+            <label for="meetup-image" class="form__label">Upload Image </label>
+            <input type="file" class="form__input" id="meetup-image">
+          </div>
+          <!--/.form__input__container-->
+
+          <button type="submit" class="btn btn__primary--color btn__primary--color--submit" id="create-btn">Create Meet
+            up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--/.modal-->
+
+
+  <!--==========delete-meetup-modal Modal window body======================-->
+  <!-- Modal -->
+  <div id="delete-meetup-modal" class="modal">
+    <!-- Modal content -->
+    <div class="">
+      <div class="form__container modal-content" id="delete-meetup-form">
+        <form action="" class="form form-s-w">
+          <span class="close">&times;</span></span>
+          <div class="form__input__group">
+            <label for="meetup-topic-delete" class="form__label">Select Meet Up Topic <span class="required">*</span></label>
+            <select name="" id="" class="form__input form__input-select" id="meetup-topic-delete">
+              <option value="">Choose Topic</option>
+              <option value="1">Using GitFlow</option>
+              <option value="2">Web development</option>
+            </select>
+          </div>
+          <!--/.form__input__container-->
+
+          <button type="submit" class="btn btn__primary--color btn__primary--color--submit" id="delete-btn">Delete Meet
+            Up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--/.modal-->
 
   <script src="js/script.js"></script>
 </body>
