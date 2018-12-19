@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:600|Domine|Playfair+Display" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <title>Questioner | Sign In</title>
+  <title>Questioner | Post Question</title>
 </head>
 
 <body>
@@ -81,8 +81,21 @@
           </div>
 
           <div id="upvote-q" class="tabcontent">
-            <h3>Paris</h3>
-            <p>Paris is the capital of France.</p>
+            <div class="form__container">
+              <form action="" class="form form__modifier" id="post-question-form">
+                <div class="form__input__group">
+                  <label for="up-q-t" class="form__label">Question Title <span class="required">*</span></label>
+                  <select name="" id="up-q-t" class="form__input form__input-select">
+                    <option value="">Choose</option>
+                    <option value="1">Technology</option>
+                    <option value="2">Web development</option>
+                  </select>
+                </div>
+                <!--/.form__input__container-->
+
+                <button type="submit" class="btn btn__primary--color btn__primary--color--submit" id="up-q-btn">Up Vote</button>
+              </form>
+            </div>
           </div>
 
           <div id="down-vote-q" class="tabcontent">
