@@ -21,17 +21,325 @@
 
         <nav class="nav">
           <ul class="nav__item">
-            <li class="nav__list"><a href="upcoming.html" class="nav__link">Upcoming Events</a></li>
-            <li class="nav__list"><a href="sign-in.html" class="nav__link">sign in</a></li>
+            <li class="nav__list"><a href="upcoming.html" class="nav__link">Upcoming Meet Up</a></li>
+            <li class="nav__list"><a href="sign-in.html" class="nav__link btn btn__primary--color btn__primary--color--outline">sign
+                in</a></li>
             <li class="nav__list"><a href="sign-up.html" class="nav__link btn btn__primary--color">sign up</a></li>
           </ul>
         </nav>
         <!--/.nav-->
-
       </div>
     </div>
   </header>
   <!--/.main-header-->
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero_content">
+        <div class="hero__banner">
+          <h1 class="hero__title">What do you love?</h1>
+          <h2 class="hero__subtitle">Do more of it with <span class="hero__callout">Questioner</span></h2>
+          <p class="hero-body">Getting together with real people in real life makes powerful things happen. Side
+            hustles
+            become careers, ideas become movements, and chance encounters become lifelong connections. <span class="hero__callout">Questioner</span>
+            brings
+            people together to
+            create thriving communities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/.hero-->
+
+  <section class="featured">
+    <div class="container">
+      <div class="featured__content">
+        <div class="featured__questions">
+          <h1 class="featured__title">Top Questions</h1>
+          <ul class="nav__item">
+            <li class="nav__list nav__list--featured"><a href="" class="nav__link nav__link--featured">What is Node js</a></li>
+            <li class="nav__list nav__list--featured"><a href="" class="nav__link nav__link--featured">How to create
+                Express Server</a></li>
+            <li class="nav__list nav__list--featured"><a href="" class="nav__link nav__link--featured">What is Gulp</a></li>
+            <li class="nav__list nav__list--featured"><a href="" class="nav__link nav__link--featured">How do i start
+                web development</a></li>
+          </ul>
+        </div>
+
+        <a href="post-question.html" class="ask btn btn__primary--color">Post Question </a>
+      </div>
+    </div>
+  </section>
+  <!--/.featured-->
+
+  <section class="question-feeds">
+    <div class="container">
+      <div class="question-feeds__single">
+
+        <div class="question-feeds__info">
+          <h1 class="question__feed__title">Is Node.js declining already?</h1>
+          <img src="./img/question_img/codinquestion_thumbnail.jpg" alt="Node declining" class="question__img">
+        </div>
+        <!--/question-feeds__info-->
+
+        <div class="question__feeds__action">
+          <div class="question-feeds__comment">
+            <form action="" class="">
+              <div>
+                <label for="f-comment" class="form__label">Leave a comment...</label>
+                <textarea name="" id="f-comment" cols="30" rows="5" class="form__textarea"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn__primary--color">Comment</button>
+            </form>
+          </div>
+          <!--/.question-feeds__comment-->
+
+          <div class="question__action__bar">
+            <div class="UpvoteActionItem ItemComponent">
+              <a class="ui_button ui-button-color" href="#" role="button">
+                <div class="ui_button_inner">
+                  <div class="ui_button_icon_wrapper">
+                    <span class="ui_button_icon">
+                      <svg width="30px" height="30px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="upvote" class="icon_svg-stroke icon_svg-fill" stroke-width="1.5" stroke="#005999" fill="none"
+                          fill-rule="evenodd" stroke-linejoin="round">
+                          <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                  <!--/.ui_button_icon_wrapper-->
+
+                  <div class="ui_button_text_container">
+                    <span clas="ui_button_text">Up vote</span>
+                    <span class="bullet">.</span>
+                    <span class="upvote-count">11</span>
+                  </div>
+                  <!--/.ui_button_text_container-->
+                </div>
+              </a>
+            </div>
+            <!--/.UpvoteActionItem-->
+
+            <div class="DownvoteActionItem ItemComponent">
+              <a class="ui_button" href="#" role="button">
+                <div class="ui_button_inner">
+                  <div class="ui_button_icon_wrapper">
+                    <span class="ui_button_icon">
+                      <svg width="30px" height="30px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="downvote" class="icon_svg-stroke icon_svg-fill" stroke="#666" fill="none" stroke-width="1.5"
+                          fill-rule="evenodd" stroke-linejoin="round">
+                          <polygon transform="translate(12.000000, 12.000000) rotate(-180.000000) translate(-12.000000, -12.000000) "
+                            points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                  <!--/.ui_button_icon_wrapper-->
+
+                  <div class="ui_button_text_container">
+                    <span clas="ui_button_text">Down vote</span>
+                    <span class="bullet">.</span>
+                    <span class="downvote-count">5</span>
+                  </div>
+                  <!--/.ui_button_text_container-->
+                </div>
+              </a>
+            </div>
+            <!--/.DownvoteActionItem-->
+
+            <div class="askActionItem ItemComponent">
+              <a class="ui_button" href="post-question.html" role="button">
+                <div class="ui_button_inner">
+                  <div class="ui_button_icon_wrapper">
+                    <span class="ui_button_icon">
+                      <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g stroke="none" fill="none" fill-rule="evenodd">
+                          <g id="ask" class="icon_svg-stroke" stroke="#666" stroke-width="1.5">
+                            <g id="Group-2" transform="translate(4.500000, 4.000000)">
+                              <g id="Group" transform="translate(4.500000, 3.000000)">
+                                <path d="M3,6 C3,5.67627727 3,5.50961061 3,5.5 C4.38071187,5.5 5.5,4.38071187 5.5,3 C5.5,1.61928813 4.38071187,0.5 3,0.5 C1.61928813,0.5 0.5,1.61928813 0.5,3"
+                                  id="Oval-11" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <circle id="Oval-12" class="icon_svg-fill_as_stroke" fill="#666" stroke="none" cx="3"
+                                  cy="8.5" r="1"></circle>
+                              </g>
+                              <path d="M3,0 L12,0 C13.6568542,-3.04359188e-16 15,1.34314575 15,3 L15,12 C15,13.6568542 13.6568542,15 12,15 L9,15 L4.5,18 L4.5,15 L3,15 C1.34314575,15 1.78140872e-14,13.6568542 1.687539e-14,12 L0,3 C-9.3869722e-16,1.34314575 1.34314575,-1.47199765e-15 3,-1.77635684e-15 Z"
+                                stroke-linejoin="round"></path>
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                  <!--/.ui_button_icon_wrapper-->
+
+                  <div class="ui_button_text_container">
+                    <span clas="ui_button_text">Ask</span>
+                  </div>
+                  <!--/.ui_button_text_container-->
+                </div>
+              </a>
+            </div>
+            <!--/.askActionItem-->
+          </div>
+          <!--/.question__action__bar-->
+        </div>
+        <!--/.question__feeds__action-->
+
+      </div>
+      <!--/.question-feeds__single-->
+
+      <div class="question-feeds__single">
+
+        <div class="question-feeds__info">
+          <h1 class="question__feed__title">Why learn PHP in 2018?</h1>
+          <img src="./img/question_img/nodequestion_thumbnail.jpg" alt="Node declining" class="question__img">
+        </div>
+        <!--/question-feeds__info-->
+
+        <div class="question__feeds__action">
+          <div class="question-feeds__comment">
+            <form action="" class="">
+              <div>
+                <label for="f-comment" class="form__label">Leave a comment...</label>
+                <textarea name="" id="f-comment" cols="30" rows="5" class="form__textarea"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn__primary--color">Comment</button>
+            </form>
+          </div>
+          <!--/.question-feeds__comment-->
+
+          <div class="question__action__bar">
+            <div class="UpvoteActionItem ItemComponent">
+              <a class="ui_button ui-button-color" href="#" role="button">
+                <div class="ui_button_inner">
+                  <div class="ui_button_icon_wrapper">
+                    <span class="ui_button_icon">
+                      <svg width="30px" height="30px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="" class="icon_svg-stroke icon_svg-fill" stroke-width="1.5" stroke="#005999" fill="none"
+                          fill-rule="evenodd" stroke-linejoin="round">
+                          <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                  <!--/.ui_button_icon_wrapper-->
+
+                  <div class="ui_button_text_container">
+                    <span clas="ui_button_text">Up vote</span>
+                    <span class="bullet">.</span>
+                    <span class="upvote-count">11</span>
+                  </div>
+                  <!--/.ui_button_text_container-->
+                </div>
+              </a>
+            </div>
+            <!--/.UpvoteActionItem-->
+
+            <div class="DownvoteActionItem ItemComponent">
+              <a class="ui_button" href="#" role="button">
+                <div class="ui_button_inner">
+                  <div class="ui_button_icon_wrapper">
+                    <span class="ui_button_icon">
+                      <svg width="30px" height="30px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="" class="icon_svg-stroke icon_svg-fill" stroke="#666" fill="none" stroke-width="1.5"
+                          fill-rule="evenodd" stroke-linejoin="round">
+                          <polygon transform="translate(12.000000, 12.000000) rotate(-180.000000) translate(-12.000000, -12.000000) "
+                            points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                  <!--/.ui_button_icon_wrapper-->
+
+                  <div class="ui_button_text_container">
+                    <span clas="ui_button_text">Down vote</span>
+                    <span class="bullet">.</span>
+                    <span class="downvote-count">5</span>
+                  </div>
+                  <!--/.ui_button_text_container-->
+                </div>
+              </a>
+            </div>
+            <!--/.DownvoteActionItem-->
+
+            <div class="askActionItem ItemComponent">
+              <a class="ui_button" href="post-question.html" role="button">
+                <div class="ui_button_inner">
+                  <div class="ui_button_icon_wrapper">
+                    <span class="ui_button_icon">
+                      <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g stroke="none" fill="none" fill-rule="evenodd">
+                          <g id="ask" class="icon_svg-stroke" stroke="#666" stroke-width="1.5">
+                            <g id="Group-3" transform="translate(4.500000, 4.000000)">
+                              <g id="Group3" transform="translate(4.500000, 3.000000)">
+                                <path d="M3,6 C3,5.67627727 3,5.50961061 3,5.5 C4.38071187,5.5 5.5,4.38071187 5.5,3 C5.5,1.61928813 4.38071187,0.5 3,0.5 C1.61928813,0.5 0.5,1.61928813 0.5,3"
+                                  id="Oval-11" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <circle id="Oval-12" class="icon_svg-fill_as_stroke" fill="#666" stroke="none" cx="3"
+                                  cy="8.5" r="1"></circle>
+                              </g>
+                              <path d="M3,0 L12,0 C13.6568542,-3.04359188e-16 15,1.34314575 15,3 L15,12 C15,13.6568542 13.6568542,15 12,15 L9,15 L4.5,18 L4.5,15 L3,15 C1.34314575,15 1.78140872e-14,13.6568542 1.687539e-14,12 L0,3 C-9.3869722e-16,1.34314575 1.34314575,-1.47199765e-15 3,-1.77635684e-15 Z"
+                                stroke-linejoin="round"></path>
+                            </g>
+                          </g>
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                  <!--/.ui_button_icon_wrapper-->
+
+                  <div class="ui_button_text_container">
+                    <span clas="ui_button_text">Ask</span>
+                  </div>
+                  <!--/.ui_button_text_container-->
+                </div>
+              </a>
+            </div>
+            <!--/.askActionItem-->
+          </div>
+          <!--/.question__action__bar-->
+        </div>
+        <!--/.question__feeds__action-->
+
+      </div>
+      <!--/.question-feeds__single-->
+
+
+    </div>
+    <!--/.container-->
+  </section>
+  <!--/.question-feeds-->
+
+  <section class="footer">
+    <div class="container">
+      <div class="footer__content">
+        <ul class="footer__item">
+          <li class="footer__list">
+            <span>&copy; Questioner 2018</span>
+          </li>
+          <li class="footer__list">
+            <a href="" class="footer__link"><span>Terms of Service</span></a>
+          </li>
+          <li class="footer__list">
+            <a href="" class="footer__link"><span>Privacy Policy</span></a>
+          </li>
+          <li class="footer__list">
+            <a href="" class="footer__link"><span>Cookie Policy</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </section>
+  <!--/.footer-->
 
   <script src="js/script.js"></script>
 </body>

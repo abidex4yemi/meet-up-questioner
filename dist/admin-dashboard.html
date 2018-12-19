@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:600|Domine|Playfair+Display" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Questioner | Admin Dashboard</title>
+</head>
+
+<body>
+  <div class="small__container__fix">
+    <header class="header">
+      <div class="dashboard__container">
+        <div class="header__content">
+          <a href="index.html" class="header__logo header__logo__dashboard--back">
+            &LeftArrow; Back-To-Home</a>
+          <!--/.header__logo-->
+          <nav class="nav">
+            <ul class="nav__item">
+              <li class="nav__list"><span>Abidex4yemi</span></li>
+              <li class="nav__list"><a href="index.html" class="nav__link btn btn__primary--color">Logout</a></li>
+            </ul>
+          </nav>
+          <!--/.nav-->
+        </div>
+      </div>
+    </header>
+    <!--/.main-header-->
+
+    <section class="dashboard">
+      <div class="dashboard__container">
+        <div class="dashboard-content">
+          <div class="dashboard-content__sidebar">
+            <ul class="sidebar__item">
+              <li class="sidebar__item__list">
+                <h4 class="sidebar__item__list__heading">Total Posted question(s)</h4>
+                <span class="sidebar__item__list__value">20</span>
+              </li>
+              <li class="sidebar__item__list">
+                <h4 class="sidebar__item__list__heading">Total Posted question(s)</h4>
+                <span class="sidebar__item__list__value">50</span>
+              </li>
+              <li class="sidebar__item__list">
+                <h4 class="sidebar__item__list__heading">Total Commented Question(s)</h4>
+                <span class="sidebar__item__list__value">60</span>
+              </li>
+            </ul>
+
+            <div class="meetup">
+              <button type="button" class="btn btn__success--color btn-block" id="create-meetup">Create Meet
+                UP</button>
+
+              <button type="button" class="btn btn__danger--color btn-block" id="delete-meetup">Delete Meet
+                UP</button>
+            </div>
+          </div>
+          <!--/.dashboard-content__sidebar-->
+
+          <div class="dashboard-content__main__content">
+            <div class="dashboard__content">
+              <div class="question-list__content">
+                <div class="question-summary">
+                  <div class="question__vote__count">
+                    <div class="votes">
+                      <div class="mini-counts"><span title="0 votes">0</span></div>
+                      <div class="vote__text">votes</div>
+                    </div>
+
+                    <div class="status">
+                      <div class="mini-counts"><span title="0 answers">0</span></div>
+                      <div class="vote__text">answers</div>
+                    </div>
+
+                    <div class="views">
+                      <div class="mini-counts"><span title="1 view">1</span></div>
+                      <div class="vote__text">view</div>
+                    </div>
+                  </div>
+                  <!--/.question__vote__count-->
+
+                  <div class="question__info__summary">
+                    <h3 class="question__title">
+                      <a href="" class="question__item-link question-link">How to in macOS</a>
+                    </h3>
+
+                    <div class="tags">
+                      <a href="" class="question__item-link post-tag" title="show questions tagged 'macos'" rel="tag">macos</a>
+                      <a href="" class="question__item-link post-tag" title="show questions tagged 'protocol-buffers'"
+                        rel="tag">protocol-buffers</a>
+                    </div>
+
+                    <div class="started">
+                      <a href="" class="question__item-link started-link">asked <span title="2018-12-16 09:28:25Z"
+                          class="relative__time">1
+                          min ago</span></a>
+                      <a href="" class="question__item-link question__user--link"> James Janet </a><span class="reputation-score"
+                        title="reputation score">
+                        531 </span>
+                    </div>
+
+                  </div>
+                  <!--/.question__info__summary-->
+                </div>
+                <!--/.question-summary-->
+              </div>
+            </div>
+          </div>
+          <!--/.dashboard-content__main__content-->
+        </div>
+        <!--/.dashboard__content-->
+      </div>
+    </section>
+    <!--/.dashboard-->
+
+  </div>
+  <!--/.small__container__fix-->
+
+  <section class="footer">
+    <div class="dashboard__container">
+      <div class="footer__content">
+        <ul class="footer__item">
+          <li class="footer__list">
+            <span>&copy; Questioner 2018</span>
+          </li>
+          <li class="footer__list">
+            <a href="" class="footer__link"><span>Terms of Service</span></a>
+          </li>
+          <li class="footer__list">
+            <a href="" class="footer__link"><span>Privacy Policy</span></a>
+          </li>
+          <li class="footer__list">
+            <a href="" class="footer__link"><span>Cookie Policy</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </section>
+  <!--/.footer-->
+
+
+  <!--==========create-meetup-modal Modal window body======================-->
+  <!-- Modal -->
+  <div id="create-meetup-modal" class="modal">
+    <!-- Modal content -->
+    <div class="">
+      <div class="form__container modal-content" id="create-meetup-form">
+        <form action="" class="form form-s-w">
+          <span class="close">&times;</span></span>
+          <div class="form__input__group">
+            <label for="meetup-topic" class="form__label">Meet Up Topic <span class="required">*</span></label>
+            <input type="text" class="form__input" id="meetup-topic" placeholder="Using GitFlow">
+          </div>
+          <!--/.form__input__container-->
+
+          <div class="form__input__group">
+            <label for="meetup-location" class="form__label">location <span class="required">*</span></label>
+            <input type="text" class="form__input" id="meetup-location" placeholder="Kano">
+          </div>
+          <!--/.form__input__container-->
+
+          <div class="form__input__group">
+            <label for="meetup-tags" class="form__label">Tags <span class="required">*</span></label>
+            <input type="text" class="form__input" id="meetup-tags" placeholder="workflow, branching">
+          </div>
+          <!--/.form__input__container-->
+
+          <div class="form__input__group">
+            <label for="meetup-date" class="form__label">Date <span class="required">*</span></label>
+            <input type="date" class="form__input" id="meetup-date">
+          </div>
+          <!--/.form__input__container-->
+
+          <div class="form__input__group">
+            <label for="meetup-image" class="form__label">Upload Image </label>
+            <input type="file" class="form__input" id="meetup-image">
+          </div>
+          <!--/.form__input__container-->
+
+          <button type="submit" class="btn btn__primary--color btn__primary--color--submit" id="create-btn">Create Meet
+            up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--/.modal-->
+
+
+  <!--==========delete-meetup-modal Modal window body======================-->
+  <!-- Modal -->
+  <div id="delete-meetup-modal" class="modal">
+    <!-- Modal content -->
+    <div class="">
+      <div class="form__container modal-content" id="delete-meetup-form">
+        <form action="" class="form form-s-w">
+          <span class="close">&times;</span></span>
+          <div class="form__input__group">
+            <label for="meetup-topic-delete" class="form__label">Select Meet Up Topic <span class="required">*</span></label>
+            <select name="" id="" class="form__input form__input-select" id="meetup-topic-delete">
+              <option value="">Choose Topic</option>
+              <option value="1">Using GitFlow</option>
+              <option value="2">Web development</option>
+            </select>
+          </div>
+          <!--/.form__input__container-->
+
+          <button type="submit" class="btn btn__primary--color btn__primary--color--submit" id="delete-btn">Delete Meet
+            Up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--/.modal-->
+
+  <script src="js/admin-dashboard.js"></script>
+</body>
+
+</html>
