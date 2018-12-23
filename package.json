@@ -17,6 +17,9 @@
   },
   "homepage": "https://abidex4yemi.github.io/meet-up-questioner",
   "devDependencies": {
+    "eslint": "^5.11.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-postcss": "^8.0.0",
