@@ -2,9 +2,11 @@
   "name": "meet-up-questioner",
   "version": "1.0.0",
   "description": "Crowd-source questions for a meetup",
-  "main": "index.js",
+  "main": "./server/app.js",
   "scripts": {
-    "deploy": "gh-pages -d dist"
+    "start": "nodemon ./server/app.js",
+    "deploy": "gh-pages -d dist",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -17,15 +19,20 @@
   },
   "homepage": "https://abidex4yemi.github.io/meet-up-questioner",
   "devDependencies": {
+    "chai": "^4.2.0",
     "eslint": "^5.11.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-postcss": "^8.0.0",
-    "gulp-sourcemaps": "^2.6.4"
+    "gulp-sourcemaps": "^2.6.4",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.9"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
     "gh-pages": "^2.0.1"
   }
 }
