@@ -1,0 +1,43 @@
+{
+  "allMeetupRecord": [{
+    "id": "d8f20866-9537-4a0a-a8bf-7191b45a6497",
+    "createdOn": "Thu, 27 Dec 2018 22:36:45 GMT",
+    "location": "lagos",
+    "images": [""],
+    "topic": "What is ios development?",
+    "happeningOn": "12/27/2018 2:30 pm",
+    "tags": ["native app", "ios dev"]
+  }, {
+    "id": "14bbad91-cc31-42f3-9e3a-bed41906f7c6",
+    "createdOn": "Thu, 27 Dec 2018 22:35:46 GMT",
+    "location": "lagos",
+    "images": [""],
+    "topic": "What is ios development?",
+    "happeningOn": "12/27/2018 2:30 pm",
+    "tags": ["native app", "ios dev"]
+  }, {
+    "id": "6a5e20a0-9dec-4bd5-9a6a-ca0b70e55076",
+    "createdOn": "Thu, 27 Dec 2018 22:34:36 GMT",
+    "location": "lagos",
+    "images": [""],
+    "topic": "What is ios development?",
+    "happeningOn": "12/27/2018 2:30 pm",
+    "tags": ["native app", "ios dev"]
+  }, {
+    "id": "2e1ef957-ec8d-4d3c-9566-e251e9f320a7",
+    "createdOn": "Thu, 27 Dec 2018 22:32:33 GMT",
+    "location": "lagos",
+    "images": [""],
+    "topic": "What is ios development?",
+    "happeningOn": "12/27/2018 2:30 pm",
+    "tags": ["native app", "ios dev"]
+  }, {
+    "id": "c7650dac-9842-4823-8ec2-f9cf605169e0",
+    "createdOn": "Thu, 27 Dec 2018 16:10:08 GMT",
+    "location": "Kano",
+    "images": [""],
+    "topic": "Why Andela is the best place to work ?",
+    "happeningOn": "30/12/2018 12:20 pm",
+    "tags": ["development", "javascript"]
+  }]
+}
