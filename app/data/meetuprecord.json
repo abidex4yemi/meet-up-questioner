@@ -1,5 +1,13 @@
 {
   "allMeetupRecord": [{
+    "id": "1b55ef35-0eb3-48e1-9435-a694bf405001",
+    "createdOn": "Thu, 27 Dec 2018 23:41:27 GMT",
+    "location": "Kano",
+    "images": [""],
+    "topic": "Why Andela is the best place to work ?",
+    "happeningOn": "30/12/2018 12:20 pm",
+    "tags": ["development", "javascript"]
+  }, {
     "id": "d8f20866-9537-4a0a-a8bf-7191b45a6497",
     "createdOn": "Thu, 27 Dec 2018 22:36:45 GMT",
     "location": "lagos",
