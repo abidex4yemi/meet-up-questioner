@@ -2,3 +2,5 @@ node_modules
 src
 dist/css/*.map
 gulpfile.js
+.nyc_output
+.vscode
