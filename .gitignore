@@ -13,7 +13,7 @@ gulpfile.js
 .nyc_output
 
 # Vscode environment english dictionary settings
-.vscode
+/.vscode
 
 # Coverage directory used by tools like istanbul
 coverage
