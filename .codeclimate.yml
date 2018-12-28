@@ -1,6 +1,6 @@
 version: '2'
 exclude_paths:
-  - 'UI'
+  - 'ui'
 checks:
   return-statements:
     enabled: false
