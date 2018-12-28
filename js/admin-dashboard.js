@@ -12,21 +12,20 @@ const span = document.getElementsByClassName('close')[0];
 
 // When the user clicks on the button, open the modal
 createMeetupbtn.addEventListener('click', () => {
-	createMeetupModal.style.display = 'block';
+  createMeetupModal.style.display = 'block';
 });
 
 // When the user clicks on <span> (x), close the modal
 span.addEventListener('click', () => {
-	createMeetupModal.style.display = 'none';
+  createMeetupModal.style.display = 'none';
 });
 
 // When the user clicks anywhere outside of the modal, close it
-window.addEventListener('click', event => {
-	if (event.target == createMeetupModal) {
-		createMeetupModal.style.display = 'none';
-	}
+window.addEventListener('click', (event) => {
+  if (event.target === createMeetupModal) {
+    createMeetupModal.style.display = 'none';
+  }
 });
-
 
 
 // Get the delete-meetup-modal modal
@@ -40,17 +39,17 @@ const close = document.getElementsByClassName('close')[1];
 
 // When the user clicks on the button, open the modal
 deleteMeetupbtn.addEventListener('click', () => {
-	deleteMeetupModal.style.display = 'block';
+  deleteMeetupModal.style.display = 'block';
 });
 
 // When the user clicks on <span> (x), close the modal
 close.addEventListener('click', () => {
-	deleteMeetupModal.style.display = 'none';
+  deleteMeetupModal.style.display = 'none';
 });
 
 // When the user clicks anywhere outside of the modal, close it
-window.addEventListener('click', event => {
-	if (event.target == deleteMeetupModal) {
-		deleteMeetupModal.style.display = 'none';
-	}
+window.addEventListener('click', (event) => {
+  if (event.target === deleteMeetupModal) {
+    deleteMeetupModal.style.display = 'none';
+  }
 });
