@@ -1,6 +1,5 @@
-version: '2'
-exclude_paths:
-  - 'ui'
+exclude_patterns:
+  - "ui/"
 checks:
   return-statements:
     enabled: false
