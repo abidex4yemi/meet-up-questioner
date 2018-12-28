@@ -1,6 +1,19 @@
+# Dependency directories
 node_modules
 src
 dist/css/*.map
+
+# Optional npm cache directory
+.npm
+
+# Gulp file for css prefixes
 gulpfile.js
+
+# nyc test coverage
 .nyc_output
+
+# Vscode environment english dictionary settings
 .vscode
+
+# Coverage directory used by tools like istanbul
+coverage

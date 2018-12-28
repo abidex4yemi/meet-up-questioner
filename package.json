@@ -7,7 +7,8 @@
     "start": "nodemon ./app/app.js  --exec babel-node",
     "deploy": "gh-pages -d UI",
     "test": "nyc ./node_modules/.bin/mocha --require @babel/register --require babel-polyfill ./app/test/ --recursive  --timeout 8000 --exit",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "lint": "./node_modules/.bin/eslint app --fix"
   },
   "repository": {
     "type": "git",
