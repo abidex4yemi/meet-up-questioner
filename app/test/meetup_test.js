@@ -1,8 +1,4 @@
-/**
- * import external module
- */
 import chai from 'chai';
-// import faker from 'faker';
 import chaiHttp from 'chai-http';
 import app from '../app';
 
