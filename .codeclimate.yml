@@ -1,5 +1,5 @@
 exclude_patterns:
-  - "ui/"
+  - "**/node_modules/"
 checks:
   return-statements:
     enabled: false
