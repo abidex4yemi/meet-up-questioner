@@ -1,5 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import faker from 'faker';
 import app from '../app';
 
 const { expect } = chai;
@@ -7,7 +8,12 @@ const { expect } = chai;
 // using chai-http middleware
 chai.use(chaiHttp);
 
-// create meet up test
+/**
+ * Unit Test for validity on /meetups route
+ * /api/v1/meetups END-POINTS
+ */
+
+// Test for invalid request
 describe('POST /api/v1/meetups', () => {
   it('should return an error if user input is invalid', (done) => {
     chai.request(app).post('/api/v1/meetups').send({
@@ -28,6 +34,7 @@ describe('POST /api/v1/meetups', () => {
   });
 });
 
+// Test for valid request
 describe('POST /api/v1/meetups', () => {
   it('should create a meet up record if user input is valid', (done) => {
     chai
@@ -57,9 +64,56 @@ describe('POST /api/v1/meetups', () => {
   });
 });
 
-// create question test
+// GET Test for valid request
+describe('GET /api/v1/meetups/:meetup_id (valid meetup id)', () => {
+  it('Should return a meet up record with specific id ', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/meetups/0')
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        console.log(res.body);
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(200);
+        expect(body.data[0]).to.be.an('object');
+        expect(body).to.haveOwnProperty('data');
+        done();
+      });
+  });
+});
+
+// GET Test for invalid request
+describe('GET /api/v1/meetups/:meetup_id (invalid id)', () => {
+  it('should return an error if a user attempts to make a request with invalid record id', (done) => {
+    chai
+      .request(app)
+      .get(`/api/v1/meetups/:meetup_id/${faker.random.number() + 50}`)
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        console.log(res.body);
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.error).to.be.an('object');
+        expect(body.status).to.be.equal(404);
+        expect(body).to.haveOwnProperty('error');
+        done();
+      });
+  });
+});
+
+/**
+ * Unit Test for validity on /questions route
+ * /api/v1/questions END-POINTS
+ */
+
+// Test for invalid request
 describe('POST /api/v1/questions', () => {
-  it('should return an error if user input is invalid', (done) => {
+  it('Should return an error if user input is invalid', (done) => {
     chai.request(app).post('/api/v1/questions').send({
       createdBy: '',
       meetup: '',
@@ -80,8 +134,9 @@ describe('POST /api/v1/questions', () => {
   });
 });
 
+// Test for valid request
 describe('POST /api/v1/questions', () => {
-  it('should create a question record if user input is valid', (done) => {
+  it('Should create a question record if user input is valid', (done) => {
     chai
       .request(app)
       .post('/api/v1/questions')

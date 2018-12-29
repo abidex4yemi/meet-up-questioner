@@ -7,10 +7,13 @@ import QuestionController from '../../controllers/QuestionController';
 
 const router = express.Router();
 
-// meet up route /meetups
+// Post meet up route /meetups
 router.post('/meetups', validate.validateBody(schema.createMeetup), MeetupController.create);
 
-// question route /meetups
+// GET specific meet up record
+router.get('/meetups/:meetup_id', MeetupController.getSingleMeetup);
+
+// Post question route /meetups
 router.post('/questions', validate.validateBody(schema.createQuestion), QuestionController.create);
 
 // expose router to be use in another file

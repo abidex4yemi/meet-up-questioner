@@ -79,4 +79,12 @@ module.exports = {
     vote: Joi.number()
       .integer().default(0),
   }),
+  getOneMeetup: Joi.object().keys({
+    // id is required and must be integer
+    id: Joi.number()
+      .integer()
+      .min(0)
+      .positive()
+      .required(),
+  }),
 };
