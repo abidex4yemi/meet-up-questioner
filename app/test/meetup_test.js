@@ -106,12 +106,32 @@ describe('GET /api/v1/meetups/:meetup_id (invalid id)', () => {
   });
 });
 
-// GET Test for valid request (all meetups records)
+// GET Test for valid request (all meetup records)
 describe('GET /api/v1/meetups/ (Record Found)', () => {
   it('Should return all meetup records available', (done) => {
     chai
       .request(app)
       .get('/api/v1/meetups/')
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        console.log(res.body);
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(200);
+        expect(body).to.haveOwnProperty('data');
+        done();
+      });
+  });
+});
+
+// GET Test for valid request (all upcoming meetup records)
+describe('GET /api/v1/meetups/upcoming/ (Record Found)', () => {
+  it('Should return all meetup records available', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/meetups/upcoming/')
       .end((err, res) => {
         const {
           body,

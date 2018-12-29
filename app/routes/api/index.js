@@ -13,6 +13,9 @@ router.post('/meetups', validate.validateBody(schema.createMeetup), MeetupContro
 // GET get all meet ups route /meetups
 router.get('/meetups/', MeetupController.getAllMeetups);
 
+// GET get all upcoming meet ups route /meetups/upcoming/
+router.get('/meetups/upcoming/', MeetupController.getAllUpComing);
+
 // GET specific meet up record
 router.get('/meetups/:meetup_id', MeetupController.getSingleMeetup);
 

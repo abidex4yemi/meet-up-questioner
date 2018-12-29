@@ -104,7 +104,7 @@ const MeetupController = {
 
   /**
    *
-   * Create new meet up record
+   * Get all all meet up record
    *
    * @param object req
    * @param object res
@@ -125,6 +125,36 @@ const MeetupController = {
       return res.status(200).json({
         status: 200,
         message: `${totalRows} Meet Up Records Found`,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
+
+  /**
+   *
+   * Get all upcoming meetup records
+   *
+   * @param object req
+   * @param object res
+   *
+   * @returns object meetup object
+   */
+  async getAllUpComing(req, res) {
+    try {
+      const result = findAllRecords(MeetupRecord.upcoming);
+      const totalRows = result.length;
+      if (!result) {
+        return res.status(404).send({
+          message: 'No Record Found',
+          error: 404,
+        });
+      }
+
+      return res.status(200).json({
+        status: 200,
+        message: `${totalRows} Upcoming Meet Up Records Found`,
         data: result,
       });
     } catch (error) {
