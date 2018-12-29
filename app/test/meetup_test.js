@@ -64,7 +64,7 @@ describe('POST /api/v1/meetups', () => {
   });
 });
 
-// GET Test for valid request
+// GET Test for valid request (specific meet up id)
 describe('GET /api/v1/meetups/:meetup_id (valid meetup id)', () => {
   it('Should return a meet up record with specific id ', (done) => {
     chai
@@ -85,7 +85,7 @@ describe('GET /api/v1/meetups/:meetup_id (valid meetup id)', () => {
   });
 });
 
-// GET Test for invalid request
+// GET Test for invalid request (specific meet up id)
 describe('GET /api/v1/meetups/:meetup_id (invalid id)', () => {
   it('should return an error if a user attempts to make a request with invalid record id', (done) => {
     chai
@@ -101,6 +101,26 @@ describe('GET /api/v1/meetups/:meetup_id (invalid id)', () => {
         expect(body.error).to.be.an('object');
         expect(body.status).to.be.equal(404);
         expect(body).to.haveOwnProperty('error');
+        done();
+      });
+  });
+});
+
+// GET Test for valid request (all meetups records)
+describe('GET /api/v1/meetups/ (Record Found)', () => {
+  it('Should return all meetup records available', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/meetups/')
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        console.log(res.body);
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(200);
+        expect(body).to.haveOwnProperty('data');
         done();
       });
   });

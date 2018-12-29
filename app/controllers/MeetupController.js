@@ -3,6 +3,7 @@ import fs from 'fs';
 import MeetupRecord from '../data/meetuprecord';
 import filterInt from '../helper/filterInt';
 import findSingleRecord from '../helper/findSingleRecord';
+import findAllRecords from '../helper/findAllRecords';
 
 const MeetupController = {
   /**
@@ -98,6 +99,36 @@ const MeetupController = {
           error,
         },
       });
+    }
+  },
+
+  /**
+   *
+   * Create new meet up record
+   *
+   * @param object req
+   * @param object res
+   *
+   * @returns object meetup object
+   */
+  async getAllMeetups(req, res) {
+    try {
+      const result = findAllRecords(MeetupRecord.allMeetupRecord);
+      const totalRows = result.length;
+      if (!result) {
+        return res.status(404).send({
+          message: 'No Record Found',
+          error: 404,
+        });
+      }
+
+      return res.status(200).json({
+        status: 200,
+        message: `${totalRows} Meet Up Records Found`,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(400).send(error);
     }
   },
 };
