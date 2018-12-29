@@ -22,11 +22,7 @@ module.exports = {
           error: errors,
         });
       }
-
-      if (!req.error) {
-        req.value = {};
-      }
-
+      req.value = {};
       req.value.body = result.value;
 
       return next();

@@ -1,9 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import validate from './validations/validate';
-import schema from './validationSchemas/validationSchema';
-import meetup from './routes/api/meetups/meetup';
+import meetup from './routes/api';
 
 // Initialize express app
 const app = express();
@@ -16,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Meet up  middleware
-app.use('/api/v1/', validate.validateBody(schema.createMeetup), meetup);
+app.use('/api/v1/', meetup);
 
 // Home page route
 app.get('/', (req, res) => {

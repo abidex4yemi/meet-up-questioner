@@ -1,7 +1,6 @@
 // import external modules
 import fs from 'fs';
 import MeetupRecord from '../data/meetuprecord';
-import idGenerator from '../helper/generateID';
 
 const MeetupController = {
   /**
@@ -17,13 +16,18 @@ const MeetupController = {
     // Set default value for optional fields if not set
     const images = req.value.body.images || '';
     const tag = req.value.body.tags || '';
-    const dateCreated = new Date().toUTCString();
-    const uniqueID = idGenerator();
+    let uniqueID;
+    if (MeetupRecord.allMeetupRecord.length > 0) {
+      uniqueID = MeetupRecord.allMeetupRecord[0].id + 1;
+    } else {
+      uniqueID = 0;
+    }
+
 
     // get all post request body data
     const values = {
       id: uniqueID,
-      createdOn: dateCreated,
+      createdOn: new Date().toUTCString(),
       location: req.value.body.location,
       images: [images],
       topic: req.value.body.topic,

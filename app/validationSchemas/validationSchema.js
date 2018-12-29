@@ -1,6 +1,4 @@
-/**
- * Import external modules
- */
+// Import external modules
 import Joi from 'joi';
 
 module.exports = {
@@ -38,5 +36,47 @@ module.exports = {
     tags: Joi.any()
       .tags(['api'])
       .required(),
+  }),
+  createQuestion: Joi.object().keys({
+    // id is required and must be integer
+    id: Joi.number()
+      .integer()
+      .min(0)
+      .positive(),
+
+    // createdOn is required and must be a date
+    createdOn: Joi.date(),
+
+    // user id must be a valid integer is required
+    createdBy: Joi.number()
+      .integer()
+      .min(0)
+      .positive()
+      .required()
+      .label('User id'),
+
+    // meetup topic must be integer and required
+    meetup: Joi.number()
+      .integer()
+      .min(0)
+      .positive()
+      .required()
+      .label('Meet up id'),
+
+    // question title must be a valid string is required
+    title: Joi.string().max(100)
+      .label('Question title')
+      .trim()
+      .required(),
+
+    // question body is required and must be a string
+    body: Joi.string().max(500)
+      .label('Question body')
+      .trim()
+      .required(),
+
+    // topic must be a valid string is required
+    vote: Joi.number()
+      .integer().default(0),
   }),
 };
