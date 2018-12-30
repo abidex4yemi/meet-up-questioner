@@ -22,5 +22,8 @@ router.get('/meetups/:meetup_id', MeetupController.getSingleMeetup);
 // POST question route /meetups
 router.post('/questions', validate.validateBody(schema.createQuestion), QuestionController.create);
 
+// PATCH up vote specific meetup question
+router.patch('/questions/:question_id/upvote', QuestionController.upvote);
+
 // expose router to be use in another file
 module.exports = router;

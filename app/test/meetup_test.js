@@ -203,3 +203,52 @@ describe('POST /api/v1/questions', () => {
       });
   });
 });
+
+// PATCH Test for valid request/questions/:question_id/upvote
+describe('PATCH /api/v1/questions/:question_id/upvote (Invalid)', () => {
+  it('Should return error message with 404 if question record no found', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/questions/300/upvote')
+      .send({
+        status: 404,
+      })
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        console.log(res.body);
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(404);
+        expect(body).to.haveOwnProperty('error');
+        expect(body.message).to.be.equals('No Question Record Found');
+        done();
+      });
+  });
+});
+
+// PATCH Test for valid request /questions/:question_id/upvote
+describe('PATCH /api/v1/questions/:question_id/upvote (valid)', () => {
+  it('Should increase a specific question votes count with 1 ', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/questions/1/upvote')
+      .send({
+        status: 200,
+      })
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        console.log(res.body);
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(200);
+        expect(body).to.haveOwnProperty('data');
+        expect(body.data).to.be.an('array');
+        expect(body.message).to.be.equals('Question upvoted successfully');
+        done();
+      });
+  });
+});
