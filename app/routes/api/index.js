@@ -25,5 +25,8 @@ router.post('/questions', validate.validateBody(schema.createQuestion), Question
 // PATCH up vote specific meetup question
 router.patch('/questions/:question_id/upvote', QuestionController.upvote);
 
+// PATCH down vote a specific meetup question
+router.patch('/questions/:question_id/downvote', QuestionController.downvote);
+
 // expose router to be use in another file
 module.exports = router;
