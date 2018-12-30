@@ -1,13 +1,9 @@
-language: node_js
-node_js: 
-  - "10.14.2"
-  - "node"
-
-
-  cache:
-    directories:
-    - "node_modules"
-after_success:
-    - npm run coveralls
-    - npm run coverage
-    - ./cc-test-reporter after-build -r a6a9ce247dcf86c829b9a8cca11e4b26ae559ffda71484243c44d9b24e2fcb3c --exit-code $TRAVIS_TEST_RESULT
+--- 
+after_success: 
+  - "npm run coveralls"
+  - "npm run coverage"
+  - "./cc-test-reporter after-build -r a6a9ce247dcf86c829b9a8cca11e4b26ae559ffda71484243c44d9b24e2fcb3c --exit-code $TRAVIS_TEST_RESULT"
+cache: 
+  directories: 
+    - node_modules
+language: "node_js -\"10.14.2\" -\"node\""
