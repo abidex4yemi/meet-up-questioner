@@ -10,6 +10,9 @@ const router = express.Router();
 // POST meet up route /meetups
 router.post('/meetups', validate.validateBody(schema.createMeetup), MeetupController.create);
 
+// POST meet up RSVPS route /meetups/meetup_id/rsvps
+router.post('/meetups/:meetup_id/rsvps', MeetupController.meetupResponse);
+
 // GET get all meet ups route /meetups
 router.get('/meetups/', MeetupController.getAllMeetups);
 

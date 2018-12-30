@@ -65,6 +65,60 @@ const MeetupController = {
   },
 
   /**
+    *
+    * Accept or decline scheduled meetup
+    *
+    * @param object req
+    * @param object res
+    *
+    * @returns object meetupRsvp object
+    */
+  async meetupResponse(req, res) {
+    try {
+      // Get and sanitize for valid integer
+      const meetupId = filterInt(req.params.meetup_id);
+
+      // Get a single meet up record
+      const singleRecord = findSingleRecord(MeetupRecord
+        .allMeetupRecord, meetupId);
+
+      // if no matching question record
+      if (typeof singleRecord === 'undefined') {
+        return res.status(404).send({
+          status: 404,
+          message: 'No Meetup RSVP Record Found',
+          error: 404,
+        });
+      }
+
+      // get all matching data
+      const meetupRsvp = {
+        id: singleRecord.id,
+        topic: singleRecord.topic,
+        status: ['maybe'],
+      };
+
+      // save record to data structure
+      MeetupRecord.allMeetupRsvp.unshift(meetupRsvp);
+
+      // read meetup json file
+      fs.writeFile('app/data/meetuprecord.json', JSON.stringify(MeetupRecord), 'utf8', (error) => {
+        if (error) {
+          res.status(400).end();
+        }
+      });
+
+      return res.status(200).json({
+        message: 'Meetup RSVP record created',
+        status: 200,
+        data: [meetupRsvp],
+      });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
+
+  /**
    *
    * Get specific meet up record
    *
@@ -144,7 +198,9 @@ const MeetupController = {
   async getAllUpComing(req, res) {
     try {
       const result = findAllRecords(MeetupRecord.upcoming);
+
       const totalRows = result.length;
+
       if (!result) {
         return res.status(404).send({
           message: 'No Record Found',

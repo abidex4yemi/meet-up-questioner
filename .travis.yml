@@ -8,7 +8,6 @@ cache:
     - "node_modules"
 before_install:
   - "npm install"
-  - "npm install mocha nyc istanbul"
 
 after_success: 
   - "npm run coveralls"

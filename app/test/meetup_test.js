@@ -69,7 +69,7 @@ describe('GET /api/v1/meetups/:meetup_id (valid meetup id)', () => {
   it('Should return a meet up record with specific id ', (done) => {
     chai
       .request(app)
-      .get('/api/v1/meetups/0')
+      .get('/api/v1/meetups/10')
       .end((err, res) => {
         const {
           body,
@@ -128,7 +128,7 @@ describe('GET /api/v1/meetups/ (Record Found)', () => {
 
 // GET Test for valid request (all upcoming meetup records)
 describe('GET /api/v1/meetups/upcoming/ (Record Found)', () => {
-  it('Should return all meetup records available', (done) => {
+  it('Should return all upcoming meetup records available', (done) => {
     chai
       .request(app)
       .get('/api/v1/meetups/upcoming/')
@@ -198,7 +198,7 @@ describe('POST /api/v1/questions', () => {
         expect(body.message).to.be.a('string');
         expect(body).to.haveOwnProperty('message');
         expect(body).to.haveOwnProperty('data');
-        expect(body.message).to.be.equals('New Meet Question Record Created Successfully');
+        expect(body.message).to.be.equals('New Meetup Question Record Created Successfully');
         done();
       });
   });
@@ -253,7 +253,7 @@ describe('PATCH /api/v1/questions/:question_id/upvote (valid)', () => {
   });
 });
 
-// PATCH Test for valid request/questions/:question_id/upvote
+// PATCH Test for valid request/questions/:question_id/downvote
 describe('PATCH /api/v1/questions/:question_id/downvote (Invalid)', () => {
   it('Should return error message with 404 if question record not found', (done) => {
     chai
@@ -277,9 +277,9 @@ describe('PATCH /api/v1/questions/:question_id/downvote (Invalid)', () => {
   });
 });
 
-// PATCH Test for valid request /questions/:question_id/upvote
-describe('PATCH /api/v1/questions/:question_id/upvote (valid)', () => {
-  it('Should decrease a specific question votes count with 1 ', (done) => {
+// PATCH Test for valid request /questions/:question_id/downvote
+describe('PATCH /api/v1/questions/:question_id/downvote (valid)', () => {
+  it('Should decrease a specific question votes count with 1', (done) => {
     chai
       .request(app)
       .patch('/api/v1/questions/1/downvote')
@@ -297,6 +297,55 @@ describe('PATCH /api/v1/questions/:question_id/upvote (valid)', () => {
         expect(body).to.haveOwnProperty('data');
         expect(body.data).to.be.an('array');
         expect(body.message).to.be.equals('Question Downvoted successfully');
+        done();
+      });
+  });
+});
+
+// POST Test for valid request POST /api/v1/meetups/:meetups_id/rsvps
+describe('POST /api/v1/meetups/:meetups_id/rsvps (Invalid)', () => {
+  it('Should return error message with 404 if meetup rsvp record not found', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/meetups/300/rsvps')
+      .send({
+        status: 404,
+      })
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        console.log(res.body);
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(404);
+        expect(body).to.haveOwnProperty('error');
+        expect(body.message).to.be.equals('No Meetup RSVP Record Found');
+        done();
+      });
+  });
+});
+
+// POST Test for valid request POST /api/v1/meetups/:meetups_id/rsvps
+describe('POST  /api/v1/meetups/:meetup_id/rsvps (valid)', () => {
+  it('Should create new meet up rsvp record', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/meetups/8/rsvps')
+      .send({
+        status: 200,
+      })
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        console.log(res.body);
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(200);
+        expect(body).to.haveOwnProperty('data');
+        expect(body.data).to.be.an('array');
+        expect(body.message).to.be.equals('Meetup RSVP record created');
         done();
       });
   });
