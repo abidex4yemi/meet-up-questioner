@@ -12,4 +12,6 @@ before_install:
 after_success: 
   - "npm run coveralls"
   - "npm run coverage"
+script:
+  - "npm test"
   
