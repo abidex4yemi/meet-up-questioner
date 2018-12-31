@@ -49,8 +49,8 @@ const MeetupController = {
         }
       });
 
-      return res.status(200).json({
-        status: 200,
+      return res.status(201).json({
+        status: 201,
         message: 'New Meet Up Record Created Successfully',
         data: [{
           topic: values.topic,
@@ -104,17 +104,17 @@ const MeetupController = {
       // read meetup json file
       fs.writeFile('app/data/meetuprecord.json', JSON.stringify(MeetupRecord), 'utf8', (error) => {
         if (error) {
-          res.status(400).end();
+          res.status(404).end();
         }
       });
 
-      return res.status(200).json({
+      return res.status(201).json({
         message: 'Meetup RSVP record created',
-        status: 200,
+        status: 201,
         data: [meetupRsvp],
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(404).send(error);
     }
   },
 
@@ -136,6 +136,7 @@ const MeetupController = {
       const singleRecord = findSingleRecord(MeetupRecord
         .allMeetupRecord, meetupId);
 
+      // On success
       return res.status(200).json({
         status: 200,
         data: [{

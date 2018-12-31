@@ -46,7 +46,7 @@ const QuestionController = {
       });
 
       return res.status(200).json({
-        status: 200,
+        status: 201,
         message: 'New Meetup Question Record Created Successfully',
         data: [{
           user: values.createdBy,

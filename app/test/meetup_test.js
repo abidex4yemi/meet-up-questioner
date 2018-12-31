@@ -13,7 +13,7 @@ chai.use(chaiHttp);
  * /api/v1/meetups END-POINTS
  */
 
-// Test for invalid request
+// Test for invalid request /meetups
 describe('POST /api/v1/meetups', () => {
   it('should return an error if user input is invalid', (done) => {
     chai.request(app).post('/api/v1/meetups').send({
@@ -34,7 +34,7 @@ describe('POST /api/v1/meetups', () => {
   });
 });
 
-// Test for valid request
+// Test for valid request /meetups
 describe('POST /api/v1/meetups', () => {
   it('should create a meet up record if user input is valid', (done) => {
     chai
@@ -53,12 +53,32 @@ describe('POST /api/v1/meetups', () => {
         console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
-        expect(body.status).to.be.equal(200);
+        expect(body.status).to.be.equal(201);
         expect(body.data[0]).to.be.an('object');
         expect(body.message).to.be.a('string');
         expect(body).to.haveOwnProperty('message');
         expect(body).to.haveOwnProperty('data');
         expect(body.message).to.be.equals('New Meet Up Record Created Successfully');
+        done();
+      });
+  });
+});
+
+// GET Test for valid request (all meetup records)
+describe('GET /api/v1/meetups/ (Record Found)', () => {
+  it('Should return all meetup records available', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/meetups/')
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        console.log(res.body);
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(200);
+        expect(body).to.haveOwnProperty('data');
         done();
       });
   });
@@ -90,7 +110,7 @@ describe('GET /api/v1/meetups/:meetup_id (invalid id)', () => {
   it('should return an error if a user attempts to make a request with invalid record id', (done) => {
     chai
       .request(app)
-      .get(`/api/v1/meetups/:meetup_id/${faker.random.number() + 50}`)
+      .get(`/api/v1/meetups/:meetup_id/${faker.random.number() + 500}`)
       .end((err, res) => {
         const {
           body,
@@ -101,26 +121,6 @@ describe('GET /api/v1/meetups/:meetup_id (invalid id)', () => {
         expect(body.error).to.be.an('object');
         expect(body.status).to.be.equal(404);
         expect(body).to.haveOwnProperty('error');
-        done();
-      });
-  });
-});
-
-// GET Test for valid request (all meetup records)
-describe('GET /api/v1/meetups/ (Record Found)', () => {
-  it('Should return all meetup records available', (done) => {
-    chai
-      .request(app)
-      .get('/api/v1/meetups/')
-      .end((err, res) => {
-        const {
-          body,
-        } = res;
-        console.log(res.body);
-        expect(body).to.be.an('object');
-        expect(body.status).to.be.a('number');
-        expect(body.status).to.be.equal(200);
-        expect(body).to.haveOwnProperty('data');
         done();
       });
   });
@@ -151,7 +151,7 @@ describe('GET /api/v1/meetups/upcoming/ (Record Found)', () => {
  * /api/v1/questions END-POINTS
  */
 
-// Test for invalid request
+// Test for invalid request /questions
 describe('POST /api/v1/questions', () => {
   it('Should return an error if user input is invalid', (done) => {
     chai.request(app).post('/api/v1/questions').send({
@@ -174,7 +174,7 @@ describe('POST /api/v1/questions', () => {
   });
 });
 
-// Test for valid request
+// Test for valid request /questions
 describe('POST /api/v1/questions', () => {
   it('Should create a question record if user input is valid', (done) => {
     chai
@@ -193,7 +193,7 @@ describe('POST /api/v1/questions', () => {
         console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
-        expect(body.status).to.be.equal(200);
+        expect(body.status).to.be.equal(201);
         expect(body.data[0]).to.be.an('object');
         expect(body.message).to.be.a('string');
         expect(body).to.haveOwnProperty('message');
@@ -209,7 +209,7 @@ describe('PATCH /api/v1/questions/:question_id/upvote (Invalid)', () => {
   it('Should return error message with 404 if question record no found', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/questions/300/upvote')
+      .patch('/api/v1/questions/500/upvote')
       .send({
         status: 404,
       })
@@ -258,7 +258,7 @@ describe('PATCH /api/v1/questions/:question_id/downvote (Invalid)', () => {
   it('Should return error message with 404 if question record not found', (done) => {
     chai
       .request(app)
-      .patch('/api/v1/questions/300/downvote')
+      .patch('/api/v1/questions/500/downvote')
       .send({
         status: 404,
       })
@@ -307,7 +307,7 @@ describe('POST /api/v1/meetups/:meetups_id/rsvps (Invalid)', () => {
   it('Should return error message with 404 if meetup rsvp record not found', (done) => {
     chai
       .request(app)
-      .post('/api/v1/meetups/300/rsvps')
+      .post('/api/v1/meetups/500/rsvps')
       .send({
         status: 404,
       })
@@ -333,7 +333,7 @@ describe('POST  /api/v1/meetups/:meetup_id/rsvps (valid)', () => {
       .request(app)
       .post('/api/v1/meetups/8/rsvps')
       .send({
-        status: 200,
+        status: 201,
       })
       .end((err, res) => {
         const {
@@ -342,7 +342,7 @@ describe('POST  /api/v1/meetups/:meetup_id/rsvps (valid)', () => {
         console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
-        expect(body.status).to.be.equal(200);
+        expect(body.status).to.be.equal(201);
         expect(body).to.haveOwnProperty('data');
         expect(body.data).to.be.an('array');
         expect(body.message).to.be.equals('Meetup RSVP record created');
