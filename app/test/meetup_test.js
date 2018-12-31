@@ -8,6 +8,27 @@ const { expect } = chai;
 // using chai-http middleware
 chai.use(chaiHttp);
 
+// GET Test for valid Home route (/)
+describe('GET / (Home Route)', () => {
+  it('Should return a welcome message', (done) => {
+    chai
+      .request(app)
+      .get('/')
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        console.log(res.body);
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(200);
+        expect(body).to.haveOwnProperty('data');
+        expect(body.data[0].message).to.be.equal('Welcome to Questioner Home Route');
+        done();
+      });
+  });
+});
+
 /**
  * Unit Test for validity on /meetups route
  * /api/v1/meetups END-POINTS

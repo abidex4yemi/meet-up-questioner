@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
     {
       status: 200,
       data: [{
-        message: 'Welcome to Questioner Landing page',
+        message: 'Welcome to Questioner Home Route',
       }],
     },
   );
@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 
 // Handle non exist route with with proper message
 app.all('*', (req, res) => {
-  res.status(400).json({
+  res.status(404).json({
     status: 404,
     error: {
       message: 'Wrong request. Route does not exist',
