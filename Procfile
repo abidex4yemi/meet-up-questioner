@@ -1,1 +1,1 @@
-web: run node --app app.js
+web: node app.js
