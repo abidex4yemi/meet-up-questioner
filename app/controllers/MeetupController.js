@@ -4,6 +4,7 @@ import MeetupRecord from '../data/meetuprecord';
 import filterInt from '../helper/filterInt';
 import findSingleRecord from '../helper/findSingleRecord';
 import findAllRecords from '../helper/findAllRecords';
+import generateID from '../helper/generateID';
 
 const MeetupController = {
   /**
@@ -18,13 +19,7 @@ const MeetupController = {
   async create(req, res) {
     // Set default value for optional fields if not set
     const images = req.value.body.images || '';
-    const tag = req.value.body.tags || '';
-    let uniqueID;
-    if (MeetupRecord.allMeetupRecord.length > 0) {
-      uniqueID = MeetupRecord.allMeetupRecord[0].id + 1;
-    } else {
-      uniqueID = 0;
-    }
+    const uniqueID = generateID(MeetupRecord.allMeetupRecord, 0);
 
 
     // get all post request body data
@@ -35,7 +30,7 @@ const MeetupController = {
       images: [images],
       topic: req.value.body.topic,
       happeningOn: req.value.body.happeningOn,
-      tags: tag,
+      tags: req.value.body.tags,
     };
 
     try {
@@ -44,9 +39,7 @@ const MeetupController = {
 
       // read meetup json file
       fs.writeFile('app/data/meetuprecord.json', JSON.stringify(MeetupRecord), 'utf8', (error) => {
-        if (error) {
-          res.status(400).end();
-        }
+        console.log(`file not found: ${error}`);
       });
 
       return res.status(201).json({
@@ -103,9 +96,7 @@ const MeetupController = {
 
       // read meetup json file
       fs.writeFile('app/data/meetuprecord.json', JSON.stringify(MeetupRecord), 'utf8', (error) => {
-        if (error) {
-          res.status(404).end();
-        }
+        console.log(`file not found: ${error}`);
       });
 
       return res.status(201).json({

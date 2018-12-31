@@ -3,6 +3,7 @@ import fs from 'fs';
 import QuestionRecord from '../data/questionrecord.json';
 import filterInt from '../helper/filterInt';
 import findIndex from '../helper/findIndex';
+import generateID from '../helper/generateID';
 
 const QuestionController = {
   /**
@@ -15,13 +16,7 @@ const QuestionController = {
    * @returns object question object
    */
   async create(req, res) {
-    let uniqueID;
-    if (QuestionRecord.allQuestionRecord.length > 0) {
-      uniqueID = QuestionRecord.allQuestionRecord[0].id + 1;
-    } else {
-      uniqueID = 0;
-    }
-
+    const uniqueID = generateID(QuestionRecord.allQuestionRecord, 0);
 
     // get all post request body data
     const values = {
@@ -39,10 +34,8 @@ const QuestionController = {
       QuestionRecord.allQuestionRecord.unshift(values);
 
       // read question json file
-      fs.writeFile('app/data/questionrecord.json', JSON.stringify(QuestionRecord), 'utf8', (error, next) => {
-        if (error) {
-          next(error);
-        }
+      fs.writeFile('app/data/questionrecord.json', JSON.stringify(QuestionRecord), 'utf8', (error) => {
+        console.log(`file not found: ${error}`);
       });
 
       return res.status(200).json({
@@ -109,10 +102,8 @@ const QuestionController = {
       // Update question record
       QuestionRecord.allQuestionRecord.splice(singleRecordIndex, 1, updateVotes);
       // read question json file
-      fs.writeFile('app/data/questionrecord.json', JSON.stringify(QuestionRecord), 'utf8', (error, next) => {
-        if (error) {
-          next(error);
-        }
+      fs.writeFile('app/data/questionrecord.json', JSON.stringify(QuestionRecord), 'utf8', (error) => {
+        console.log(`file not found: ${error}`);
       });
 
       return res.status(200).json({
@@ -178,10 +169,8 @@ const QuestionController = {
       // Update question record
       QuestionRecord.allQuestionRecord.splice(singleRecordIndex, 1, updateVotes);
       // read question json file
-      fs.writeFile('app/data/questionrecord.json', JSON.stringify(QuestionRecord), 'utf8', (error, next) => {
-        if (error) {
-          next(error);
-        }
+      fs.writeFile('app/data/questionrecord.json', JSON.stringify(QuestionRecord), 'utf8', (error) => {
+        console.log(`file not found: ${error}`);
       });
 
       return res.status(200).json({

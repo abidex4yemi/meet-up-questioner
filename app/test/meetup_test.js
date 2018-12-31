@@ -2,6 +2,9 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import faker from 'faker';
 import app from '../app';
+import filterInteger from '../helper/filterInt';
+import findAllRecords from '../helper/findAllRecords';
+import generateID from '../helper/generateID';
 
 const { expect } = chai;
 
@@ -369,5 +372,33 @@ describe('POST  /api/v1/meetups/:meetup_id/rsvps (valid)', () => {
         expect(body.message).to.be.equals('Meetup RSVP record created');
         done();
       });
+  });
+});
+
+
+/**
+ * Custom function Test suits
+ */
+// Test suite for filterInteger(value)
+describe('filterInteger()', () => {
+  it('Should return false if argument is invalid', () => {
+    const result = filterInteger('001yemi');
+    expect(result).to.be.equal(false);
+  });
+});
+
+// Test suite for findAllRecords(Array)
+describe('findAllRecords()', () => {
+  it('Should return false if no record is found', () => {
+    const result = findAllRecords([]);
+    expect(result).to.be.equal(false);
+  });
+});
+
+// Test suite for generateID(objArr, index)
+describe('generateID(objArr, index)', () => {
+  it('Should return 0 if objArr length is less than 0 or empty Array', () => {
+    const result = generateID([], 0);
+    expect(result).to.be.equal(0);
   });
 });

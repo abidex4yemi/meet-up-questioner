@@ -16,6 +16,5 @@ module.exports = (objArr) => {
 
     return allRecord;
   }
-
   return false;
 };
