@@ -2,6 +2,9 @@
 node_modules
 src
 dist/css/*.map
+npm-debug.log
+.DS_Store
+/*.env
 
 # Optional npm cache directory
 .npm
