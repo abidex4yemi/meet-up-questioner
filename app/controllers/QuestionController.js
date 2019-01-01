@@ -113,6 +113,7 @@ const QuestionController = {
           meetup: updateVotes.meetup,
           title: updateVotes.title,
           body: updateVotes.body,
+          votes: updateVotes.votes,
         }],
       });
     } catch (error) {
@@ -180,6 +181,7 @@ const QuestionController = {
           meetup: updateVotes.meetup,
           title: updateVotes.title,
           body: updateVotes.body,
+          votes: updateVotes.votes,
         }],
       });
     } catch (error) {
