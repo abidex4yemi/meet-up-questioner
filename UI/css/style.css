@@ -539,7 +539,7 @@ body {
 }
 
 /* ========================================================================== 
-  Question summary styles
+  Question summary styles: user dashboard
   ========================================================================== */
 
 .question-list {
@@ -636,6 +636,33 @@ body {
   padding: 0.3em 0.5em;
   font-weight: normal;
   letter-spacing: 0.07em;
+}
+
+.meetup__status__heading {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 0.8rem;
+}
+
+.meetup_status {
+  color: #0f1721;
+  margin: 10px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.meetup_status:hover {
+  color: #fb406f;
+}
+
+.meetup__status_container {
+  margin-left: auto;
+}
+
+.meetup__info,
+.location {
+  font-weight: bold;
 }
 
 /*=========================================================================
@@ -1185,6 +1212,8 @@ body {
     margin-bottom: 0.4em;
   }
 
+  /* user dashboard */
+
   .question-summary {
     flex-direction: column;
     justify-content: center;
@@ -1197,6 +1226,10 @@ body {
   .question__info__summary {
     order: 1;
     margin-bottom: 1.5em;
+  }
+
+  .meetup__status_container {
+    display: block;
   }
 
   .tags {
