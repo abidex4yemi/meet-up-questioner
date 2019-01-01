@@ -4,11 +4,14 @@
   "description": "Crowd-source questions for a meetup",
   "main": "./app/app.js",
   "scripts": {
-    "start": "node ./app/app.js  --exec babel-node",
+    "start": "node ./app/app.js  --exec babel-node && npm run build",
     "deploy": "gh-pages -d UI",
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --require babel-polyfill ./app/test/ --recursive  --timeout 8000 --exit",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "showcoverage": "start ./coverage/index.html",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./app -s",
+    "build": "npm run clean && npm run build-babel",
     "lint": "./node_modules/.bin/eslint app --fix"
   },
   "repository": {
