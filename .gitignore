@@ -4,7 +4,6 @@ src
 dist/css/*.map
 npm-debug.log
 .DS_Store
-/*.env
 
 # Optional npm cache directory
 .npm
@@ -16,7 +15,7 @@ gulpfile.js
 .nyc_output
 
 # Vscode environment english dictionary settings
-/.vscode
+.vscode
 
 # Coverage directory used by tools like istanbul
 coverage
