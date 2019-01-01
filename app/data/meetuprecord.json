@@ -1,5 +1,13 @@
 {
   "allMeetupRecord": [{
+    "id": 29,
+    "createdOn": "Tue, 01 Jan 2019 10:13:37 GMT",
+    "location": "lagos",
+    "images": [""],
+    "topic": "What is ios development?",
+    "happeningOn": "12/27/2018 2:30 pm",
+    "tags": ["native app", "ios dev"]
+  }, {
     "id": 28,
     "createdOn": "Mon, 31 Dec 2018 09:08:34 GMT",
     "location": "lagos",
@@ -161,6 +169,10 @@
     "tags": ["native app", "ios dev"]
   }],
   "allMeetupRsvp": [{
+    "id": 8,
+    "topic": "What is ios development?",
+    "status": ["maybe"]
+  }, {
     "id": 8,
     "topic": "What is ios development?",
     "status": ["maybe"]

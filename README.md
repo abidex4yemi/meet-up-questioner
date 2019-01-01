@@ -8,10 +8,11 @@ Crowd-source questions for a meetup. Questioner helps the meetup organizer prior
 
 ## Required Features
 
-- Users can sign up
-- Users can login
+- Admin Users can **view all meetup record**
+- Admin Users can **view meetup record by ID**
 - Users can ask question
-- user can accept or decline scheduled meet up
+- Users can view all **upcoming meetups**
+- user can **accept or decline scheduled meet up**
 - Admin Users can **create a new meetup record**
 - Admin Users can **edit a meet up record**
 - Admin Users can **delete a meet up record**
@@ -40,16 +41,16 @@ To install and run this project you would need to have listed stack installed:
 To run:
 
 ```git
-git clone <https://github.com/abidex4yemi/meet-up-questioner.git>
-cd meet-up-questioner
-npm install
-npm start
+\$ git clone <https://github.com/abidex4yemi/meet-up-questioner.git>
+\$ cd meet-up-questioner
+\$ npm install
+\$ npm start
 ```
 
 ## Testing
 
-```git
-npm test
+```npm
+\$ npm test
 ```
 
 ## Pivotal Tracker stories
@@ -64,8 +65,10 @@ You can see a hosted version of the template at [https://abidex4yemi.github.io/m
 
 The API is currently in version 1 (v1) and is hosted at
 
+[https://meet-up-questioner.herokuapp.com/](https://meet-up-questioner.herokuapp.com/)
+
 ## API Documentation
 
 ## Author
 
-Sulaiman Hammed Abidemi
+Sulaiman Hammed A. yemi
