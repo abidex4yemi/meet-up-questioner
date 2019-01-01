@@ -4,6 +4,7 @@ src
 dist/css/*.map
 npm-debug.log
 .DS_Store
+app
 
 # Optional npm cache directory
 .npm
