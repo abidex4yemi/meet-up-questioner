@@ -2,9 +2,6 @@
 
 Crowd-source questions for a meetup. Questioner helps the meetup organizer prioritize questions to be answered. Other users can vote on asked questions and they bubble to the top or bottom of the log.
 
-[![Coverage Status](https://coveralls.io/repos/github/abidex4yemi/meet-up-questioner/badge.svg?branch=develop)](https://coveralls.io/github/abidex4yemi/meet-up-questioner?branch=develop)
-[![Maintainability](https://api.codeclimate.com/v1/badges/e995e3f1445b7c33f792/maintainability)](https://codeclimate.com/github/abidex4yemi/meet-up-questioner/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/e995e3f1445b7c33f792/test_coverage)](https://codeclimate.com/github/abidex4yemi/meet-up-questioner/test_coverage)
 
 ## Required Features
 
