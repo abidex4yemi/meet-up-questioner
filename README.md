@@ -4,6 +4,8 @@ Crowd-source questions for a meetup. Questioner helps the meetup organizer prior
 
 [![Build Status](https://travis-ci.org/abidex4yemi/meet-up-questioner.svg?branch=develop)](https://travis-ci.org/abidex4yemi/meet-up-questioner)
 
+[![Coverage Status](https://coveralls.io/repos/github/abidex4yemi/meet-up-questioner/badge.svg?branch=develop)](https://coveralls.io/github/abidex4yemi/meet-up-questioner?branch=develop)
+
 ## Required Features
 
 - Admin Users can **view all meetup record**
