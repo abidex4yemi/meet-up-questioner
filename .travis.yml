@@ -15,5 +15,5 @@ after_success:
   - "npm run coverage"
 script:
   - "npm run test"
-  - "- ./cc-test-reporter after-build -r --exit-code $TRAVIS_TEST_RESULT"
+  - "- ./cc-test-reporter after-build -r a6a9ce247dcf86c829b9a8cca11e4b26ae559ffda71484243c44d9b24e2fcb3c --exit-code $TRAVIS_TEST_RESULT"
   
