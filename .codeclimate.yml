@@ -1,6 +1,7 @@
 exclude_paths:
   - "node_modules"
   - "UI"
+  - "src"
 checks:
   return-statements:
     enabled: false
