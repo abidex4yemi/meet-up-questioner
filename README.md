@@ -37,17 +37,17 @@ To install and run this project you would need to have listed stack installed:
 
 To run:
 
-```git
-\$ git clone <https://github.com/abidex4yemi/meet-up-questioner.git>
-\$ cd meet-up-questioner
-\$ npm install
-\$ npm start
-```
+``` sh
+$ git clone <https://github.com/abidex4yemi/meet-up-questioner.git>
+$ cd meet-up-questioner
+$ npm install
+$ npm start
+``
 
 ## Testing
 
-```npm
-\$ npm test
+``sh
+$ npm test
 ```
 
 ## Pivotal Tracker stories
