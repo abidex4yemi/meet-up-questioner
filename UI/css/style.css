@@ -1395,3 +1395,40 @@ body {
     margin-bottom: 10px;
   }
 }
+
+@media all and (max-width: 749px) {
+  .single__question__info {
+    width: 300px;
+  }
+
+  .single__question {
+    justify-content: space-around;
+  }
+
+  .msg_input {
+    width: 300px;
+  }
+}
+
+@media all and (max-width: 423px) {
+  .single__question__info {
+    width: 250px;
+  }
+
+  .single__question__topic {
+    padding-left: 5px;
+  }
+
+  .media__img {
+    font-size: 50px;
+  }
+
+  .posted_by {
+    margin-top: 10px;
+  }
+
+  .msg_input {
+    margin-top: 10px;
+    width: 250px;
+  }
+}
