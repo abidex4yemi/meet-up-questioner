@@ -1,14 +1,9 @@
 # Dependency directories
 node_modules
-src
-dist/css/*.map
 npm-debug.log
 
 # Optional npm cache directory
 .npm
-
-# Gulp file for css prefixes
-gulpfile.js
 
 # nyc test coverage
 .nyc_output

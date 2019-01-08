@@ -2,9 +2,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import faker from 'faker';
 import app from '../app';
-import filterInteger from '../helper/filterInt';
-import findAllRecords from '../helper/findAllRecords';
-import generateID from '../helper/generateID';
+import Helper from '../helper/Helper';
 
 const { expect } = chai;
 
@@ -21,7 +19,6 @@ describe('GET / (Home Route)', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(200);
@@ -47,7 +44,6 @@ describe('POST /api/v1/meetups', () => {
       tags: [],
     }).end((err, res) => {
       const { body } = res;
-      console.log(body);
       expect(body).to.be.an('object');
       expect(body.status).to.be.a('number');
       expect(body.error).to.be.an('array');
@@ -74,7 +70,6 @@ describe('POST /api/v1/meetups', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(201);
@@ -98,7 +93,6 @@ describe('GET /api/v1/meetups/ (Record Found)', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(200);
@@ -118,7 +112,6 @@ describe('GET /api/v1/meetups/:meetup_id (valid meetup id)', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(200);
@@ -139,7 +132,6 @@ describe('GET /api/v1/meetups/:meetup_id (invalid id)', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.error).to.be.an('object');
@@ -160,7 +152,6 @@ describe('GET /api/v1/meetups/upcoming/ (Record Found)', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(200);
@@ -187,7 +178,6 @@ describe('POST /api/v1/questions', () => {
       const {
         body,
       } = res;
-      console.log(body);
       expect(body).to.be.an('object');
       expect(body.status).to.be.a('number');
       expect(body.error).to.be.an('array');
@@ -214,7 +204,6 @@ describe('POST /api/v1/questions', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(201);
@@ -241,7 +230,6 @@ describe('PATCH /api/v1/questions/:question_id/upvote (Invalid)', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(404);
@@ -265,7 +253,6 @@ describe('PATCH /api/v1/questions/:question_id/upvote (valid)', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(200);
@@ -290,7 +277,6 @@ describe('PATCH /api/v1/questions/:question_id/downvote (Invalid)', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(404);
@@ -314,7 +300,6 @@ describe('PATCH /api/v1/questions/:question_id/downvote (valid)', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(200);
@@ -339,7 +324,6 @@ describe('POST /api/v1/meetups/:meetups_id/rsvps (Invalid)', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(404);
@@ -363,7 +347,6 @@ describe('POST  /api/v1/meetups/:meetup_id/rsvps (valid)', () => {
         const {
           body,
         } = res;
-        console.log(res.body);
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(201);
@@ -382,23 +365,31 @@ describe('POST  /api/v1/meetups/:meetup_id/rsvps (valid)', () => {
 // Test suite for filterInteger(value)
 describe('filterInteger()', () => {
   it('Should return false if argument is invalid', () => {
-    const result = filterInteger('001yemi');
+    const result = Helper.filterInt('001yemi');
     expect(result).to.be.equal(false);
   });
 });
 
 // Test suite for findAllRecords(Array)
-describe('findAllRecords()', () => {
+describe('Helper.findAllRecords()', () => {
   it('Should return false if no record is found', () => {
-    const result = findAllRecords([]);
+    const result = Helper.findAllRecords([]);
     expect(result).to.be.equal(false);
   });
 });
 
+// Test suite for findSingleRecord(objArr, objId)
+describe('Helper.findSingleRecord(objArr, objId)', () => {
+  it('Should return false if no record is found', () => {
+    const result = Helper.findSingleRecord([], -1);
+    expect(result).to.be.equal(undefined);
+  });
+});
+
 // Test suite for generateID(objArr, index)
-describe('generateID(objArr, index)', () => {
+describe('Helper.generateID(objArr, index)', () => {
   it('Should return 0 if objArr length is less than 0 or empty Array', () => {
-    const result = generateID([], 0);
+    const result = Helper.generateID([], 0);
     expect(result).to.be.equal(0);
   });
 });

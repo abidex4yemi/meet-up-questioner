@@ -1,11 +1,9 @@
 // import external modules
 import fs from 'fs';
 import QuestionRecord from '../data/questionrecord.json';
-import filterInt from '../helper/filterInt';
-import findIndex from '../helper/findIndex';
-import generateID from '../helper/generateID';
+import Helper from '../helper/Helper';
 
-const QuestionController = {
+class QuestionController {
   /**
    *
    * Create new question record
@@ -15,8 +13,8 @@ const QuestionController = {
    *
    * @returns object question object
    */
-  async create(req, res) {
-    const uniqueID = generateID(QuestionRecord.allQuestionRecord, 0);
+  static create(req, res) {
+    const uniqueID = Helper.generateID(QuestionRecord.allQuestionRecord, 0);
 
     // get all post request body data
     const values = {
@@ -56,7 +54,7 @@ const QuestionController = {
         },
       });
     }
-  },
+  }
 
   /**
    *
@@ -67,13 +65,13 @@ const QuestionController = {
    *
    * @returns object question object
    */
-  async upvote(req, res) {
+  static upvote(req, res) {
     try {
       // Get and sanitize for valid integer
-      const questionId = filterInt(req.params.question_id);
+      const questionId = Helper.filterInt(req.params.question_id);
 
       // Get a single meet up record
-      const singleRecordIndex = findIndex(QuestionRecord
+      const singleRecordIndex = Helper.findIndex(QuestionRecord
         .allQuestionRecord, questionId);
 
       // if no matching question record
@@ -124,7 +122,7 @@ const QuestionController = {
         },
       });
     }
-  },
+  }
 
   /**
    *
@@ -135,13 +133,13 @@ const QuestionController = {
    *
    * @returns object question object
    */
-  async downvote(req, res) {
+  static downvote(req, res) {
     try {
       // Get and sanitize for valid integer
-      const questionId = filterInt(req.params.question_id);
+      const questionId = Helper.filterInt(req.params.question_id);
 
       // Get a single meet up record
-      const singleRecordIndex = findIndex(QuestionRecord
+      const singleRecordIndex = Helper.findIndex(QuestionRecord
         .allQuestionRecord, questionId);
 
       // if no matching question record
@@ -192,9 +190,8 @@ const QuestionController = {
         },
       });
     }
-  },
-
-};
+  }
+}
 
 // expose QuestionController to be use in another file
 export default QuestionController;
