@@ -729,6 +729,13 @@ body {
   padding-left: 1em;
 }
 
+.comment-btn {
+  vertical-align: top;
+  height: 40px;
+  margin-top: 5px;
+  line-height: 40px;
+}
+
 .votes__container {
   display: flex;
   flex-direction: column;
