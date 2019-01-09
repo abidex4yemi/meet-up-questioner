@@ -668,56 +668,140 @@ body {
 /*=========================================================================
   Question feed section styles
   ========================================================================*/
-
-.question__feeds__action,
-.question-feeds__single,
-.question__action__bar {
+.question-feeds__content {
   display: flex;
+  flex-direction: column;
 }
 
-.question__action__bar {
-  align-items: flex-end;
+.question-feeds {
+  padding-top: 2em;
 }
 
-.question__feed__title {
-  font-size: 1.5em;
+.single__question {
+  border-bottom: 0.5px solid #9199a1;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.5em;
 }
 
-.question-feeds__single {
-  border: 1px solid #e4e6e8;
-  border-radius: 5px;
-  padding: 0.8em;
-  margin: 1em 0;
+.question__header,
+.question__body {
+  display: flex;
   justify-content: space-between;
 }
 
-.question__feeds__action {
-  width: 60%;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
+.question__header {
+  justify-content: flex-start;
 }
 
-.question__img {
-  border-radius: 5px;
-  max-width: 300px;
-  height: 140px;
+.question__body {
+  flex-direction: column;
 }
 
-.ItemComponent {
-  margin: 10px;
+.msg_input {
+  height: auto;
+  border: 0.5px solid #9199a1;
+  border-radius: 10px;
+  padding: 10px 2px 0 8px;
+  outline: none;
 }
 
-.ui_button {
-  color: #2e3e48;
-  font-size: 0.8em;
+.msg_input:focus {
+  border: 1px solid #0f1721;
+}
+
+.posted_by {
+  align-self: flex-end;
+  margin: 0;
+  margin-top: -10px;
   font-weight: bold;
-  text-decoration: none;
-  transition: all 0.4s;
+  font-size: 12px;
+  color: #9199a1;
 }
 
-.ui_button:hover {
-  color: rgba(241, 78, 131, .8);
+.media__img {
+  font-size: 70px;
+}
+
+.single__question__topic {
+  margin-bottom: 0;
+  padding-left: 1em;
+}
+
+.comment-btn {
+  vertical-align: top;
+  height: 40px;
+  margin-top: 5px;
+  line-height: 40px;
+}
+
+.votes__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.vote-up,
+.vote-down {
+  color: #0f1721;
+  font-size: 2em;
+  position: relative;
+}
+
+.vote-up:hover,
+.vote-down:hover {
+  color: #9199a1;
+}
+
+.vote-count {
+  background: #F2EFF3;
+  width: 30px;
+  height: 30px;
+  line-height: 20px;
+  font-weight: bold;
+  border: 1px solid #F2EFF3;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  font-size: 0.5em;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -51px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }
 
 /*=========================================================================
@@ -733,24 +817,6 @@ body {
   font-size: 1.8em;
   text-align: center;
   margin-top: 40px;
-}
-
-.upcoming__content__title:after {
-  content: "Andela";
-  width: 50px;
-  height: 50px;
-  line-height: 30px;
-  border-radius: 50%;
-  background: #fb406f;
-  display: inline-block;
-  position: relative;
-  top: -40px;
-  font-size: 0.4em;
-  color: #FFF;
-  text-align: center;
-  box-sizing: border-box;
-  padding: 0.5em 0;
-  margin-left: 10px;
 }
 
 .upcoming__meetup__container {
@@ -1043,18 +1109,19 @@ body {
 .dashboard-content {
   display: flex;
   flex-wrap: wrap;
-  min-height: 452px;
 }
 
 .dashboard-content__main__content {
   flex: 5;
   padding: 2em;
   overflow: auto;
+  min-height: 100vh;
 }
 
 .dashboard-content__sidebar {
   background: #0f1721;
   padding-top: 0.5em;
+  min-height: 100vh;
 }
 
 .sidebar__item {
@@ -1065,7 +1132,7 @@ body {
 }
 
 .sidebar__item__list {
-  font-size: 1em;
+  font-size: 13px;
   margin: 0;
   margin-bottom: 1em;
   color: #e4e6e8;
@@ -1082,6 +1149,7 @@ body {
     Arial,
     sans-serif;
   display: inline-block;
+  width: 205px;
 }
 
 .sidebar__item__list__heading,
@@ -1091,9 +1159,9 @@ body {
 }
 
 .sidebar__item__list__value {
-  border-radius: 5px;
-  border: 1px solid#FF8926;
-  padding: 10px;
+  border-radius: 3px;
+  border: 0.5px solid#FF8926;
+  padding: 8px;
 }
 
 /* 
@@ -1264,10 +1332,6 @@ body {
     text-align: left;
   }
 
-  .upcoming__content__title:after {
-    display: none;
-  }
-
   /* Dashboard styles */
   .dashboard-content {
     display: block;
@@ -1277,6 +1341,7 @@ body {
     padding-left: 5px;
     padding-right: 0;
     font-size: 14px;
+    width: 250px;
   }
 
   /* 
@@ -1286,19 +1351,6 @@ body {
 
   .form-s-w {
     width: 300px;
-  }
-
-  /*
-   * Question feed section
-   */
-  .question__feeds__action,
-  .question-feeds__single,
-  .question__action__bar {
-    display: block;
-  }
-
-  .question__feed__title {
-    font-size: 1em;
   }
 }
 
@@ -1346,15 +1398,44 @@ body {
     flex: 4;
   }
 
-  .ask {
-    flex: 1;
-  }
-
-  .question__feeds__action {
-    flex-basis: 50%;
-  }
-
   .upcoming__meetup__container {
     margin-bottom: 10px;
+  }
+}
+
+@media all and (max-width: 749px) {
+  .single__question__info {
+    width: 300px;
+  }
+
+  .single__question {
+    justify-content: space-around;
+  }
+
+  .msg_input {
+    width: 300px;
+  }
+}
+
+@media all and (max-width: 423px) {
+  .single__question__info {
+    width: 250px;
+  }
+
+  .single__question__topic {
+    padding-left: 5px;
+  }
+
+  .media__img {
+    font-size: 50px;
+  }
+
+  .posted_by {
+    margin-top: 10px;
+  }
+
+  .msg_input {
+    margin-top: 10px;
+    width: 250px;
   }
 }

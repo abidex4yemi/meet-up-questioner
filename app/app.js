@@ -42,10 +42,7 @@ app.all('*', (req, res) => {
 const port = process.env.PORT || 3000;
 
 // Start server
-app.listen(port, () => {
-  // eslint-disable no-console
-  console.log(`Server running on port ${port}`);
-});
+app.listen(port);
 
 // expose app to be use in another file
 export default app;

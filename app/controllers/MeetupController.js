@@ -1,12 +1,9 @@
 // import external modules
 import fs from 'fs';
 import MeetupRecord from '../data/meetuprecord';
-import filterInt from '../helper/filterInt';
-import findSingleRecord from '../helper/findSingleRecord';
-import findAllRecords from '../helper/findAllRecords';
-import generateID from '../helper/generateID';
+import Helper from '../helper/Helper';
 
-const MeetupController = {
+class MeetupController {
   /**
    *
    * Create new meet up record
@@ -16,10 +13,10 @@ const MeetupController = {
    *
    * @returns object meetup object
    */
-  async create(req, res) {
+  static create(req, res) {
     // Set default value for optional fields if not set
     const images = req.value.body.images || '';
-    const uniqueID = generateID(MeetupRecord.allMeetupRecord, 0);
+    const uniqueID = Helper.generateID(MeetupRecord.allMeetupRecord, 0);
 
 
     // get all post request body data
@@ -55,24 +52,24 @@ const MeetupController = {
     } catch (error) {
       return res.status(400).send(error);
     }
-  },
+  }
 
   /**
-    *
-    * Accept or decline scheduled meetup
-    *
-    * @param object req
-    * @param object res
-    *
-    * @returns object meetupRsvp object
-    */
-  async meetupResponse(req, res) {
+   *
+   * Accept or decline scheduled meetup
+   *
+   * @param object req
+   * @param object res
+   *
+   * @returns object meetupRsvp object
+   */
+  static meetupResponse(req, res) {
     try {
       // Get and sanitize for valid integer
-      const meetupId = filterInt(req.params.meetup_id);
+      const meetupId = Helper.filterInt(req.params.meetup_id);
 
       // Get a single meet up record
-      const singleRecord = findSingleRecord(MeetupRecord
+      const singleRecord = Helper.findSingleRecord(MeetupRecord
         .allMeetupRecord, meetupId);
 
       // if no matching question record
@@ -107,7 +104,7 @@ const MeetupController = {
     } catch (error) {
       return res.status(404).send(error);
     }
-  },
+  }
 
   /**
    *
@@ -118,13 +115,13 @@ const MeetupController = {
    *
    * @returns object meetup object
    */
-  async getSingleMeetup(req, res) {
+  static getSingleMeetup(req, res) {
     try {
       // Get valid integer
-      const meetupId = filterInt(req.params.meetup_id);
+      const meetupId = Helper.filterInt(req.params.meetup_id);
 
       // Get a single meet up record
-      const singleRecord = findSingleRecord(MeetupRecord
+      const singleRecord = Helper.findSingleRecord(MeetupRecord
         .allMeetupRecord, meetupId);
 
       // On success
@@ -146,7 +143,7 @@ const MeetupController = {
         },
       });
     }
-  },
+  }
 
   /**
    *
@@ -157,9 +154,9 @@ const MeetupController = {
    *
    * @returns object meetup object
    */
-  async getAllMeetups(req, res) {
+  static getAllMeetups(req, res) {
     try {
-      const result = findAllRecords(MeetupRecord.allMeetupRecord);
+      const result = Helper.findAllRecords(MeetupRecord.allMeetupRecord);
       const totalRows = result.length;
       if (!result) {
         return res.status(404).send({
@@ -176,7 +173,7 @@ const MeetupController = {
     } catch (error) {
       return res.status(400).send(error);
     }
-  },
+  }
 
   /**
    *
@@ -187,9 +184,9 @@ const MeetupController = {
    *
    * @returns object meetup object
    */
-  async getAllUpComing(req, res) {
+  static getAllUpComing(req, res) {
     try {
-      const result = findAllRecords(MeetupRecord.upcoming);
+      const result = Helper.findAllRecords(MeetupRecord.upcoming);
 
       const totalRows = result.length;
 
@@ -208,8 +205,8 @@ const MeetupController = {
     } catch (error) {
       return res.status(400).send(error);
     }
-  },
-};
+  }
+}
 
 // expose MeetupController to be use in another file
 export default MeetupController;
