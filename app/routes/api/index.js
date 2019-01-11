@@ -32,4 +32,4 @@ router.patch('/questions/:question_id/upvote', QuestionController.upvote);
 router.patch('/questions/:question_id/downvote', QuestionController.downvote);
 
 // expose router to be use in another file
-module.exports = router;
+export default router;

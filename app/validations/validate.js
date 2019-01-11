@@ -4,7 +4,7 @@
 import Joi from 'joi';
 
 // Schema validation function
-module.exports = {
+export default {
   validateBody(schema) {
     return (req, res, next) => {
       const result = Joi.validate(req.body, schema, {

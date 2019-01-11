@@ -33,7 +33,9 @@ class QuestionController {
 
       // read question json file
       fs.writeFile('app/data/questionrecord.json', JSON.stringify(QuestionRecord), 'utf8', (error) => {
-        console.log(`file not found: ${error}`);
+        if (error) {
+          Helper.logger().info(`QuestionRecord file not found: ${error}`);
+        }
       });
 
       return res.status(200).json({
@@ -101,7 +103,9 @@ class QuestionController {
       QuestionRecord.allQuestionRecord.splice(singleRecordIndex, 1, updateVotes);
       // read question json file
       fs.writeFile('app/data/questionrecord.json', JSON.stringify(QuestionRecord), 'utf8', (error) => {
-        console.log(`file not found: ${error}`);
+        if (error) {
+          Helper.logger().info(`QuestionRecord file not found: ${error}`);
+        }
       });
 
       return res.status(200).json({
@@ -169,7 +173,9 @@ class QuestionController {
       QuestionRecord.allQuestionRecord.splice(singleRecordIndex, 1, updateVotes);
       // read question json file
       fs.writeFile('app/data/questionrecord.json', JSON.stringify(QuestionRecord), 'utf8', (error) => {
-        console.log(`file not found: ${error}`);
+        if (error) {
+          Helper.logger().info(`QuestionRecord file not found: ${error}`);
+        }
       });
 
       return res.status(200).json({
