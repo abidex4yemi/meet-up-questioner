@@ -1,7 +1,7 @@
 // Import external modules
 import Joi from 'joi';
 
-module.exports = {
+export default {
   createMeetup: Joi.object().keys({
     // id is required and must be integer
     id: Joi.number()

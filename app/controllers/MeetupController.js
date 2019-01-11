@@ -36,7 +36,9 @@ class MeetupController {
 
       // read meetup json file
       fs.writeFile('app/data/meetuprecord.json', JSON.stringify(MeetupRecord), 'utf8', (error) => {
-        console.log(`file not found: ${error}`);
+        if (error) {
+          Helper.logger().info(`MeetupRecord file not found: ${error}`);
+        }
       });
 
       return res.status(201).json({
@@ -93,7 +95,9 @@ class MeetupController {
 
       // read meetup json file
       fs.writeFile('app/data/meetuprecord.json', JSON.stringify(MeetupRecord), 'utf8', (error) => {
-        console.log(`file not found: ${error}`);
+        if (error) {
+          Helper.logger().info(`MeetupRecord file not found: ${error}`);
+        }
       });
 
       return res.status(201).json({

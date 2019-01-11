@@ -1,3 +1,4 @@
+import winston from 'winston';
 /**
  * Helper class that holds helper methods
  */
@@ -61,6 +62,17 @@ class Helper {
    */
   static generateID(objArr, index) {
     return ((objArr.length > 0) ? objArr[index].id + 1 : 0);
+  }
+
+  static logger() {
+    return winston.createLogger({
+      transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({
+          filename: 'app.log',
+        }),
+      ],
+    });
   }
 }
 
