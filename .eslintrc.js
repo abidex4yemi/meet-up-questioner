@@ -6,6 +6,7 @@ module.exports = {
        "linebreak-style": ["error", "windows"]
      },
      "env": {
+       "es6": true,
        "mocha": true,
        "node": true,
        "browser": true,
