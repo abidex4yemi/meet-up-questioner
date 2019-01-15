@@ -1,4 +1,5 @@
 import winston from 'winston';
+import bcrypt from 'bcrypt';
 /**
  * Helper class that holds helper methods
  */
@@ -73,6 +74,24 @@ class Helper {
         }),
       ],
     });
+  }
+
+  /**
+   * Hash password
+   *
+   * @param {*} password
+   */
+  static hashPassword(password) {
+    return bcrypt.hashSync(password, bcrypt.genSalt());
+  }
+
+  /**
+   * Compare hashedPassword against user password
+   * @param {*} password
+   * @param {*} hashedPassword
+   */
+  static comparePassword(password, hashedPassword) {
+    return bcrypt.compareSync(password, hashedPassword);
   }
 }
 
