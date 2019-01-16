@@ -82,7 +82,7 @@ class Helper {
    * @param {*} password
    */
   static hashPassword(password) {
-    return bcrypt.hashSync(password, bcrypt.genSalt());
+    return bcrypt.hashSync(password, 8);
   }
 
   /**
