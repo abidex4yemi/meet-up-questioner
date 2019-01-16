@@ -98,6 +98,103 @@ describe('POST api/v1/auth/signup', () => {
   });
 });
 
+/**
+ * login test suite
+ */
+describe('POST api/v1/auth/login', () => {
+  it('Should successfully log a user in if login inputs are valid', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'Nikita.Hermiston@yahoo.com',
+        password: '1940andela',
+      })
+      .end((err, res) => {
+        if (err) done();
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equals(200);
+        expect(body.data[0]).to.haveOwnProperty('token');
+        expect(body.data[0]).to.haveOwnProperty('user');
+        expect(body.data[0].user).to.be.an('object');
+        expect(body.data[0].token).to.be.a('string');
+        done();
+      });
+  });
+});
+
+describe('POST api/v1/auth/login', () => {
+  it('Should return an error if login email is invalid', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'Nikita.Hermiston@yaho.com',
+        password: '1940andela',
+      })
+      .end((err, res) => {
+        if (err) done();
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equals(404);
+        expect(body).to.haveOwnProperty('errors');
+        expect(body.errors).to.be.equal('User not Found');
+        done();
+      });
+  });
+});
+
+describe('POST api/v1/auth/login', () => {
+  it('Should return an error if login inputs are empty', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send({})
+      .end((err, res) => {
+        if (err) done();
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equals(400);
+        expect(body).to.haveOwnProperty('error');
+        done();
+      });
+  });
+});
+
+describe('POST api/v1/auth/login', () => {
+  it('Should return an error if login password is not correct', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'Nikita.Hermiston@yahoo.com',
+        password: '1940andel',
+      })
+      .end((err, res) => {
+        if (err) done();
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equals(404);
+        expect(body).to.haveOwnProperty('errors');
+        expect(body.errors).to.be.equal('Email/Password incorrect');
+        done();
+      });
+  });
+});
+
 // Test suite for hashPassword(password)
 describe('Helper.hashPassword(password)', () => {
   it('Should return hashed password (string)', () => {
