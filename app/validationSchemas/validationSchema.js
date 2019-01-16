@@ -87,4 +87,49 @@ export default {
       .positive()
       .required(),
   }),
+  signUp: Joi.object().keys({
+    // firname must be a valid string and is required
+    firstname: Joi.string().max(100)
+      .label('Firstname')
+      .trim()
+      .required(),
+    // lastname must be a valid string and is required
+    lastname: Joi.string().max(100)
+      .label('Lastname')
+      .trim()
+      .required(),
+    // password must be a valid string and is required
+    password: Joi.string()
+      .min(6)
+      .max(100)
+      .label('Password')
+      .trim()
+      .required(),
+    // confirm password must be a valid string and is required
+    passwordConf: Joi.string()
+      .min(6)
+      .max(100)
+      .valid(Joi.ref('password'))
+      .label('confirm Password')
+      .trim()
+      .options({
+        language: {
+          any: {
+            allowOnly: 'must match password',
+          },
+        },
+      }),
+    // firname must be a valid string and is required
+    email: Joi.string().max(50)
+      .label('Email')
+      .trim()
+      .required(),
+    // phoneNumber must be a valid string and is required
+    phonenumber: Joi.string()
+      .label('PhoneNumber')
+      .trim()
+      .optional(),
+    // username must be a valid string and is required
+    username: Joi.string().trim().label('Username').optional(),
+  }),
 };

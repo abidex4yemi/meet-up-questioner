@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon ./app/app.js --exec babel-node",
     "deploy": "gh-pages -d UI",
-    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --require babel-polyfill ./app/test/ --recursive  --timeout 8000 --exit",
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --require babel-polyfill ./app/test/ --recursive --exit",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "showcoverage": "start ./coverage/index.html",
     "lint": "./node_modules/.bin/eslint app --fix"

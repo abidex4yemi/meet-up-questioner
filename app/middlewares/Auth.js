@@ -7,14 +7,14 @@ class Auth {
    *
    * @param {*} id
    * @param {*} isAdmin
-   * @param {*} username
+   * @param {*} firstname
    * @param {*} email
    */
-  static generateToken(id, isAdmin, username, email) {
+  static generateToken(id, isAdmin, firstname, email) {
     const token = jwt.sign({
       id,
       isAdmin,
-      username,
+      firstname,
       email,
     },
     process.env.SECRET_KEY,

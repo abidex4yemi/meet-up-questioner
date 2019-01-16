@@ -2,7 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import Helper from './helper/Helper';
-import meetup from './routes/api';
+import meetup from './routes/api/index';
+import users from './routes/api/users';
 
 // Initialize express app
 const app = express();
@@ -13,6 +14,9 @@ app.use(bodyParser.json());
 
 // cross origin resource sharing middleware
 app.use(cors());
+
+// users middleware
+app.use('/api/v1/auth', users);
 
 // Meet up  middleware
 app.use('/api/v1/', meetup);
@@ -36,6 +40,14 @@ app.all('*', (req, res) => {
     error: {
       message: 'Wrong request. Route does not exist',
     },
+  });
+});
+
+// handle bad json format
+app.use((err, res) => {
+  res.status(500).json({
+    status: 500,
+    err,
   });
 });
 
