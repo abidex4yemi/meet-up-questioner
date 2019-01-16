@@ -59,6 +59,64 @@ class UserController {
       });
     }
   }
+
+  static async logIn(req, res) {
+    const queryString = 'SELECT firstname, lastname, email, phonenumber, username, password FROM users WHERE email = $1';
+
+    try {
+      // Select all user record where email is equal db email
+      const {
+        rows,
+      } = await db.query(queryString, [req.value.body.email]);
+
+      // check if user exist in database
+      if (!rows[0]) {
+        return res.status(404).json({
+          status: 404,
+          errors: 'User not Found',
+        });
+      }
+
+      // compare user provided password against db
+      if (!Helper.comparePassword(req.value.body.password, rows[0].password)) {
+        return res
+          .status(404)
+          .json({
+            status: 404,
+            errors: 'Email/Password incorrect',
+          });
+      }
+
+      // generate token
+      const token = jwt.generateToken(
+        rows[0].id,
+        rows[0].isadmin,
+        rows[0].firstname,
+        rows[0].email,
+      );
+
+      // return success message
+      return res.status(200).json({
+        status: 200,
+        data: [{
+          token,
+          mesage: 'Loged in',
+          user: {
+            Firstname: rows[0].firstname,
+            Lastname: rows[0].lastname,
+            Email: rows[0].email,
+            Phonenumber: rows[0].phonenumber,
+            Username: rows[0].username,
+          },
+        }],
+      });
+    } catch (errors) {
+      return res.status(400).json({
+        status: 400,
+        errors,
+      });
+    }
+  }
 }
 
 export default UserController;

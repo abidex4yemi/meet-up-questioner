@@ -132,4 +132,18 @@ export default {
     // username must be a valid string and is required
     username: Joi.string().trim().label('Username').optional(),
   }),
+  logIn: Joi.object().keys({
+    // email must be a valid string and is required
+    email: Joi.string().max(50)
+      .label('Email')
+      .trim()
+      .required(),
+    // password must be a valid string and is required
+    password: Joi.string()
+      .min(6)
+      .max(100)
+      .label('Password')
+      .trim()
+      .required(),
+  }),
 };
