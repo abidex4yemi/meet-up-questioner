@@ -44,7 +44,7 @@ app.all('*', (req, res) => {
 });
 
 // handle bad json format
-app.use((err, res) => {
+app.use((err, req, res) => {
   res.status(500).json({
     status: 500,
     err,
