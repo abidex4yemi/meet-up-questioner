@@ -32,5 +32,7 @@ router.patch('/questions/:questionId/upvote', Auth.verifyToken, QuestionControll
 // PATCH down vote a specific meetup question
 router.patch('/questions/:questionId/downvote', Auth.verifyToken, QuestionController.downvote);
 
+router.delete('/meetups/:meetupId', Auth.verifyToken, MeetupController.deleteMeetup);
+
 // expose router to be use in another file
 export default router;

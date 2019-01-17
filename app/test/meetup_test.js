@@ -393,6 +393,45 @@ describe('GET /api/v1/meetups/upcoming/ (Record Found)', () => {
   });
 });
 
+// GET Test for valid request (all meetup records)
+describe('DELETE /api/v1/meetups/ (Delete record)', () => {
+  it('Should delete a specific meetup record with user provided id', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/meetups/4')
+      .set('token', adminToken)
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(200);
+        expect(body).to.haveOwnProperty('data');
+        done();
+      });
+  });
+});
+
+// GET Test for valid request (all meetup records)
+describe('DELETE /api/v1/meetups/10000 (Could not delete invalid id)', () => {
+  it('Should return an error if meetup id not found', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/meetups/10000')
+      .set('token', adminToken)
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(404);
+        done();
+      });
+  });
+});
+
 /**
  * Unit Test for validity on /questions route
  * /api/v1/questions END-POINTS
@@ -641,6 +680,18 @@ describe('POST  /api/v1/meetups/:meetup_id/rsvps (inValid)', () => {
   });
 });
 
+
+/**
+ * Custom function Test suits
+ */
+// Test suite for filterInteger(value)
+describe('filterInteger()', () => {
+  it('Should return false if argument is invalid', () => {
+    const result = Helper.filterInt('001yemi');
+    expect(result).to.be.equal(false);
+  });
+});
+
 // Test suite for hashPassword(password)
 describe('Helper.hashPassword(password)', () => {
   it('Should return hashed password (string)', () => {
@@ -662,41 +713,5 @@ describe('Helper.comparePassword(password, hashedPassword)', () => {
   it('Should return false if password does not matches hashed', () => {
     const result = Helper.comparePassword('19841984ep', '$2b$08$LeFhTi4YeQshPvZ2IbcOr.951SX3O0Hf9zTpwFm.a/5G11MffqtUO');
     expect(result).to.be.equal(false);
-  });
-});
-
-
-/**
- * Custom function Test suits
- */
-// Test suite for filterInteger(value)
-describe('filterInteger()', () => {
-  it('Should return false if argument is invalid', () => {
-    const result = Helper.filterInt('001yemi');
-    expect(result).to.be.equal(false);
-  });
-});
-
-// Test suite for findAllRecords(Array)
-describe('Helper.findAllRecords()', () => {
-  it('Should return false if no record is found', () => {
-    const result = Helper.findAllRecords([]);
-    expect(result).to.be.equal(false);
-  });
-});
-
-// Test suite for findSingleRecord(objArr, objId)
-describe('Helper.findSingleRecord(objArr, objId)', () => {
-  it('Should return false if no record is found', () => {
-    const result = Helper.findSingleRecord([], -1);
-    expect(result).to.be.equal(undefined);
-  });
-});
-
-// Test suite for generateID(objArr, index)
-describe('Helper.generateID(objArr, index)', () => {
-  it('Should return 0 if objArr length is less than 0 or empty Array', () => {
-    const result = Helper.generateID([], 0);
-    expect(result).to.be.equal(0);
   });
 });

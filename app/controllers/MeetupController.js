@@ -214,6 +214,53 @@ class MeetupController {
       return res.status(400).send(error);
     }
   }
+
+  static async deleteMeetup(req, res) {
+    // check for admin user
+    if (!req.user.isAdmin) {
+      return res
+        .status(403)
+        .json({
+          status: 403,
+          errors: 'Unauthorized!, Admin only route',
+        });
+    }
+
+    try {
+      // Get valid integer
+      const meetupId = Helper.filterInt(req.params.meetupId);
+
+      // Get a single meet up record
+      const queryString = 'DELETE FROM meetups WHERE id = $1 returning *';
+
+      const {
+        rows,
+      } = await db.query(queryString, [meetupId]);
+
+      // Check if record with request id exist
+      if (!rows[0]) {
+        return res.status(404).send({
+          status: 404,
+          error: `Meetup record with id: ${meetupId} not found`,
+        });
+      }
+
+      // On success
+      return res.status(200).send({
+        status: 200,
+        message: 'Meetup record deleted successfully',
+        data: rows,
+      });
+    } catch (error) {
+      return res.status(404).send({
+        status: 404,
+        errors: {
+          message: 'Ooops error just occurred! meet up record not found',
+          error,
+        },
+      });
+    }
+  }
 }
 
 // expose MeetupController to be use in another file
