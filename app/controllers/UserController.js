@@ -15,7 +15,7 @@ class UserController {
     const hashedPassword = Helper.hashPassword(req.value.body.password);
 
     const queryString = `INSERT INTO users(firstname, lastname, email, phonenumber, username,  password, registered, isadmin)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning firstname, lastname, email, phonenumber, username, isadmin `;
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning id, firstname, lastname, email, phonenumber, username, isadmin`;
 
     const values = [
       req.value.body.firstname,
@@ -61,7 +61,7 @@ class UserController {
   }
 
   static async logIn(req, res) {
-    const queryString = 'SELECT firstname, lastname, email, phonenumber, username, password FROM users WHERE email = $1';
+    const queryString = 'SELECT * FROM users WHERE email = $1';
 
     try {
       // Select all user record where email is equal db email
@@ -100,7 +100,7 @@ class UserController {
         status: 200,
         data: [{
           token,
-          mesage: 'Loged in',
+          message: 'Loged in',
           user: {
             Firstname: rows[0].firstname,
             Lastname: rows[0].lastname,
