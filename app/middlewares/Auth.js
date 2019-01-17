@@ -33,7 +33,7 @@ class Auth {
    * @param {*} next
    */
   static async verifyToken(req, res, next) {
-    const token = req.headers['x-access-token'];
+    const { token } = req.headers;
 
     // check if token is provided
     if (!token) {
@@ -48,10 +48,12 @@ class Auth {
     try {
       // verify user provided token against existing token
       const decoded = await jwt.verify(token, process.env.SECRET_KEY);
-      const query = 'SELECT * FROM users WHERE id = $1';
+
+      const queryString = 'SELECT * FROM users WHERE id = $1';
       const {
         rows,
-      } = await db.query(query, [decoded.id]);
+      } = await db.query(queryString, [decoded.id]);
+      // console.log(rows);
 
       // check for valid app users
       if (!rows[0]) {

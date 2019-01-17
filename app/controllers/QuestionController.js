@@ -1,7 +1,7 @@
 // import external modules
-import fs from 'fs';
-import QuestionRecord from '../data/questionrecord.json';
+import moment from 'moment';
 import Helper from '../helper/Helper';
+import db from '../db';
 
 class QuestionController {
   /**
@@ -13,47 +13,46 @@ class QuestionController {
    *
    * @returns object question object
    */
-  static create(req, res) {
-    const uniqueID = Helper.generateID(QuestionRecord.allQuestionRecord, 0);
+  static async create(req, res) {
+    // check for admin user
+    if (!req.user.isAdmin) {
+      return res
+        .status(403)
+        .json({
+          status: 403,
+          errors: 'Unauthorized!, Admin only route',
+        });
+    }
 
     // get all post request body data
-    const values = {
-      id: uniqueID,
-      createdOn: new Date().toUTCString(),
-      createdBy: req.value.body.createdBy,
-      meetup: req.value.body.meetup,
-      title: req.value.body.title,
-      body: req.value.body.body,
-      votes: 0,
-    };
+    const values = [
+      moment(new Date()),
+      req.user.id,
+      req.value.body.meetup,
+      req.value.body.title,
+      req.value.body.body,
+    ];
 
     try {
-      // save record to data structure
-      QuestionRecord.allQuestionRecord.unshift(values);
+      const queryString = `INSERT INTO
+      questions(createdOn, createdBy, meetup, title, body)
+      VALUES($1, $2, $3, $4, $5)
+      returning *`;
 
-      // read question json file
-      fs.writeFile('app/data/questionrecord.json', JSON.stringify(QuestionRecord), 'utf8', (error) => {
-        if (error) {
-          Helper.logger().info(`QuestionRecord file not found: ${error}`);
-        }
-      });
+      // insert record into database
+      const {
+        rows,
+      } = await db.query(queryString, values);
 
       return res.status(200).json({
         status: 201,
         message: 'New Meetup Question Record Created Successfully',
-        data: [{
-          user: values.createdBy,
-          meetup: values.meetup,
-          title: values.title,
-          body: values.body,
-        }],
+        data: rows,
       });
     } catch (error) {
-      return res.status(400).end({
+      return res.status(400).send({
         status: 400,
-        errors: {
-          error,
-        },
+        errors: 'Meetup id does not exist',
       });
     }
   }
@@ -67,63 +66,34 @@ class QuestionController {
    *
    * @returns object question object
    */
-  static upvote(req, res) {
+  static async upvote(req, res) {
     try {
       // Get and sanitize for valid integer
-      const questionId = Helper.filterInt(req.params.question_id);
+      const questionId = Helper.filterInt(req.params.questionId);
 
-      // Get a single meet up record
-      const singleRecordIndex = Helper.findIndex(QuestionRecord
-        .allQuestionRecord, questionId);
+      const queryString = 'UPDATE questions SET votes = votes + 1 WHERE id = $1 returning *';
 
-      // if no matching question record
-      if (singleRecordIndex === -1) {
-        return res.status(404).send({
+      const {
+        rows,
+      } = await db.query(queryString, [questionId]);
+
+      // check if record id exist
+      if (!rows[0]) {
+        return res.status(404).json({
           status: 404,
-          message: 'No Question Record Found',
-          error: 404,
+          errors: `No Question Record Found with id: ${questionId}`,
         });
       }
-
-      // question being upvoted
-      const upvotedQuestion = QuestionRecord.allQuestionRecord[singleRecordIndex];
-
-      // increase vote
-      const updateVotes = {
-        id: upvotedQuestion.id,
-        createdOn: upvotedQuestion.createdOn,
-        createdBy: upvotedQuestion.createdBy,
-        meetup: upvotedQuestion.meetup,
-        title: upvotedQuestion.title,
-        body: upvotedQuestion.body,
-        votes: upvotedQuestion.votes + 1,
-      };
-
-      // Update question record
-      QuestionRecord.allQuestionRecord.splice(singleRecordIndex, 1, updateVotes);
-      // read question json file
-      fs.writeFile('app/data/questionrecord.json', JSON.stringify(QuestionRecord), 'utf8', (error) => {
-        if (error) {
-          Helper.logger().info(`QuestionRecord file not found: ${error}`);
-        }
-      });
 
       return res.status(200).json({
         status: 200,
         message: 'Question upvoted successfully',
-        data: [{
-          meetup: updateVotes.meetup,
-          title: updateVotes.title,
-          body: updateVotes.body,
-          votes: updateVotes.votes,
-        }],
+        data: rows,
       });
     } catch (error) {
-      return res.status(404).end({
+      return res.status(404).send({
         status: 404,
-        errors: {
-          error,
-        },
+        errors: 'No Question Record Found',
       });
     }
   }
@@ -137,63 +107,34 @@ class QuestionController {
    *
    * @returns object question object
    */
-  static downvote(req, res) {
+  static async downvote(req, res) {
     try {
       // Get and sanitize for valid integer
-      const questionId = Helper.filterInt(req.params.question_id);
+      const questionId = Helper.filterInt(req.params.questionId);
 
-      // Get a single meet up record
-      const singleRecordIndex = Helper.findIndex(QuestionRecord
-        .allQuestionRecord, questionId);
+      const queryString = 'UPDATE questions SET votes = votes - 1 WHERE id = $1 returning *';
 
-      // if no matching question record
-      if (singleRecordIndex === -1) {
-        return res.status(404).send({
+      const {
+        rows,
+      } = await db.query(queryString, [questionId]);
+
+      // check if record id exist
+      if (!rows[0]) {
+        return res.status(404).json({
           status: 404,
-          message: 'No Question Record Found',
-          error: 404,
+          errors: `No Question Record Found with id: ${questionId}`,
         });
       }
 
-      // question being upvoted
-      const upvotedQuestion = QuestionRecord.allQuestionRecord[singleRecordIndex];
-
-      // increase vote
-      const updateVotes = {
-        id: upvotedQuestion.id,
-        createdOn: upvotedQuestion.createdOn,
-        createdBy: upvotedQuestion.createdBy,
-        meetup: upvotedQuestion.meetup,
-        title: upvotedQuestion.title,
-        body: upvotedQuestion.body,
-        votes: upvotedQuestion.votes - 1,
-      };
-
-      // Update question record
-      QuestionRecord.allQuestionRecord.splice(singleRecordIndex, 1, updateVotes);
-      // read question json file
-      fs.writeFile('app/data/questionrecord.json', JSON.stringify(QuestionRecord), 'utf8', (error) => {
-        if (error) {
-          Helper.logger().info(`QuestionRecord file not found: ${error}`);
-        }
-      });
-
       return res.status(200).json({
         status: 200,
-        message: 'Question Downvoted successfully',
-        data: [{
-          meetup: updateVotes.meetup,
-          title: updateVotes.title,
-          body: updateVotes.body,
-          votes: updateVotes.votes,
-        }],
+        message: 'Question downvoted successfully',
+        data: rows,
       });
     } catch (error) {
-      return res.status(404).end({
+      return res.status(404).send({
         status: 404,
-        errors: {
-          error,
-        },
+        errors: 'No Question Record Found',
       });
     }
   }

@@ -3,15 +3,6 @@ import Joi from 'joi';
 
 export default {
   createMeetup: Joi.object().keys({
-    // id is required and must be integer
-    id: Joi.number()
-      .integer()
-      .min(0)
-      .positive(),
-
-    // createdOn is required and must be a date
-    createdOn: Joi.date(),
-
     // topic must be a valid string is required
     location: Joi.string()
       .required()
@@ -19,7 +10,7 @@ export default {
       .label('Event location'),
 
     // images is optional
-    images: Joi.any().tags(['image1']),
+    images: Joi.string().default('no image'),
 
     // topic must be a valid string is required
     topic: Joi.string().max(100)
@@ -28,33 +19,11 @@ export default {
       .required(),
 
     // createdOn is required and must be a date
-    happeningOn: Joi.string().trim()
+    happeningOn: Joi.date()
       .label('Event date')
-      .required(),
-
-    // topic must be a valid string is required
-    tags: Joi.any()
-      .tags(['api'])
       .required(),
   }),
   createQuestion: Joi.object().keys({
-    // id is required and must be integer
-    id: Joi.number()
-      .integer()
-      .min(0)
-      .positive(),
-
-    // createdOn is required and must be a date
-    createdOn: Joi.date(),
-
-    // user id must be a valid integer is required
-    createdBy: Joi.number()
-      .integer()
-      .min(0)
-      .positive()
-      .required()
-      .label('User id'),
-
     // meetup topic must be integer and required
     meetup: Joi.number()
       .integer()
@@ -74,10 +43,6 @@ export default {
       .label('Question body')
       .trim()
       .required(),
-
-    // topic must be a valid string is required
-    vote: Joi.number()
-      .integer().default(0),
   }),
   getOneMeetup: Joi.object().keys({
     // id is required and must be integer
@@ -143,6 +108,13 @@ export default {
       .min(6)
       .max(100)
       .label('Password')
+      .trim()
+      .required(),
+  }),
+  rsvps: Joi.object().keys({
+    // password must be a valid string and is required
+    response: Joi.string()
+      .label('Response')
       .trim()
       .required(),
   }),
