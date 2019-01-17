@@ -118,4 +118,15 @@ export default {
       .trim()
       .required(),
   }),
+  createComment: Joi.object().keys({
+    // comment body is required and must be a string
+    commentBody: Joi.string()
+      .max(500)
+      .label('Comment body')
+      .trim()
+      .required(),
+    questionId: Joi.number()
+      .label('Question id')
+      .required(),
+  }),
 };

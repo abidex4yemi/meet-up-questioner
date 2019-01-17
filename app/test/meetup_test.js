@@ -515,6 +515,52 @@ describe('POST /api/v1/questions', () => {
   });
 });
 
+describe('POST /api/v1/comments', () => {
+  it('Should return an error if question record not found', (done) => {
+    chai.request(app)
+      .post('/api/v1/comments')
+      .send({
+        commentBody: 'This is a fantastic meetup topic i will be attending...',
+        questionId: 2000,
+      })
+      .set('token', defaultTokenUser)
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.errors).to.be.equal('Question id does not exist');
+        expect(body.status).to.be.equal(404);
+        expect(body).to.haveOwnProperty('errors');
+        done();
+      });
+  });
+});
+
+describe('POST /api/v1/comments', () => {
+  it('Should return comment on a specific question(valid)', (done) => {
+    chai.request(app)
+      .post('/api/v1/comments')
+      .send({
+        commentBody: 'This is a good meetup topic i will be attending...',
+        questionId: 6,
+      })
+      .set('token', defaultTokenUser)
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.message).to.be.equal('Comment record addded to question with id: 6');
+        expect(body.status).to.be.equal(201);
+        expect(body).to.haveOwnProperty('data');
+        done();
+      });
+  });
+});
+
 // PATCH Test for valid request/questions/:question_id/upvote
 describe('PATCH /api/v1/questions/:question_id/upvote (Invalid)', () => {
   it('Should return error message with 404 if question record no found', (done) => {
