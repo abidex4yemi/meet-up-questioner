@@ -8,6 +8,8 @@ Crowd-source questions for a meetup. Questioner helps the meetup organizer prior
 
 ## Required Features
 
+- User can sign up
+- User can sign in
 - Admin Users can **view all meetup record**
 - Admin Users can **view meetup record by ID**
 - Users can ask question
@@ -16,10 +18,13 @@ Crowd-source questions for a meetup. Questioner helps the meetup organizer prior
 - Admin Users can **create a new meetup record**
 - Admin Users can **edit a meet up record**
 - Admin Users can **delete a meet up record**
+- Admin Users can **delete a specific question record**
 - Admin Users can **add images a meet up record**
 - Admin Users can **add tags meet up record**
 - Users can **Down vote a meet up question**
 - Users can **Up vote a meet up question**
+- Users can **Comment on a specific question**
+- Users can **Ask question**
 
 ## Technologies
 
