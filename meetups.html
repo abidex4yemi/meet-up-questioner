@@ -38,77 +38,40 @@
     <section class="upcoming">
       <div class="container">
         <h1 class="upcoming__content__title">Checkout All Our Meetups</h1>
-        <div class="upcoming__content">
-          <div class="upcoming__meetup__container">
-            <a href="view-meetup-details.html" class="upcoming__meetup br">
-              <figure class="upcoming__media">
-                <img src="./img/question_img/thumbnail_meetup.jpg" alt="" class="upcoming__img">
-              </figure>
+        <div class="upcoming__content" id="meetupss">
 
-              <header class="upcoming__header">
-                <span class="upcoming__category">Technology</span>
-                <h3 class="upcoming__meetup__topic">Why Express is the best framework for building API ?</h3>
-              </header>
+          <script>
+            async function getAllMeetup(data) {
+              try {
+                const response = await fetch(data);
+                const allData = await response.json();
+                console.log(allData);
 
-              <div class="upcoming__body">
-                <span class="accept__btn">View details</span>
-              </div>
-            </a>
-          </div>
-          <!--/.upcoming__meetup__container-->
+                for (let i = 0; i < allData.data.length; i++) {
+                  let output = document.getElementById('meetupss').innerHTML +=
+                    `<div class="upcoming__meetup__container">
+                  <a href="view-meetup-details.html" class="upcoming__meetup br">
+                    <figure class="upcoming__media">
+                      <img src="./img/question_img/thumbnail_meetup.jpg" alt="" class="upcoming__img">
+                    </figure>
 
-          <div class="upcoming__meetup__container">
-            <a href="view-meetup-details.html" class="upcoming__meetup br">
-              <figure class="upcoming__media">
-                <img src="./img/question_img/thumbnail_meetup.jpg" alt="" class="upcoming__img">
-              </figure>
+                    <header class="upcoming__header">
+                      <span class="upcoming__category">Technology</span>
+<h3 class="upcoming__meetup__topic">${allData.data[i].topic}</h3>
+<span class="upcoming__category">${allData.data[i].location}</span>
+                    </header>
 
-              <header class="upcoming__header">
-                <span class="upcoming__category">Travel</span>
-                <h3 class="upcoming__meetup__topic">Reason Why I Love Malta</h3>
-              </header>
-
-              <div class="upcoming__body">
-                <span class="accept__btn">View details</span>
-              </div>
-            </a>
-          </div>
-          <!--/.upcoming__meetup__container-->
-
-          <div class="upcoming__meetup__container">
-            <a href="view-meetup-details.html" class="upcoming__meetup br">
-              <figure class="upcoming__media">
-                <img src="./img/question_img/thumbnail_meetup.jpg" alt="" class="upcoming__img">
-              </figure>
-
-              <header class="upcoming__header">
-                <span class="upcoming__category">Programming</span>
-                <h3 class="upcoming__meetup__topic">PHP is not dieing</h3>
-              </header>
-
-              <div class="upcoming__body">
-                <span class="accept__btn">View details</span>
-              </div>
-            </a>
-          </div>
-          <!--/.upcoming__meetup__container-->
-
-          <div class="upcoming__meetup__container">
-            <a href="view-meetup-details.html" class="upcoming__meetup br">
-              <figure class="upcoming__media">
-                <img src="./img/question_img/thumbnail_meetup.jpg" alt="" class="upcoming__img">
-              </figure>
-
-              <header class="upcoming__header">
-                <span class="upcoming__category">Programming</span>
-                <h3 class="upcoming__meetup__topic">Why java is such a verbose language</h3>
-              </header>
-
-              <div class="upcoming__body">
-                <span class="accept__btn">View details</span>
-              </div>
-            </a>
-          </div>
+                    <div class="upcoming__body">
+                      <span class="accept__btn">View details</span>
+                    </div>
+                  </a>
+                </div>`
+                }
+              } catch (err) {
+                console.log(err);
+              }
+            }
+          </script>
           <!--/.upcoming__meetup__container-->
         </div>
       </div>
@@ -143,6 +106,21 @@
   <!--/.footer-->
 
   <script src="js/script.js"></script>
+  <script>
+    window.onload = function (e) {
+      const url = 'https://meet-up-questioner.herokuapp.com/api/v1/meetups/';
+      const request = new Request(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'token': `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzAsImlzQWRtaW4iOnRydWUsImZpcnN0bmFtZSI6IkJhcnRvbiIsImVtYWlsIjoiS2FzZXkuV2lsZGVybWFuNzJAeWFob28uY29tIiwiaWF0IjoxNTQ3NzcyNzcyLCJleHAiOjE1NDc4NTkxNzJ9.czVJQ86-C5v5xOD300evS__iQn8oZjjj7iXPWRkhS6Q`
+        }
+      });
+
+      // get all meetup record
+      getAllMeetup(request);
+    }
+  </script>
 </body>
 
 </html>

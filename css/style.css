@@ -811,6 +811,9 @@ body {
   display: flex;
   justify-content: space-between;
   margin-bottom: 50px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .upcoming__content__title {
@@ -823,6 +826,7 @@ body {
   display: flex;
   margin: 10px;
   justify-content: center;
+  flex: 0 0 300px;
 }
 
 .upcoming__meetup {
