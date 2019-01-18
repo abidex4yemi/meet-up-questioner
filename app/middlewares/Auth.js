@@ -38,9 +38,9 @@ class Auth {
     // check if token is provided
     if (!token) {
       return res
-        .status(403)
+        .status(401)
         .json({
-          status: 403,
+          status: 401,
           errors: 'Unauthorized!, you have to login',
         });
     }
@@ -57,8 +57,8 @@ class Auth {
 
       // check for valid app users
       if (!rows[0]) {
-        return res.status(403).send({
-          status: 403,
+        return res.status(401).send({
+          status: 401,
           errors: 'The token you provided is invalid',
         });
       }
