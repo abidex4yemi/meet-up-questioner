@@ -465,6 +465,7 @@ body {
   color: #fff;
   text-align: center;
   padding: 5.5em 0;
+  box-sizing: border-box;
 }
 
 .hero__title {
@@ -490,6 +491,21 @@ body {
   width: 60%;
   margin: auto;
   text-align: left;
+}
+
+.upcoming-cta {
+  text-decoration: none;
+  height: 50px;
+  line-height: 50px;
+  position: relative;
+  font-size: 1.2em;
+  margin-top: .5em;
+  border: 1px solid rgba(241, 78, 131, .8);
+  font-weight: bold;
+}
+
+.upcoming-cta:active {
+  top: 2px;
 }
 
 /** Featured styles
@@ -810,7 +826,9 @@ body {
 .upcoming__content {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 50px;
+  margin-bottom: 0 auto 50px;
+  flex-wrap: wrap;
+  max-width: 1200px;
 }
 
 .upcoming__content__title {
@@ -823,6 +841,7 @@ body {
   display: flex;
   margin: 10px;
   justify-content: center;
+  flex: 0 0 300px;
 }
 
 .upcoming__meetup {
@@ -1288,7 +1307,7 @@ body {
 }
 
 .meetup-attend:hover {
- color: seagreen;
+  color: seagreen;
 }
 
 
