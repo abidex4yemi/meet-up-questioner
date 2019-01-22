@@ -330,11 +330,19 @@ body {
   background-color: #363b3f;
   color: #fff;
   border-bottom: 1px solid rgba(241, 78, 131, 1);
+  position: fixed;
+  width: 100%;
+  z-index: 10000;
 }
 
 .container {
   width: 80%;
   margin: 0 auto;
+}
+
+/* fix navbar position fixed bug*/
+.padding-top-fix {
+  padding-top: 65px;
 }
 
 .header__logo {
@@ -359,6 +367,17 @@ body {
 .header__content {
   justify-content: space-between;
 }
+
+/* Hide menu icon on desktop view */
+.menu {
+  display: none;
+}
+
+.menu:hover {
+  color: rgba(241, 78, 131, .9);
+}
+
+/* Navbar styles */
 
 .nav {
   flex: 4;
@@ -464,7 +483,7 @@ body {
     #142532 url('../img/banner.jpg') no-repeat center center/cover;
   color: #fff;
   text-align: center;
-  padding: 5.5em 0;
+  padding: 65px 0 5.5em;
   box-sizing: border-box;
 }
 
@@ -687,6 +706,7 @@ body {
 .question-feeds__content {
   display: flex;
   flex-direction: column;
+  padding-bottom: 3em;
 }
 
 .question-feeds {
@@ -839,7 +859,7 @@ body {
 
 .upcoming__meetup__container {
   display: flex;
-  margin: 10px;
+  margin-bottom: 50px;
   justify-content: center;
   flex: 0 0 300px;
 }
@@ -945,30 +965,8 @@ body {
   list-style: none;
 }
 
-.footer__link {
-  text-decoration: none;
-  transition: 0.4s;
-  position: relative;
-}
-
-.footer__link:hover {
-  color: rgba(241, 78, 131, .9);
-}
-
-.footer__link:active {
-  top: 2px;
-}
-
-.footer__list::before {
-  content: ".";
-  display: inline-block;
-  font-size: 30px;
-  vertical-align: bottom;
-  padding-right: 6px;
-}
-
-.footer__list:first-child::before {
-  content: "";
+.footer-heart-container .fas {
+  color: rgba(255, 0, 1, .9);
 }
 
 
@@ -1104,7 +1102,7 @@ body {
   * less content for sticker footer
   */
 .small__container__fix {
-  min-height: calc(100vh - 74px);
+  min-height: calc(100vh - 55px);
 }
 
 /* ========================================================================== 
@@ -1130,9 +1128,13 @@ body {
   flex-wrap: wrap;
 }
 
+.padding-top-fix-dashboard {
+  padding-top: 53px;
+}
+
 .dashboard-content__main__content {
   flex: 5;
-  padding: 2em;
+  padding: 1em;
   overflow: auto;
   min-height: 100vh;
 }
@@ -1224,7 +1226,7 @@ body {
 }
 
 .modal-content {
-  margin-top: 4%;
+  margin-top: 6%;
 }
 
 /* The Close Button */
@@ -1323,26 +1325,56 @@ body {
   }
 
   /* nav-styles */
+  .header {
+    padding-bottom: 1em;
+  }
 
-  .header__content,
+  .header__content {
+    max-width: 640px;
+    flex-wrap: wrap;
+  }
+
+  .header__logo {
+    flex-basis: 70%;
+  }
+
   .nav,
   .nav__item {
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .nav {
+    display: none;
+    align-self: flex-start;
+    flex-basis: 100%;
+  }
+
+  .menu-icon-container {
+    margin: 0;
+  }
+
+  .menu {
+    margin-top: 3px;
+    margin-right: .5em;
+    font-size: 2em;
     display: block;
   }
+
+  .js-menu {
+    display: block;
+  }
+
+  /* Hero styles */
 
   .hero-body {
     width: 80%;
   }
 
-  .header {
-    padding-bottom: 1em;
-  }
-
   /* banner */
 
   .hero {
-    padding-bottom: 0.5em;
-    padding-top: 0.4em;
+    padding: 100px 0 4em;
   }
 
   .featured__questions {
@@ -1352,20 +1384,6 @@ body {
   .ask {
     order: 1;
     margin-bottom: 0.5em;
-  }
-
-  /* footer style */
-
-  .footer__item {
-    flex-direction: row;
-    align-items: center;
-    font-size: 1em;
-    flex-wrap: wrap;
-  }
-
-  .footer__list {
-    height: 10px;
-    margin-bottom: 1em;
   }
 
   /* user dashboard */
@@ -1414,13 +1432,21 @@ body {
 
   .upcoming__content__title {
     font-size: 1em;
-    margin-bottom: 0;
-    text-align: left;
+    margin: 1em;
+    text-align: center;
   }
 
   /* Dashboard styles */
   .dashboard-content {
     display: block;
+  }
+
+  .padding-top-fix-dashboard {
+    padding-top: 48.53px;
+  }
+
+  .dashboard-content__sidebar {
+    min-height: 30vh;
   }
 
   .sidebar__item__list__heading {
@@ -1506,6 +1532,11 @@ body {
   .msg_input {
     width: 300px;
   }
+
+  /* Dashboard styles */
+  .modal-content {
+    margin-top: 30%;
+  }
 }
 
 @media all and (max-width: 423px) {
@@ -1534,4 +1565,16 @@ body {
   .meetup-img-1 {
     max-width: 18em;
   }
+
+  /* footer style */
+
+  .footer__item {
+    display: block;
+    text-align: center;
+  }
+
+  .footer__list {
+    margin-bottom: .6em;
+  }
+
 }
