@@ -42,14 +42,23 @@ class UserController {
       return res.status(201).json({
         status: 201,
         data: [{
+          success: true,
+          message: 'User account created successfully',
+          user: {
+            id: rows[0].id,
+            firstname: rows[0].firstname,
+            lastname: rows[0].lastname,
+            email: rows[0].email,
+            phonenumber: rows[0].phonenumber,
+            username: rows[0].username,
+          },
           token,
-          user: rows[0],
         }],
       });
     } catch (errors) {
       if (errors.routine === '_bt_check_unique') {
-        return res.status(400).json({
-          status: 400,
+        return res.status(409).json({
+          status: 409,
           errors: 'User already exist',
         });
       }
@@ -60,6 +69,11 @@ class UserController {
     }
   }
 
+  /**
+   * log a user in to the app
+   * @param {*} req
+   * @param {*} res
+   */
   static async logIn(req, res) {
     const queryString = 'SELECT * FROM users WHERE email = $1';
 
@@ -71,8 +85,8 @@ class UserController {
 
       // check if user exist in database
       if (!rows[0]) {
-        return res.status(404).json({
-          status: 404,
+        return res.status(403).json({
+          status: 403,
           errors: 'User not Found',
         });
       }
@@ -80,9 +94,9 @@ class UserController {
       // compare user provided password against db
       if (!Helper.comparePassword(req.value.body.password, rows[0].password)) {
         return res
-          .status(404)
+          .status(401)
           .json({
-            status: 404,
+            status: 401,
             errors: 'Email/Password incorrect',
           });
       }
@@ -99,15 +113,15 @@ class UserController {
       return res.status(200).json({
         status: 200,
         data: [{
-          token,
           message: 'Loged in',
           user: {
-            Firstname: rows[0].firstname,
-            Lastname: rows[0].lastname,
-            Email: rows[0].email,
-            Phonenumber: rows[0].phonenumber,
-            Username: rows[0].username,
+            firstname: rows[0].firstname,
+            lastname: rows[0].lastname,
+            email: rows[0].email,
+            phonenumber: rows[0].phonenumber,
+            username: rows[0].username,
           },
+          token,
         }],
       });
     } catch (errors) {

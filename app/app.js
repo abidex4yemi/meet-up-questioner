@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import Helper from './helper/Helper';
 import meetup from './routes/api/index';
 import users from './routes/api/users';
 
@@ -55,7 +54,7 @@ app.use((err, req, res) => {
 const port = process.env.PORT || 3000;
 
 // Start server
-app.listen(port, Helper.logger().info(`Application running on ${port}`));
+app.listen(port);
 
 // expose app to be use in another file
 export default app;

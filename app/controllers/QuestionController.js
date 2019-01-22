@@ -14,16 +14,6 @@ class QuestionController {
    * @returns object question object
    */
   static async create(req, res) {
-    // check for admin user
-    if (!req.user.isAdmin) {
-      return res
-        .status(403)
-        .json({
-          status: 403,
-          errors: 'Unauthorized!, Admin only route',
-        });
-    }
-
     // get all post request body data
     const values = [
       moment(new Date()),
@@ -44,14 +34,14 @@ class QuestionController {
         rows,
       } = await db.query(queryString, values);
 
-      return res.status(200).json({
+      return res.status(201).json({
         status: 201,
         message: 'New Meetup Question Record Created Successfully',
         data: rows,
       });
     } catch (error) {
-      return res.status(400).send({
-        status: 400,
+      return res.status(404).send({
+        status: 404,
         errors: 'Meetup id does not exist',
       });
     }

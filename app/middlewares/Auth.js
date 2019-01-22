@@ -38,9 +38,9 @@ class Auth {
     // check if token is provided
     if (!token) {
       return res
-        .status(401)
+        .status(403)
         .json({
-          status: 401,
+          status: 403,
           errors: 'Unauthorized!, you have to login',
         });
     }

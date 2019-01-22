@@ -23,12 +23,10 @@ router.post('/meetups/:meetupId/rsvps',
 
 // GET get all meet ups route /meetups
 router.get('/meetups/',
-  Auth.verifyToken,
   MeetupController.getAllMeetups);
 
 // GET get all upcoming meet ups route /meetups/upcoming/
 router.get('/meetups/upcoming/',
-  Auth.verifyToken,
   MeetupController.getAllUpComing);
 
 // GET specific meet up record
