@@ -1,4 +1,3 @@
-import winston from 'winston';
 import bcrypt from 'bcrypt';
 /**
  * Helper class that holds helper methods
@@ -15,17 +14,6 @@ class Helper {
       return Number(value);
     }
     return false;
-  }
-
-  static logger() {
-    return winston.createLogger({
-      transports: [
-        new winston.transports.Console(),
-        new winston.transports.File({
-          filename: 'app.log',
-        }),
-      ],
-    });
   }
 
   /**

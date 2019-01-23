@@ -58,6 +58,32 @@ npm start
 npm test
 ```
 
+## API-ENDPOINTS
+
+- POST /api/v1/meetups Create a meetup record.
+  
+- GET /api/v1/meetups Get all meetup records.
+  
+- GET /api/v1/meetups/<:meetup-id> Get a specific meetup record.
+  
+- GET /api/v1/meetups/upcoming/ Get all upcoming meetup records.
+  
+- POST /api/v1/questions Create a question record for a specific meetup.
+  
+- PATCH /api/v1/questions/<:question-id>/upvote Upvote a specific question by 1 (increase votes by 1).
+
+- PATCH /api/v1/questions/<:question-id>/downvote Downvote a specific question by 1 (decrease votes by 1).
+  
+- POST POST /api/v1/auth/signup Create a user account.
+  
+- POST /api/v1/auth/login Log a user in to the app.
+  
+- POST /api/v1/comments/ Comment on a specific question.
+  
+- GET /api/v1/comments/<:question-id>/ Get a specific question comment record.
+  
+- DELETE /api/v1/meetups/<:meetup-id> Delete a specific meetup record
+
 ## Pivotal Tracker stories
 
 [https://www.pivotaltracker.com/n/projects/2232110](https://www.pivotaltracker.com/n/projects/2232110)

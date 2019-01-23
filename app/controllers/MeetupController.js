@@ -45,9 +45,7 @@ class MeetupController {
       return res.status(201).json({
         status: 201,
         message: 'New Meet Up Record Created Successfully',
-        data: [{
-          user: rows[0],
-        }],
+        data: rows,
       });
     } catch (error) {
       return res.status(400).send(error);

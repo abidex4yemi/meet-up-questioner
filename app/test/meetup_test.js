@@ -52,7 +52,6 @@ describe('POST api/v1/auth/signup', () => {
       .post('/api/v1/auth/signup')
       .send(user)
       .end((err, res) => {
-        if (err) done();
         const {
           body,
         } = res;
@@ -76,7 +75,6 @@ describe('POST api/v1/auth/signup', () => {
       .post('/api/v1/auth/signup')
       .send({})
       .end((err, res) => {
-        if (err) done();
         const {
           body,
         } = res;
@@ -105,13 +103,12 @@ describe('POST api/v1/auth/signup', () => {
         username: faker.internet.userName(),
       })
       .end((err, res) => {
-        if (err) done();
         const {
           body,
         } = res;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
-        expect(body.status).to.be.equals(400);
+        expect(body.status).to.be.equals(409);
         expect(body).to.haveOwnProperty('errors');
         expect(body.errors).to.be.a('string');
         expect(body.errors).to.equals('User already exist');
@@ -133,14 +130,11 @@ describe('POST api/v1/auth/login', () => {
         password: '1940andela',
       })
       .end((err, res) => {
-        if (err) done();
-
         const {
           body,
         } = res;
 
         adminToken = body.data[0].token;
-
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(200);
@@ -164,8 +158,6 @@ describe('POST api/v1/auth/login', () => {
         password: '1940andela',
       })
       .end((err, res) => {
-        if (err) done();
-
         const {
           body,
         } = res;
@@ -194,7 +186,6 @@ describe('POST api/v1/auth/login', () => {
         password: '1940andela',
       })
       .end((err, res) => {
-        if (err) done();
         const {
           body,
         } = res;
@@ -215,7 +206,6 @@ describe('POST api/v1/auth/login', () => {
       .post('/api/v1/auth/login')
       .send({})
       .end((err, res) => {
-        if (err) done();
         const {
           body,
         } = res;
@@ -238,13 +228,12 @@ describe('POST api/v1/auth/login', () => {
         password: '1940andel',
       })
       .end((err, res) => {
-        if (err) done();
         const {
           body,
         } = res;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
-        expect(body.status).to.be.equals(404);
+        expect(body.status).to.be.equals(401);
         expect(body).to.haveOwnProperty('errors');
         expect(body.errors).to.be.equal('Email/Password incorrect');
         done();
@@ -479,7 +468,7 @@ describe('POST /api/v1/questions', () => {
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.errors).to.be.equal('Meetup id does not exist');
-        expect(body.status).to.be.equal(400);
+        expect(body.status).to.be.equal(404);
         expect(body).to.haveOwnProperty('errors');
         done();
       });
