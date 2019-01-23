@@ -191,7 +191,7 @@ describe('POST api/v1/auth/login', () => {
         } = res;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
-        expect(body.status).to.be.equals(403);
+        expect(body.status).to.be.equals(404);
         expect(body).to.haveOwnProperty('errors');
         expect(body.errors).to.be.equal('User not Found');
         done();

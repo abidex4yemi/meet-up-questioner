@@ -42,7 +42,6 @@ class UserController {
       return res.status(201).json({
         status: 201,
         data: [{
-          success: true,
           message: 'User account created successfully',
           user: {
             id: rows[0].id,
@@ -85,8 +84,8 @@ class UserController {
 
       // check if user exist in database
       if (!rows[0]) {
-        return res.status(403).json({
-          status: 403,
+        return res.status(404).json({
+          status: 404,
           errors: 'User not Found',
         });
       }
@@ -113,7 +112,7 @@ class UserController {
       return res.status(200).json({
         status: 200,
         data: [{
-          message: 'Loged in',
+          message: 'Logged in successfully',
           user: {
             firstname: rows[0].firstname,
             lastname: rows[0].lastname,
