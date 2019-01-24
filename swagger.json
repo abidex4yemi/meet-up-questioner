@@ -1,0 +1,1009 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Crowd-source questions for a meetup. Questioner helps the meetup organizer prioritize questions to be answered. Other users can vote on asked questions and they bubble to the top or bottom of the log.",
+    "version": "1.0.0",
+    "title": "Meetup Questioner documentation",
+    "contact": {
+      "email": "abidex4yemi@gmail.com"
+    }
+  },
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Create and login users",
+      "externalDocs": {
+        "url": "https://meet-up-questioner.herokuapp.com"
+      }
+    },
+    {
+      "name": "Meetups",
+      "description": "Create, update and fetch meetups record",
+      "externalDocs": {
+        "url": "https://meet-up-questioner.herokuapp.com"
+      }
+    },
+    {
+      "name": "Questions",
+      "description": "Create, update and fetch questions record",
+      "externalDocs": {
+        "url": "https://meet-up-questioner.herokuapp.com"
+      }
+    },
+    {
+      "name": "Comments",
+      "description": "Create, update and fetch comments record",
+      "externalDocs": {
+        "url": "https://meet-up-questioner.herokuapp.com"
+      }
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/meetups/{id}/rsvps": {
+      "post": {
+        "tags": [
+          "Meetups"
+        ],
+        "description": "Create meetup response record",
+        "operationId": "meetupRsvp",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the meetup record to be fetched",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully created meetup record",
+            "schema": {
+              "$ref": "#/definitions/MeetupSuccess"
+            }
+          },
+          "403": {
+            "description": "Unauthorized!, you have to login.",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "404": {
+            "description": "Meetup record not found",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/meetups": {
+      "post": {
+        "tags": [
+          "Meetups"
+        ],
+        "summary": "Create a meetup record",
+        "description": "Users can a create meetup records",
+        "operationId": "addMeetupRecord",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The meetup record the user wants to create",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/meetup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Meetup record created successfully",
+            "schema": {
+              "$ref": "#/definitions/MeetupSuccess"
+            }
+          },
+          "403": {
+            "description": "Unauthorized!, Admin only route",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Meetups"
+        ],
+        "summary": "Get all meetup record",
+        "description": "Return all meetup records from the database",
+        "operationId": "getAllMeetup",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully get all meetup records",
+            "schema": {
+              "$ref": "#/definitions/MeetupGetSuccess"
+            }
+          },
+          "404": {
+            "description": "No avalaible meetup record",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/meetups/{id}": {
+      "get": {
+        "tags": [
+          "Meetups"
+        ],
+        "summary": "Find meetup record by ID",
+        "description": "Returns a single meetup record",
+        "operationId": "getRecordById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of record to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully return meetup record",
+            "schema": {
+              "$ref": "#/definitions/MeetupGetSuccess"
+            }
+          },
+          "404": {
+            "description": "Meetup record not found",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/meetups/upcoming/": {
+      "get": {
+        "tags": [
+          "Meetups"
+        ],
+        "summary": "Fetch all upcoming meetup record",
+        "description": "Fetch all upcoming meetup record",
+        "operationId": "upcomingMeetup",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetch all upcoming meetup record",
+            "schema": {
+              "$ref": "#/definitions/MeetupGetSuccess"
+            }
+          },
+          "404": {
+            "description": "No Upcoming Meetup Record Found",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/questions": {
+      "post": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Create a new question record",
+        "description": "Users can create question records",
+        "operationId": "addQuestionRecord",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The meetup record a user wants to create",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/question"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Question record created successfully",
+            "schema": {
+              "$ref": "#/definitions/QuestionSuccess"
+            }
+          },
+          "404": {
+            "description": "Meetup id does not exist",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Fetch all question records",
+        "description": "Return all question records from the database",
+        "operationId": "getAllQuestionRecord",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetch all question record",
+            "schema": {
+              "$ref": "#/definitions/QuestionGetSuccessData"
+            }
+          },
+          "404": {
+            "description": "No available question records found",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/questions/{id}": {
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Find question record by ID",
+        "description": "Returns a single question record",
+        "operationId": "getQuestionRecordById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of question record to be return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful fetch question record",
+            "schema": {
+              "$ref": "#/definitions/QuestionGetSuccess"
+            }
+          },
+          "404": {
+            "description": "Question record not found",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/questions/{id}/upvote": {
+      "patch": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Upvote a specific question record by 1",
+        "description": "Upvote a specific question record by 1",
+        "operationId": "upvoteQuestionByOne",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of question record to upvote",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully upvoted question by 1",
+            "schema": {
+              "$ref": "#/definitions/VoteSuccess"
+            }
+          },
+          "403": {
+            "description": "Unauthorized!, you have to login.",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "404": {
+            "description": "Question record not found",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/questions/{id}/downvote": {
+      "patch": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Downvote a specific question record by 1",
+        "description": "Downvote a specific question record by 1",
+        "operationId": "downvoteQuestionByOne",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of question record to downvote",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully downvote question by 1",
+            "schema": {
+              "$ref": "#/definitions/VoteSuccess"
+            }
+          },
+          "403": {
+            "description": "Unauthorized!, you have to login.",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "404": {
+            "description": "Question record not found",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/comments": {
+      "post": {
+        "tags": [
+          "Comments"
+        ],
+        "summary": "Create new comment record for specific question",
+        "description": "Create new comment record for specific question",
+        "operationId": "createCommentByQuestionId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "ID of question record to comment on",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/comment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully commented on a question",
+            "schema": {
+              "$ref": "#/definitions/CommentSuccess"
+            }
+          },
+          "403": {
+            "description": "Unauthorized!, you have to login.",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "404": {
+            "description": "Question record not found",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Create new user account",
+        "description": "Registers a new user",
+        "operationId": "signup",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create a new user record",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Signup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Account created successfully",
+            "schema": {
+              "$ref": "#/definitions/SignupSuccess"
+            }
+          },
+          "403": {
+            "description": "Unauthorized!, you have to login",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          },
+          "409": {
+            "description": "User already exist",
+            "schema": {
+              "$ref": "#/definitions/SignupEmailTaken"
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Logs a user into the app",
+        "description": "Authenticate a user",
+        "operationId": "login",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User login credentials",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "You have been logged in successfully!",
+            "schema": {
+              "$ref": "#/definitions/LoginSuccess"
+            }
+          },
+          "401": {
+            "description": "Email/Password incorrect",
+            "schema": {
+              "$ref": "#/definitions/LoginInvalidEmailOrPassword"
+            }
+          },
+          "404": {
+            "description": "User not Found",
+            "schema": {
+              "$ref": "#/definitions/BadRequest"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "meetup": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "images": {
+          "type": "string"
+        },
+        "happeningOn": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "MeetupSuccess": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MeetupSuccessData"
+          }
+        }
+      }
+    },
+    "MeetupGetSuccess": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MeetupGetSuccessData"
+          }
+        }
+      }
+    },
+    "question": {
+      "type": "object",
+      "properties": {
+        "meetup": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      }
+    },
+    "QuestionSuccess": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QuestionSuccessData"
+          }
+        }
+      }
+    },
+    "QuestionGetSuccess": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QuestionGetSuccessData"
+          }
+        }
+      }
+    },
+    "VoteSuccess": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VoteSuccessData"
+          }
+        }
+      }
+    },
+    "comment": {
+      "type": "object",
+      "properties": {
+        "questionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "commentBody": {
+          "type": "string"
+        }
+      }
+    },
+    "CommentSuccess": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommentSuccessData"
+          }
+        }
+      }
+    },
+    "Signup": {
+      "type": "object",
+      "properties": {
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "phonenumber": {
+          "type": "string"
+        },
+        "othernames": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "passwordConf": {
+          "type": "string"
+        }
+      }
+    },
+    "SignupSuccess": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SignupSuccessData"
+          }
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "SignupEmailTaken": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "errors": {
+          "type": "string"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginInvalidEmailOrPassword": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginSuccess": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LoginSuccessData"
+          }
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "BadRequest": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "SuccessRequest": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {}
+        }
+      }
+    },
+    "SignupSuccessData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phonenumber": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginSuccessData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phonenumber": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "MeetupSuccessData": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "location": {
+          "type": "string"
+        },
+        "happeningOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "development",
+              "web",
+              "Andela"
+            ]
+          }
+        }
+      }
+    },
+    "MeetupGetSuccessData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "happeningOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "development",
+              "web",
+              "Andela"
+            ]
+          }
+        }
+      }
+    },
+    "QuestionSuccessData": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "meetup": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      }
+    },
+    "QuestionGetSuccessData": {
+      "type": "object",
+      "properties": {
+        "meetup": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      }
+    },
+    "VoteSuccessData": {
+      "type": "object",
+      "properties": {
+        "meetup": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "votes": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "CommentSuccessData": {
+      "type": "object",
+      "properties": {
+        "questionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,8 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import swaggerUI from 'swagger-ui-express';
 import meetup from './routes/api/index';
 import users from './routes/api/users';
+import docs from '../swagger.json';
 
 // Initialize express app
 const app = express();
@@ -31,6 +33,9 @@ app.get('/', (req, res) => {
     },
   );
 });
+
+// Render questioner documentation
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
 // Handle non exist route with with proper message
 app.all('*', (req, res) => {
