@@ -4,7 +4,7 @@ Crowd-source questions for a meetup. Questioner helps the meetup organizer prior
 
 [![Build Status](https://travis-ci.org/abidex4yemi/meet-up-questioner.svg?branch=develop)](https://travis-ci.org/abidex4yemi/meet-up-questioner)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
-[![Coverage Status](https://coveralls.io/repos/github/abidex4yemi/meet-up-questioner/badge.svg)](https://coveralls.io/github/abidex4yemi/meet-up-questioner)
+[![Coverage Status](https://coveralls.io/repos/github/abidex4yemi/meet-up-questioner/badge.svg?branch=develop)](https://coveralls.io/github/abidex4yemi/meet-up-questioner?branch=develop)
 
 ## Required Features
 
@@ -60,29 +60,29 @@ npm test
 
 ## API-ENDPOINTS
 
-- POST /api/v1/meetups Create a meetup record.
+`- POST /api/v1/meetups Create a meetup record.`
   
-- GET /api/v1/meetups Get all meetup records.
+`- GET /api/v1/meetups Get all meetup records.`
   
-- GET /api/v1/meetups/<:meetup-id> Get a specific meetup record.
+`- GET /api/v1/meetups/<:meetup-id> Get a specific meetup record.`
   
-- GET /api/v1/meetups/upcoming/ Get all upcoming meetup records.
+`- GET /api/v1/meetups/upcoming/ Get all upcoming meetup records.`
   
-- POST /api/v1/questions Create a question record for a specific meetup.
+`- POST /api/v1/questions Create a question record for a specific meetup.`
   
-- PATCH /api/v1/questions/<:question-id>/upvote Upvote a specific question by 1 (increase votes by 1).
+`- PATCH /api/v1/questions/<:question-id>/upvote Upvote a specific question by 1 (increase votes by 1).`
 
-- PATCH /api/v1/questions/<:question-id>/downvote Downvote a specific question by 1 (decrease votes by 1).
+`- PATCH /api/v1/questions/<:question-id>/downvote Downvote a specific question by 1 (decrease votes by 1).`
   
-- POST POST /api/v1/auth/signup Create a user account.
+`- POST POST /api/v1/auth/signup Create a user account.`
   
-- POST /api/v1/auth/login Log a user in to the app.
+`- POST /api/v1/auth/login Log a user in to the app.`
   
-- POST /api/v1/comments/ Comment on a specific question.
+`- POST /api/v1/comments/ Comment on a specific question.`
   
-- GET /api/v1/comments/<:question-id>/ Get a specific question comment record.
+`- GET /api/v1/comments/<:question-id>/ Get a specific question comment record.`
   
-- DELETE /api/v1/meetups/<:meetup-id> Delete a specific meetup record
+`- DELETE /api/v1/meetups/<:meetup-id> Delete a specific meetup record`
 
 ## Pivotal Tracker stories
 
