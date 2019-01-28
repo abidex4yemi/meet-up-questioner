@@ -27,7 +27,7 @@ class QuestionController {
       const queryString = `INSERT INTO
       questions(createdOn, createdBy, meetup, title, body)
       VALUES($1, $2, $3, $4, $5)
-      returning *`;
+      returning createdBy AS user, meetup, title, body`;
 
       // insert record into database
       const {
@@ -39,10 +39,47 @@ class QuestionController {
         message: 'New Meetup Question Record Created Successfully',
         data: rows,
       });
-    } catch (error) {
-      return res.status(404).send({
+    } catch (errors) {
+      return res.status(404).json({
         status: 404,
-        errors: 'Meetup id does not exist',
+        error: 'Meetup id does not exist',
+      });
+    }
+  }
+
+  /**
+   * Get all user ask questions
+   *
+   * @param {*} req
+   * @param {*} res
+   */
+  static async getAllQuestion(req, res) {
+    try {
+      const queryString = 'SELECT * FROM questions';
+
+      const {
+        rows,
+      } = await db.query(queryString);
+
+      const totalRows = rows.length;
+
+      // check if no record
+      if (!rows) {
+        return res.status(404).json({
+          status: 404,
+          error: 'No Record Found',
+        });
+      }
+
+      return res.status(200).json({
+        status: 200,
+        message: `${totalRows} question Records Found`,
+        data: rows,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Something went wrong, try again',
       });
     }
   }
@@ -61,7 +98,7 @@ class QuestionController {
       // Get and sanitize for valid integer
       const questionId = Helper.filterInt(req.params.questionId);
 
-      const queryString = 'UPDATE questions SET votes = votes + 1 WHERE id = $1 returning *';
+      const queryString = 'UPDATE questions SET votes = votes + 1 WHERE id = $1 returning meetup, title, body, votes';
 
       const {
         rows,
@@ -71,7 +108,7 @@ class QuestionController {
       if (!rows[0]) {
         return res.status(404).json({
           status: 404,
-          errors: `No Question Record Found with id: ${questionId}`,
+          error: `No Question Record Found with id: ${questionId}`,
         });
       }
 
@@ -80,10 +117,10 @@ class QuestionController {
         message: 'Question upvoted successfully',
         data: rows,
       });
-    } catch (error) {
-      return res.status(404).send({
+    } catch (errors) {
+      return res.status(404).json({
         status: 404,
-        errors: 'No Question Record Found',
+        error: 'No Question Record Found',
       });
     }
   }
@@ -102,7 +139,7 @@ class QuestionController {
       // Get and sanitize for valid integer
       const questionId = Helper.filterInt(req.params.questionId);
 
-      const queryString = 'UPDATE questions SET votes = votes - 1 WHERE id = $1 returning *';
+      const queryString = 'UPDATE questions SET votes = votes - 1 WHERE id = $1 returning meetup, title, body, votes';
 
       const {
         rows,
@@ -112,7 +149,7 @@ class QuestionController {
       if (!rows[0]) {
         return res.status(404).json({
           status: 404,
-          errors: `No Question Record Found with id: ${questionId}`,
+          error: `No Question Record Found with id: ${questionId}`,
         });
       }
 
@@ -121,10 +158,10 @@ class QuestionController {
         message: 'Question downvoted successfully',
         data: rows,
       });
-    } catch (error) {
-      return res.status(404).send({
+    } catch (errors) {
+      return res.status(404).json({
         status: 404,
-        errors: 'No Question Record Found',
+        error: 'No Question Record Found',
       });
     }
   }

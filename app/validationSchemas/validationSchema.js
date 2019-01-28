@@ -3,18 +3,21 @@ import Joi from 'joi';
 
 export default {
   createMeetup: Joi.object().keys({
-    // topic must be a valid string is required
+    // location must be a valid string is required
     location: Joi.string()
       .required()
       .trim()
       .label('Event location'),
 
+    // tags is not optional
+    tags: Joi.array().items(Joi.string().required()).required(),
+
     // images is optional
-    images: Joi.string().default('no image'),
+    images: Joi.array().items(Joi.string()).optional(),
 
     // topic must be a valid string is required
     topic: Joi.string().max(100)
-      .label('Meet up topic')
+      .label('Meetup topic')
       .trim()
       .required(),
 
@@ -75,7 +78,7 @@ export default {
       .min(6)
       .max(100)
       .valid(Joi.ref('password'))
-      .label('confirm Password')
+      .label('Confirm Password')
       .trim()
       .options({
         language: {
@@ -85,13 +88,14 @@ export default {
         },
       }),
     // firname must be a valid string and is required
-    email: Joi.string().max(50)
+    email: Joi.string()
+      .email()
       .label('Email')
       .trim()
       .required(),
     // phoneNumber must be a valid string and is required
     phonenumber: Joi.string()
-      .label('PhoneNumber')
+      .label('Phonenumber')
       .trim()
       .optional(),
     // username must be a valid string and is required
@@ -99,7 +103,8 @@ export default {
   }),
   logIn: Joi.object().keys({
     // email must be a valid string and is required
-    email: Joi.string().max(50)
+    email: Joi.string()
+      .email()
       .label('Email')
       .trim()
       .required(),
@@ -128,5 +133,9 @@ export default {
     questionId: Joi.number()
       .label('Question id')
       .required(),
+  }),
+  insertImages: Joi.object().keys({
+    // images is not optional
+    images: Joi.array().items(Joi.string().required()).required(),
   }),
 };

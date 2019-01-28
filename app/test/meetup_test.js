@@ -42,6 +42,26 @@ describe('GET / (Home Route)', () => {
   });
 });
 
+// Invalid route Test for invalid
+describe('GET / Invalid route', () => {
+  it('Should return a welcome message', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/invalid')
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(404);
+        expect(body).to.haveOwnProperty('error');
+        expect(body.error).to.be.equal('Wrong request. Route does not exist');
+        done();
+      });
+  });
+});
+
 
 // ========================USERS TEST=====================
 // Test suite for POST /signup route
@@ -109,9 +129,9 @@ describe('POST api/v1/auth/signup', () => {
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(409);
-        expect(body).to.haveOwnProperty('errors');
-        expect(body.errors).to.be.a('string');
-        expect(body.errors).to.equals('User already exist');
+        expect(body).to.haveOwnProperty('error');
+        expect(body.error).to.be.a('string');
+        expect(body.error).to.equals('User already exist');
         done();
       });
   });
@@ -192,8 +212,8 @@ describe('POST api/v1/auth/login', () => {
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(404);
-        expect(body).to.haveOwnProperty('errors');
-        expect(body.errors).to.be.equal('User not Found');
+        expect(body).to.haveOwnProperty('error');
+        expect(body.error).to.be.equal('User not Found');
         done();
       });
   });
@@ -234,8 +254,8 @@ describe('POST api/v1/auth/login', () => {
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(401);
-        expect(body).to.haveOwnProperty('errors');
-        expect(body.errors).to.be.equal('Email/Password incorrect');
+        expect(body).to.haveOwnProperty('error');
+        expect(body.error).to.be.equal('Email/Password incorrect');
         done();
       });
   });
@@ -273,15 +293,17 @@ describe('POST /api/v1/meetups', () => {
 
 // Test for valid request /meetups
 describe('POST /api/v1/meetups', () => {
-  it('should create a meet up record if user input is valid', (done) => {
+  it('Should create a meet up record if user input is valid', (done) => {
     chai
       .request(app)
       .post('/api/v1/meetups/')
       .set('token', adminToken)
       .send({
-        location: 'lagos',
-        topic: 'What is ios development?',
-        happeningOn: '12/27/2018 2:30 pm',
+        location: 'Abuja',
+        topic: 'What is continuous integration?',
+        happeningOn: faker.date.between('1/1/2019 2:30 pm', '12/24/2019 6:00 pm'),
+        tags: [faker.random.word()],
+        images: [faker.image.nature()],
       })
       .end((err, res) => {
         const {
@@ -295,6 +317,105 @@ describe('POST /api/v1/meetups', () => {
         expect(body).to.haveOwnProperty('message');
         expect(body).to.haveOwnProperty('data');
         expect(body.message).to.be.equals('New Meet Up Record Created Successfully');
+        done();
+      });
+  });
+});
+
+
+// Test for invalid request /meetups/<:meetup-id>/images
+describe('POST /api/v1/meetups/<:meetup-id>/images', () => {
+  it('Should return an error if user input is invalid', (done) => {
+    chai.request(app)
+      .post('/api/v1/meetups/30000/images')
+      .set('token', adminToken)
+      .send({
+        images: [],
+      })
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.error).to.be.an('array');
+        expect(body.status).to.be.equal(400);
+        expect(body).to.haveOwnProperty('error');
+        done();
+      });
+  });
+});
+
+
+// Test for unauthorized, if user is not admin /meetups/<:meetup-id>/images
+describe('POST /api/v1/meetups/<:meetup-id>/images', () => {
+  it('Should return an error if user is not admin invalid', (done) => {
+    chai.request(app)
+      .post('/api/v1/meetups/3000/images')
+      .set('token', defaultTokenUser)
+      .send({
+        images: [faker.image.nature()],
+      })
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.error).to.be.a('string');
+        expect(body.status).to.be.equal(403);
+        expect(body).to.haveOwnProperty('error');
+        done();
+      });
+  });
+});
+
+// Test for non-existent record, /meetups/<:meetup-id>/images
+describe('POST /api/v1/meetups/<:meetup-id>/images', () => {
+  it('Should return an error if meetup record does not exist', (done) => {
+    chai.request(app)
+      .post('/api/v1/meetups/30000/images')
+      .set('token', adminToken)
+      .send({
+        images: [faker.image.business()],
+      })
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.error).to.be.a('string');
+        expect(body.status).to.be.equal(404);
+        expect(body).to.haveOwnProperty('error');
+        done();
+      });
+  });
+});
+
+
+// Test for valid request /meetups
+describe('POST /api/v1/meetups/<meetup-id/images', () => {
+  it('Should update a specific meetup record image if user input is valid', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/meetups/1/images')
+      .set('token', adminToken)
+      .send({
+        images: [faker.image.business()],
+      })
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(201);
+        expect(body.data[0]).to.be.an('object');
+        expect(body.message).to.be.a('string');
+        expect(body).to.haveOwnProperty('message');
+        expect(body).to.haveOwnProperty('data');
+        expect(body.message).to.be.equals('Meetup image updated Successfully');
         done();
       });
   });
@@ -346,7 +467,7 @@ describe('GET /api/v1/meetups/:meetup_id (invalid id)', () => {
   it('should return an error if a user attempts to make a request with invalid record id', (done) => {
     chai
       .request(app)
-      .get(`/api/v1/meetups/:meetup_id/${faker.random.number() + 500}`)
+      .get(`/api/v1/meetups/${faker.random.number() + 10000}`)
       .set('token', defaultTokenUser)
       .end((err, res) => {
         const {
@@ -354,7 +475,6 @@ describe('GET /api/v1/meetups/:meetup_id (invalid id)', () => {
         } = res;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
-        expect(body.error).to.be.an('object');
         expect(body.status).to.be.equal(404);
         expect(body).to.haveOwnProperty('error');
         done();
@@ -416,6 +536,7 @@ describe('DELETE /api/v1/meetups/10000 (Could not delete invalid id)', () => {
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(404);
+        expect(body).to.haveOwnProperty('error');
         done();
       });
   });
@@ -467,9 +588,9 @@ describe('POST /api/v1/questions', () => {
         } = res;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
-        expect(body.errors).to.be.equal('Meetup id does not exist');
+        expect(body.error).to.be.equal('Meetup id does not exist');
         expect(body.status).to.be.equal(404);
-        expect(body).to.haveOwnProperty('errors');
+        expect(body).to.haveOwnProperty('error');
         done();
       });
   });
@@ -504,6 +625,24 @@ describe('POST /api/v1/questions', () => {
   });
 });
 
+describe('GET /api/v1/questions', () => {
+  it('Should return all users question record', (done) => {
+    chai.request(app)
+      .get('/api/v1/questions')
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(200);
+        expect(body).to.haveOwnProperty('data');
+        expect(body).to.haveOwnProperty('message');
+        done();
+      });
+  });
+});
+
 describe('POST /api/v1/comments', () => {
   it('Should return an error if question record not found', (done) => {
     chai.request(app)
@@ -519,9 +658,9 @@ describe('POST /api/v1/comments', () => {
         } = res;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
-        expect(body.errors).to.be.equal('Question id does not exist');
+        expect(body.error).to.be.equal('Question id does not exist');
         expect(body.status).to.be.equal(404);
-        expect(body).to.haveOwnProperty('errors');
+        expect(body).to.haveOwnProperty('error');
         done();
       });
   });
@@ -542,8 +681,26 @@ describe('POST /api/v1/comments', () => {
         } = res;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
-        expect(body.message).to.be.equal('Comment record addded to question with id: 6');
+        expect(body.message).to.be.equal('Successfully commented on question');
         expect(body.status).to.be.equal(201);
+        expect(body).to.haveOwnProperty('data');
+        done();
+      });
+  });
+});
+
+describe('GET /api/v1/comments', () => {
+  it('Should return all users comments on question record', (done) => {
+    chai.request(app)
+      .get('/api/v1/comments')
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.message).to.be.equal('These are users comments');
+        expect(body.status).to.be.equal(200);
         expect(body).to.haveOwnProperty('data');
         done();
       });
@@ -567,8 +724,8 @@ describe('PATCH /api/v1/questions/:question_id/upvote (Invalid)', () => {
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(404);
-        expect(body).to.haveOwnProperty('errors');
-        expect(body.errors).to.be.equals('No Question Record Found with id: 5000');
+        expect(body).to.haveOwnProperty('error');
+        expect(body.error).to.be.equals('No Question Record Found with id: 5000');
         done();
       });
   });
@@ -616,8 +773,8 @@ describe('PATCH /api/v1/questions/:question_id/downvote (Invalid)', () => {
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(404);
-        expect(body).to.haveOwnProperty('errors');
-        expect(body.errors).to.be.equals('No Question Record Found with id: 5000');
+        expect(body).to.haveOwnProperty('error');
+        expect(body.error).to.be.equals('No Question Record Found with id: 5000');
         done();
       });
   });
@@ -663,8 +820,8 @@ describe('POST /api/v1/meetups/:meetups_id/rsvps (Invalid)', () => {
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(404);
-        expect(body).to.haveOwnProperty('errors');
-        expect(body.errors).to.be.equal('Meetup record not found');
+        expect(body).to.haveOwnProperty('error');
+        expect(body.error).to.be.equal('Meetup record not found');
         done();
       });
   });

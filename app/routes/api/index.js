@@ -21,6 +21,12 @@ router.post('/meetups/:meetupId/rsvps',
   Auth.verifyToken,
   MeetupController.meetupResponse);
 
+// POST meetup images route /meetups/meetupId/images
+router.post('/meetups/:meetupId/images',
+  Auth.verifyToken,
+  validate.validateBody(schema.insertImages),
+  MeetupController.insertImages);
+
 // GET get all meet ups route /meetups
 router.get('/meetups/',
   MeetupController.getAllMeetups);
@@ -40,11 +46,19 @@ router.post('/questions',
   validate.validateBody(schema.createQuestion),
   QuestionController.create);
 
+// GET get all questions route /questions
+router.get('/questions',
+  QuestionController.getAllQuestion);
+
 // POST comment route /comments/
 router.post('/comments',
   Auth.verifyToken,
   validate.validateBody(schema.createComment),
   CommentController.create);
+
+// GET get all comments route /comments
+router.get('/comments',
+  CommentController.getAllComment);
 
 // PATCH up vote specific meetup question
 router.patch('/questions/:questionId/upvote',

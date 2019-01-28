@@ -20,7 +20,7 @@ class MeetupController {
         .status(403)
         .json({
           status: 403,
-          errors: 'Unauthorized!, Admin only route',
+          error: 'Unauthorized!, Admin only route',
         });
     }
     // get all post request body data
@@ -29,12 +29,14 @@ class MeetupController {
       req.value.body.location,
       req.value.body.topic,
       req.value.body.happeningOn,
+      req.value.body.tags,
+      req.value.body.images,
     ];
 
     const queryString = `INSERT INTO
-      meetups(createdOn, location, topic, happeningOn)
-      VALUES($1, $2, $3, $4)
-      returning *`;
+      meetups(createdOn, location, topic, happeningOn, tags, images)
+      VALUES($1, $2, $3, $4, array[$5], array[$6])
+      returning topic, location, happeningOn, tags`;
 
     try {
       // insert record into database
@@ -47,8 +49,12 @@ class MeetupController {
         message: 'New Meet Up Record Created Successfully',
         data: rows,
       });
-    } catch (error) {
-      return res.status(400).send(error);
+    } catch (errors) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Something went wrong, try again',
+        errors,
+      });
     }
   }
 
@@ -88,10 +94,10 @@ class MeetupController {
         status: 201,
         data: rows,
       });
-    } catch (error) {
-      return res.status(404).send({
+    } catch (errors) {
+      return res.status(404).json({
         status: 404,
-        errors: 'Meetup record not found',
+        error: 'Meetup record not found',
       });
     }
   }
@@ -111,16 +117,16 @@ class MeetupController {
       const meetupId = Helper.filterInt(req.params.meetupId);
 
       // Get a single meet up record
-      const queryString = 'SELECT * FROM meetups WHERE id = $1';
+      const queryString = 'SELECT id, topic, location, happeningOn, tags FROM meetups WHERE id = $1';
 
       const {
         rows,
       } = await db.query(queryString, [meetupId]);
 
       if (!rows[0]) {
-        return res.status(404).send({
+        return res.status(404).json({
           status: 404,
-          message: `Meetup record with id: ${meetupId} not found`,
+          error: `Meetup record with id: ${meetupId} not found`,
         });
       }
 
@@ -129,13 +135,10 @@ class MeetupController {
         status: 200,
         data: rows,
       });
-    } catch (error) {
-      return res.status(404).send({
+    } catch (errors) {
+      return res.status(404).json({
         status: 404,
-        errors: {
-          message: 'Ooops error just occurred! meet up record not found',
-          error,
-        },
+        error: 'Something went wrong, try again',
       });
     }
   }
@@ -151,7 +154,7 @@ class MeetupController {
    */
   static async getAllMeetups(req, res) {
     try {
-      const queryString = 'SELECT * FROM meetups';
+      const queryString = 'SELECT id, topic, location, happeningOn, tags FROM meetups';
 
       const {
         rows,
@@ -160,9 +163,9 @@ class MeetupController {
       const totalRows = rows.length;
 
       if (!rows) {
-        return res.status(404).send({
-          message: 'No Record Found',
-          error: 404,
+        return res.status(404).json({
+          status: 404,
+          error: 'No Record Found',
         });
       }
 
@@ -172,7 +175,10 @@ class MeetupController {
         data: rows,
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).json({
+        status: 400,
+        error: 'Something went wrong, try again',
+      });
     }
   }
 
@@ -187,7 +193,7 @@ class MeetupController {
    */
   static async getAllUpComing(req, res) {
     try {
-      const queryString = 'SELECT * FROM meetups WHERE status = $1';
+      const queryString = 'SELECT id, topic, location, happeningOn, tags FROM meetups WHERE status = $1';
 
       const {
         rows,
@@ -197,9 +203,9 @@ class MeetupController {
 
       // check if any record exist
       if (!rows.length > 0) {
-        return res.status(404).send({
-          message: 'No Upcoming Meetup Record Found',
-          error: 404,
+        return res.status(404).json({
+          status: 404,
+          error: 'No Upcoming Meetup Record Found',
         });
       }
 
@@ -208,8 +214,11 @@ class MeetupController {
         message: `${totalRows} Upcoming Meet Up Records Found`,
         data: rows,
       });
-    } catch (error) {
-      return res.status(400).send(error);
+    } catch (errors) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Something went wrong, try again',
+      });
     }
   }
 
@@ -220,7 +229,7 @@ class MeetupController {
         .status(403)
         .json({
           status: 403,
-          errors: 'Unauthorized!, Admin only route',
+          error: 'Unauthorized!, Admin only route',
         });
     }
 
@@ -237,25 +246,78 @@ class MeetupController {
 
       // Check if record with request id exist
       if (!rows[0]) {
-        return res.status(404).send({
+        return res.status(404).json({
           status: 404,
           error: `Meetup record with id: ${meetupId} not found`,
         });
       }
 
       // On success
-      return res.status(200).send({
+      return res.status(200).json({
         status: 200,
         message: 'Meetup record deleted successfully',
+        data: [`${rows[0].topic} deleted successfully`],
+      });
+    } catch (errors) {
+      return res.status(404).json({
+        status: 404,
+        error: 'Something went wrong, try again',
+      });
+    }
+  }
+
+  /**
+   * Add images to meetup record
+   *
+   * @param {*} req
+   * @param {*} res
+   */
+  static async insertImages(req, res) {
+    // check for admin user
+    if (!req.user.isAdmin) {
+      return res
+        .status(403)
+        .json({
+          status: 403,
+          error: 'Unauthorized!, Admin only route',
+        });
+    }
+
+    try {
+      // Get and sanitize for valid integer
+      const meetupId = Helper.filterInt(req.params.meetupId);
+
+      // get all post request body data
+      const values = [
+        req.value.body.images,
+        meetupId,
+      ];
+
+      // update meetup image query
+      const queryString = 'UPDATE meetups SET images = array[$1] WHERE id = $2 returning id AS meetup, topic, images';
+
+      // insert record into database
+      const {
+        rows,
+      } = await db.query(queryString, values);
+
+      // check if record id exist
+      if (!rows[0]) {
+        return res.status(404).json({
+          status: 404,
+          error: `No Meetup Record Found with id: ${meetupId}`,
+        });
+      }
+
+      return res.status(201).json({
+        status: 201,
+        message: 'Meetup image updated Successfully',
         data: rows,
       });
-    } catch (error) {
-      return res.status(404).send({
-        status: 404,
-        errors: {
-          message: 'Ooops error just occurred! meet up record not found',
-          error,
-        },
+    } catch (errors) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Something went wrong, try again',
       });
     }
   }
