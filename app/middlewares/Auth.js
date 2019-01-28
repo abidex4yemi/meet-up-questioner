@@ -10,12 +10,10 @@ class Auth {
    * @param {*} firstname
    * @param {*} email
    */
-  static generateToken(id, isAdmin, firstname, email) {
+  static generateToken(id, isAdmin) {
     const token = jwt.sign({
       id,
       isAdmin,
-      firstname,
-      email,
     },
     process.env.SECRET_KEY,
     {
@@ -41,7 +39,7 @@ class Auth {
         .status(403)
         .json({
           status: 403,
-          errors: 'Unauthorized!, you have to login',
+          error: 'Unauthorized!, you have to login',
         });
     }
 
@@ -57,9 +55,9 @@ class Auth {
 
       // check for valid app users
       if (!rows[0]) {
-        return res.status(401).send({
+        return res.status(401).json({
           status: 401,
-          errors: 'The token you provided is invalid',
+          error: 'The token you provided is invalid',
         });
       }
 
@@ -67,9 +65,10 @@ class Auth {
       req.user = decoded;
 
       return next();
-    } catch (error) {
+    } catch (errors) {
       return res.status(400).json({
-        error,
+        status: 400,
+        error: errors,
       });
     }
   }

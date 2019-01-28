@@ -24,7 +24,7 @@ app.use('/api/v1/', meetup);
 
 // Home page route
 app.get('/', (req, res) => {
-  res.json(
+  res.status(200).json(
     {
       status: 200,
       data: [{
@@ -41,17 +41,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 app.all('*', (req, res) => {
   res.status(404).json({
     status: 404,
-    error: {
-      message: 'Wrong request. Route does not exist',
-    },
-  });
-});
-
-// handle bad json format
-app.use((err, req, res) => {
-  res.status(500).json({
-    status: 500,
-    err,
+    error: 'Wrong request. Route does not exist',
   });
 });
 

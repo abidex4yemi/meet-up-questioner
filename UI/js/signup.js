@@ -1,10 +1,49 @@
-const signUpBtn = document.getElementById('signup-btn');
+function showOverlay() {
+  document.querySelector('.overlay').style.display = 'block';
+}
 
-// create new account
+function hideOverlay() {
+  document.querySelector('.overlay').style.display = 'none';
+}
+
+// Clear all errors from field
+function resetFields() {
+  const fields = document.querySelectorAll('.error');
+  const fieldsArr = Array.prototype.slice.call(fields);
+  fieldsArr.forEach((element) => {
+    const currentField = element;
+    currentField.innerHTML = '';
+    currentField.previousElementSibling.style.border = '1px solid #f4f4f4';
+  });
+}
+
+/**
+ * Display user feedback
+ *
+ * @param {object} responseData
+ *
+ * @returns {string} listItem
+ */
+function displayFeedback(responseData) {
+  let listItem = '';
+
+  if (responseData.status === 400 && typeof responseData.error !== 'string') {
+    listItem += '<li class=\'feedback-list-item\'>Please fill the required field below.</li>';
+  } else if (responseData.status === 200 || responseData.status === 201) {
+    listItem += `<li class='feedback-list-item'>${responseData.data[0].message}</li>`;
+  } else {
+    listItem += `<li class='feedback-list-item'>${responseData.error}</li>`;
+  }
+
+  return listItem;
+}
+
+// Create new user account
 function signUp(e) {
   e.preventDefault();
-
-  // get all user values
+  resetFields();
+  showOverlay();
+  // get all user input values
   const firstName = document.getElementById('sign-up-firstName').value;
   const lastName = document.getElementById('sign-up-lastName').value;
   const userEmail = document.getElementById('sign-up-email').value;
@@ -12,9 +51,12 @@ function signUp(e) {
   const userPasswordConf = document.getElementById('sign-up-password-confirmation').value;
   const tel = document.getElementById('sign-up-tel').value;
   const userName = document.getElementById('username').value;
+  const feedbackContainer = document.querySelector('.feedback-message');
 
+  // sign up API-endpoint url
   const url = 'https://meet-up-questioner.herokuapp.com/api/v1/auth/signup';
 
+  // User input data object
   const formData = {
     firstname: firstName,
     lastname: lastName,
@@ -25,8 +67,7 @@ function signUp(e) {
     username: userName,
   };
 
-
-  // make a post request
+  // Make a post request to sign up endpoint
   fetch(url, {
     method: 'POST',
     headers: {
@@ -35,22 +76,46 @@ function signUp(e) {
     body: JSON.stringify(formData),
   })
     .then((res) => {
-      //   Redirect to login
-      setTimeout(() => {
-        // check for success and redirect
-        if (res.status === 201) {
+      // redirect user to dashboard after 2 seconds
+      if (res.status === 201) {
+        setTimeout(() => {
           window.location.href = 'user-dashboard.html';
-        }
-      }, 1000);
+        }, 2000);
+      }
       return res.json();
     })
     .then((body) => {
-      const {
-        token,
-      } = body.data[0];
-      localStorage.setItem('token', token);
+      hideOverlay();
+
+      // check for success status
+      if (body.status === 201) {
+        feedbackContainer.innerHTML = displayFeedback(body);
+        feedbackContainer.classList.remove('feedback-message-error');
+        feedbackContainer.classList.add('feedback-message-success');
+        window.scrollTo(0, 0);
+      } else {
+        feedbackContainer.innerHTML = displayFeedback(body);
+        feedbackContainer.classList.add('feedback-message-error');
+        window.scrollTo(0, 0);
+      }
+
+      // cycle over each element in the error array
+      // cycle over each form field next sibling
+      // check and display error if any
+      body.error.forEach((element) => {
+        Object.keys(formData).forEach((key) => {
+          if (element.key === key) {
+            document.querySelector(`.${element.key}`).style.border = '0.7px solid #dc3545';
+            document.querySelector(`.${element.key}`).nextElementSibling.innerHTML = element.Rule;
+          }
+        });
+      });
     })
     .catch(err => err);
 }
+
+// Get sign up button
+const signUpBtn = document.getElementById('signup-btn');
+
 // bind click event to sign up button
 signUpBtn.addEventListener('click', signUp);

@@ -58,12 +58,12 @@ class UserController {
       if (errors.routine === '_bt_check_unique') {
         return res.status(409).json({
           status: 409,
-          errors: 'User already exist',
+          error: 'User already exist',
         });
       }
       return res.status(400).json({
         status: 400,
-        errors,
+        error: 'Something went wrong, try again',
       });
     }
   }
@@ -86,7 +86,7 @@ class UserController {
       if (!rows[0]) {
         return res.status(404).json({
           status: 404,
-          errors: 'User not Found',
+          error: 'User not Found',
         });
       }
 
@@ -96,7 +96,7 @@ class UserController {
           .status(401)
           .json({
             status: 401,
-            errors: 'Email/Password incorrect',
+            error: 'Email/Password incorrect',
           });
       }
 
@@ -104,8 +104,6 @@ class UserController {
       const token = jwt.generateToken(
         rows[0].id,
         rows[0].isadmin,
-        rows[0].firstname,
-        rows[0].email,
       );
 
       // return success message
@@ -114,11 +112,7 @@ class UserController {
         data: [{
           message: 'Logged in successfully',
           user: {
-            firstname: rows[0].firstname,
             lastname: rows[0].lastname,
-            email: rows[0].email,
-            phonenumber: rows[0].phonenumber,
-            username: rows[0].username,
           },
           token,
         }],
@@ -126,7 +120,7 @@ class UserController {
     } catch (errors) {
       return res.status(400).json({
         status: 400,
-        errors,
+        error: 'Something went wrong, try again',
       });
     }
   }
