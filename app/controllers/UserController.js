@@ -35,21 +35,21 @@ class UserController {
       const token = jwt.generateToken(
         rows[0].id,
         rows[0].isadmin,
-        rows[0].firstname,
-        rows[0].email,
       );
+
+      // check if user is an admin
+      let access = false;
+      if (rows[0].isadmin) {
+        access = true;
+      }
 
       return res.status(201).json({
         status: 201,
         data: [{
           message: 'User account created successfully',
           user: {
-            id: rows[0].id,
-            firstname: rows[0].firstname,
             lastname: rows[0].lastname,
-            email: rows[0].email,
-            phonenumber: rows[0].phonenumber,
-            username: rows[0].username,
+            access,
           },
           token,
         }],
@@ -106,6 +106,12 @@ class UserController {
         rows[0].isadmin,
       );
 
+      // check if user is an admin
+      let access = false;
+      if (rows[0].isadmin) {
+        access = true;
+      }
+
       // return success message
       return res.status(200).json({
         status: 200,
@@ -113,6 +119,7 @@ class UserController {
           message: 'Logged in successfully',
           user: {
             lastname: rows[0].lastname,
+            access,
           },
           token,
         }],
