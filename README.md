@@ -99,6 +99,7 @@ The API is currently in version 1 (v1) and is hosted at
 [https://meet-up-questioner.herokuapp.com/](https://meet-up-questioner.herokuapp.com/)
 
 ## API Documentation
+[https://meet-up-questioner.herokuapp.com/api-docs/](https://meet-up-questioner.herokuapp.com/api-docs/)
 
 ## Author
 
