@@ -97,7 +97,7 @@ function postQuestion(e) {
   // get user object from
   const userData = JSON.parse(localStorage.getItem('user'));
   let userToken = '';
-  if (userData !== 'null' && userData !== 'undefined') {
+  if (userData !== null) {
     const {
       token,
     } = userData.token;
