@@ -98,7 +98,7 @@ function postQuestion(e) {
   const userData = JSON.parse(localStorage.getItem('user'));
   const {
     token,
-  } = userData;
+  } = userData.token;
 
   // Make a post request to sign up endpoint
   fetch(url, {
