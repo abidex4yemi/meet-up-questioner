@@ -1024,7 +1024,7 @@ body {
 }
 
 .form__input {
-  font-size: 100%;
+  font-size: 90%;
   padding: 8px;
   height: 35px;
   border: 1px solid #e4e6e8;
@@ -1032,6 +1032,7 @@ body {
   cursor: auto;
   outline: none;
   transition: all 0.4s;
+  font-weight: bold;
 }
 
 .form__textarea {
@@ -1039,10 +1040,13 @@ body {
   border-radius: 2px;
   outline: 0;
   padding: 5px;
+  font-weight: bold;
+  font-size: 80%;
 }
 
 .form__input-select {
   padding: 0 5px;
+  font-weight: bold;
 }
 
 .form__input:focus,
@@ -1202,7 +1206,7 @@ body {
  * make changes to meet up button color
  */
 
-.meetup {
+.meetup-action-container {
   padding: 1em 0;
 }
 
@@ -1600,6 +1604,7 @@ body {
   box-sizing: border-box;
   padding: 10px 20px;
   display: none;
+  overflow: auto;
 }
 
 .error {

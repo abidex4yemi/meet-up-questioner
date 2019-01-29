@@ -42,7 +42,7 @@ class QuestionController {
     } catch (errors) {
       return res.status(404).json({
         status: 404,
-        error: 'Meetup id does not exist',
+        error: 'Meetup Record Not Found',
       });
     }
   }
