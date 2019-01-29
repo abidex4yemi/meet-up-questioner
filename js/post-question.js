@@ -95,12 +95,12 @@ function postQuestion(e) {
   };
 
   // get user object from
-  const userData = JSON.parse(localStorage.getItem('user'));
   let userToken = '';
-  if (userData !== null) {
+  if (localStorage.getItem('user')) {
+    const userData = JSON.parse(localStorage.getItem('user'));
     const {
       token,
-    } = userData.token;
+    } = userData;
 
     userToken = token;
   }
