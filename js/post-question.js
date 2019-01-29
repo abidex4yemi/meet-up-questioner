@@ -98,6 +98,7 @@ function postQuestion(e) {
   const userData = JSON.parse(localStorage.getItem('user'));
   let userToken = '';
   if (userData !== 'null' || userData !== 'undefined') {
+    console.log(userData);
     const {
       token,
     } = userData.token;
