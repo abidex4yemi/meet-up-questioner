@@ -75,41 +75,52 @@ function signUp(e) {
     },
     body: JSON.stringify(formData),
   })
-    .then((res) => {
-      // redirect user to dashboard after 2 seconds
-      if (res.status === 201) {
-        setTimeout(() => {
-          window.location.href = 'user-dashboard.html';
-        }, 2000);
-      }
-      return res.json();
-    })
+    .then(res => res.json())
     .then((body) => {
       hideOverlay();
 
       // check for success status
       if (body.status === 201) {
+        // store user data in browser local storage
+        const userData = JSON.stringify({
+          username: body.data[0].user.lastname,
+          token: body.data[0].token,
+          access: body.data[0].user.access,
+        });
+        localStorage.setItem('user', userData);
+
         feedbackContainer.innerHTML = displayFeedback(body);
         feedbackContainer.classList.remove('feedback-message-error');
         feedbackContainer.classList.add('feedback-message-success');
         window.scrollTo(0, 0);
+
+        // redirect user to dashboard after 2 seconds
+        if (body.data[0].user.access) {
+          setTimeout(() => {
+            window.location.href = 'admin-dashboard.html';
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            window.location.href = 'user-dashboard.html';
+          }, 2000);
+        }
       } else {
         feedbackContainer.innerHTML = displayFeedback(body);
         feedbackContainer.classList.add('feedback-message-error');
         window.scrollTo(0, 0);
-      }
 
-      // cycle over each element in the error array
-      // cycle over each form field next sibling
-      // check and display error if any
-      body.error.forEach((element) => {
-        Object.keys(formData).forEach((key) => {
-          if (element.key === key) {
-            document.querySelector(`.${element.key}`).style.border = '0.7px solid #dc3545';
-            document.querySelector(`.${element.key}`).nextElementSibling.innerHTML = element.Rule;
-          }
+        // cycle over each element in the error array
+        // cycle over each form field next sibling
+        // check and display error if any
+        body.error.forEach((element) => {
+          Object.keys(formData).forEach((key) => {
+            if (element.key === key) {
+              document.querySelector(`.${element.key}`).style.border = '0.7px solid #dc3545';
+              document.querySelector(`.${element.key}`).nextElementSibling.innerHTML = element.Rule;
+            }
+          });
         });
-      });
+      }
     })
     .catch(err => err);
 }
