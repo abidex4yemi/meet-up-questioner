@@ -588,7 +588,7 @@ describe('POST /api/v1/questions', () => {
         } = res;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
-        expect(body.error).to.be.equal('Meetup id does not exist');
+        expect(body.error).to.be.equal('Meetup Record Not Found');
         expect(body.status).to.be.equal(404);
         expect(body).to.haveOwnProperty('error');
         done();

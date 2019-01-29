@@ -41,29 +41,33 @@
     <section class="post-question padding-top-fix">
       <div class="container">
         <h3 class="form__headline">Welcome to Questioner!</h3>
+        <ul class="feedback-message">
+
+        </ul>
         <div class="post-question__content">
           <div class="form__container">
             <form action="" class="form" id="post-question-form">
               <div class="form__input__group">
                 <label for="meetup-q-topic" class="form__label">Topic <span class="required">*</span></label>
-                <select name="" id="meetup-q-topic" class="form__input form__input-select">
-                  <option value="">Choose</option>
-                  <option value="1">Technology</option>
-                  <option value="2">Web development</option>
+                <select name="" id="meetup-q-topic" class="form__input form__input-select meetup">
+                  
                 </select>
+                <small class="error"></small>
               </div>
               <!--/.form__input__container-->
 
 
               <div class="form__input__group">
                 <label for="q-title" class="form__label">Question Title <span class="required">*</span></label>
-                <input type="text" class="form__input" id="q-title" placeholder="John">
+                <input type="text" class="form__input title" id="q-title" placeholder="John">
+                <small class="error"></small>
               </div>
               <!--/.form__input__container-->
 
               <div class="form__input__group">
                 <label for="post-q-body" class="form__label">Question Body <span class="required">*</span></label>
-                <textarea name="" id="post-q-body" rows="5" class="form__textarea"></textarea>
+                <textarea name="" id="post-q-body" rows="5" class="form__textarea body"></textarea>
+                <small class="error"></small>
               </div>
               <!--/.form__input__container-->
 
@@ -73,6 +77,17 @@
           </div>
         </div>
         <!--/.post-question__content-->
+
+        <div class="overlay">
+          <div class="spinner-icon-container">
+            <svg version="1.2" class="spinner-icon" height="80" width="125" xmlns="http://www.w3.org/2000/svg" viewport="0 0 125 80"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+              <path fill="none" stroke="#ffffff" stroke-miterlimit="20" d="M52,21 L81,40 L52,60 Z"></path>
+            </svg>
+          </div>
+        </div>
+        <!--/.overlay-->
+
       </div>
     </section>
     <!--/.post-question-->
@@ -96,6 +111,7 @@
   </section>
   <!--/.footer-->
   <script src="js/script.js"></script>
+  <script src="js/post-question.js"></script>
 </body>
 
 </html>
