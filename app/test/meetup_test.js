@@ -299,9 +299,9 @@ describe('POST /api/v1/meetups', () => {
       .post('/api/v1/meetups/')
       .set('token', adminToken)
       .send({
-        location: 'Abuja',
-        topic: 'What is continuous integration?',
-        happeningOn: faker.date.between('1/1/2019 2:30 pm', '12/24/2019 6:00 pm'),
+        location: 'Kano',
+        topic: 'Why remote job is the future?',
+        happeningOn: '3/3/2019 2:30 PM',
         tags: [faker.random.word()],
         images: [faker.image.nature()],
       })

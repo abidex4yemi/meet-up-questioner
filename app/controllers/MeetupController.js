@@ -23,12 +23,13 @@ class MeetupController {
           error: 'Unauthorized!, Admin only route',
         });
     }
+
     // get all post request body data
     const values = [
       moment(new Date()),
       req.value.body.location,
       req.value.body.topic,
-      req.value.body.happeningOn,
+      new Date(req.value.body.happeningOn).toISOString(),
       req.value.body.tags,
       req.value.body.images,
     ];
@@ -36,7 +37,7 @@ class MeetupController {
     const queryString = `INSERT INTO
       meetups(createdOn, location, topic, happeningOn, tags, images)
       VALUES($1, $2, $3, $4, array[$5], array[$6])
-      returning topic, location, happeningOn, tags`;
+      returning topic, location, happeningOn, tags, images`;
 
     try {
       // insert record into database
@@ -117,7 +118,7 @@ class MeetupController {
       const meetupId = Helper.filterInt(req.params.meetupId);
 
       // Get a single meet up record
-      const queryString = 'SELECT id, topic, location, happeningOn, tags FROM meetups WHERE id = $1';
+      const queryString = 'SELECT id, topic, location, happeningOn, tags, images FROM meetups WHERE id = $1';
 
       const {
         rows,
@@ -154,7 +155,7 @@ class MeetupController {
    */
   static async getAllMeetups(req, res) {
     try {
-      const queryString = 'SELECT id, topic, location, happeningOn, tags FROM meetups';
+      const queryString = 'SELECT id, topic, location, happeningOn, tags FROM meetups ORDER BY happeningon DESC';
 
       const {
         rows,
@@ -193,11 +194,14 @@ class MeetupController {
    */
   static async getAllUpComing(req, res) {
     try {
-      const queryString = 'SELECT id, topic, location, happeningOn, tags FROM meetups WHERE status = $1';
+      const queryString = 'SELECT id, topic, location, happeningOn, tags, images FROM meetups WHERE happeningOn > $1 ORDER BY happeningon DESC';
+
+      // get current date-time in iso format
+      const today = new Date(moment()).toISOString();
 
       const {
         rows,
-      } = await db.query(queryString, ['yes']);
+      } = await db.query(queryString, [today]);
 
       const totalRows = rows.length;
 
