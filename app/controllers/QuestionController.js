@@ -55,7 +55,7 @@ class QuestionController {
    */
   static async getAllQuestion(req, res) {
     try {
-      const queryString = 'SELECT * FROM questions';
+      const queryString = 'SELECT * FROM questions ORDER BY createdon DESC';
 
       const {
         rows,

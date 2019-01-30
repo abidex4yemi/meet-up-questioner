@@ -1,13 +1,13 @@
-function showOverlay() {
+const showOverlay = () => {
   document.querySelector('.overlay').style.display = 'block';
-}
+};
 
-function hideOverlay() {
+const hideOverlay = () => {
   document.querySelector('.overlay').style.display = 'none';
-}
+};
 
 // Clear all errors from field
-function resetFields() {
+const resetFields = () => {
   const fields = document.querySelectorAll('.error');
   const fieldsArr = Array.prototype.slice.call(fields);
   fieldsArr.forEach((element) => {
@@ -15,7 +15,7 @@ function resetFields() {
     currentField.innerHTML = '';
     currentField.previousElementSibling.style.border = '1px solid #f4f4f4';
   });
-}
+};
 
 /**
  * Display user feedback
@@ -24,7 +24,7 @@ function resetFields() {
  *
  * @returns {string} listItem
  */
-function displayFeedback(responseData) {
+const displayFeedback = (responseData) => {
   let listItem = '';
 
   if (responseData.status === 400 && typeof responseData.error !== 'string') {
@@ -36,10 +36,10 @@ function displayFeedback(responseData) {
   }
 
   return listItem;
-}
+};
 
 // Create new user account
-function signUp(e) {
+const signUp = (e) => {
   e.preventDefault();
   resetFields();
   showOverlay();
@@ -123,7 +123,7 @@ function signUp(e) {
       }
     })
     .catch(err => err);
-}
+};
 
 // Get sign up button
 const signUpBtn = document.getElementById('signup-btn');

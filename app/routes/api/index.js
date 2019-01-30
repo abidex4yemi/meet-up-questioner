@@ -37,7 +37,6 @@ router.get('/meetups/upcoming/',
 
 // GET specific meet up record
 router.get('/meetups/:meetupId',
-  Auth.verifyToken,
   MeetupController.getSingleMeetup);
 
 // POST question route /meetups

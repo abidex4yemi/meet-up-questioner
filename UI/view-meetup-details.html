@@ -40,39 +40,23 @@
 
     <section class="meetup-details padding-top-fix">
       <div class="container">
-        <div class="meetup-single">
-          <div class="meetup-single-img">
-            <img src="./img/meetup_img/meetup_question_2.jpeg" alt="" class="meetup-img-1">
-          </div>
+        <ul class="feedback-message">
 
-          <div class="meetup-single-details">
-            <h4 class="meetup-d-heading meetup-venue">Venue: <span>Lekki phase 1, block-50 Lagos state.</span></h4>
-            <h4 class="meetup-d-heading meetup-time">Time: 3:00pm No Africa time</h4>
-            <h4 class="meetup-d-heading meetup-speaker-title">Speaker:</h4>
-            <ul class="meetup-speaker">
-              <li class="speaker-list">Ibrahim Olowo</li>
-              <li class="speaker-list">James Grin</li>
-              <li class="speaker-list">Cameron Lisa</li>
-            </ul>
+        </ul>
+        <div class="meetup-single" id="meetup-details-container">
 
-            <h4 class="meetup-d-heading meetup-feedback">We love to here from you</h4>
-            <ul class="meetup-action">
-              <li class="meetup-action-list">
-                <a href="#"><i class="meetup-action-link comment-h fas fa-comment"></i></a>
-              </li>
-              <li class="meetup-action-list">
-                <a href="#"><i class="meetup-action-link thumbs-dw-h fas fa-thumbs-down"></i></a>
-              </li>
-              <li class="meetup-action-list">
-                <a href="#"><i class="meetup-action-link thumbs-up-h fas fa-thumbs-up"></i></a>
-              </li>
+        </div>
 
-              <li class="meetup-action-list">
-                <a href="./sign-in.html" class="meetup-attend">Attend meetup</a>
-              </li>
-            </ul>
+        <div class="overlay">
+          <div class="spinner-icon-container">
+            <svg version="1.2" class="spinner-icon" height="80" width="125" xmlns="http://www.w3.org/2000/svg" viewport="0 0 125 80"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+              <path fill="none" stroke="#ffffff" stroke-miterlimit="20" d="M52,21 L81,40 L52,60 Z"></path>
+            </svg>
           </div>
         </div>
+        <!--/.overlay-->
+
       </div>
     </section>
     <!--/.meetup-details-->
@@ -95,8 +79,9 @@
   </section>
   <!--/.footer-->
 
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
   <script src="js/script.js"></script>
-  <script src="js/script.js"></script>
+  <script src="js/meetup-details.js"></script>
 </body>
 
 </html>

@@ -55,7 +55,7 @@ class CommentController {
    */
   static async getAllComment(req, res) {
     try {
-      const queryString = 'SELECT comments.questionid, comments.userid, comments.commentbody, questions.title, questions.body AS questionbody, questions.createdOn, questions.votes FROM questions LEFT JOIN comments ON comments.questionid = questions.id WHERE questions.id = comments.questionid';
+      const queryString = 'SELECT comments.questionid, comments.userid, comments.commentbody, questions.title, questions.body AS questionbody, questions.createdOn, questions.votes FROM questions LEFT JOIN comments ON comments.questionid = questions.id WHERE questions.id = comments.questionid ORDER BY comments.id DESC';
 
       const {
         rows,
