@@ -5,24 +5,24 @@
  *
  * @returns {number} meetupId
  */
-function getId() {
+const getId = () => {
   const urlString = window.location.href;
   const url = new URL(urlString);
   const meetupId = url.searchParams.get('id');
 
   return meetupId;
-}
+};
 
 // get meetup details container
 const feedbackContainer = document.querySelector('.feedback-message');
 
-function showOverlay() {
+const showOverlay = () => {
   document.querySelector('.overlay').style.display = 'block';
-}
+};
 
-function hideOverlay() {
+const hideOverlay = () => {
   document.querySelector('.overlay').style.display = 'none';
-}
+};
 
 /**
  *
@@ -30,16 +30,16 @@ function hideOverlay() {
  *
  * @returns void
  */
-function displayFeedback(responseData) {
+const displayFeedback = (responseData) => {
   feedbackContainer.innerHTML = `<li class='feedback-list-item'>${responseData.error}</li>`;
   feedbackContainer.classList.add('feedback-message-error');
   window.scrollTo(0, 0);
-}
+};
 
 /**
  * Fetch all meetup record
  */
-function getMeetupDetails() {
+const getMeetupDetails = () => {
   // store meetup id
   const meetupId = getId();
 
@@ -109,7 +109,7 @@ function getMeetupDetails() {
       }
     })
     .catch(err => err);
-}
+};
 
 // fetch all meetup record
 getMeetupDetails();
