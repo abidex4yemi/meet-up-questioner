@@ -40,17 +40,6 @@ function displayFeedback(responseData) {
  * Fetch all meetup record
  */
 function getMeetupDetails() {
-  // get user object from
-  let userToken = '';
-  if (localStorage.getItem('user')) {
-    const userData = JSON.parse(localStorage.getItem('user'));
-    const {
-      token,
-    } = userData;
-
-    userToken = token;
-  }
-
   // store meetup id
   const meetupId = getId();
 
@@ -63,7 +52,6 @@ function getMeetupDetails() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      token: userToken,
     },
   })
     .then(res => res.json())
