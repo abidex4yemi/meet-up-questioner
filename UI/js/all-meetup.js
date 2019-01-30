@@ -1,23 +1,23 @@
 const feedbackContainer = document.querySelector('.feedback-message');
 
-function showOverlay() {
+const showOverlay = () => {
   document.querySelector('.overlay').style.display = 'block';
-}
+};
 
-function hideOverlay() {
+const hideOverlay = () => {
   document.querySelector('.overlay').style.display = 'none';
-}
+};
 
-function displayFeedback(responseData) {
+const displayFeedback = (responseData) => {
   feedbackContainer.innerHTML = `<li class='feedback-list-item'>${responseData.error}</li>`;
   feedbackContainer.classList.add('feedback-message-error');
   window.scrollTo(0, 0);
-}
+};
 
 /**
  * Fetch all meetup record
  */
-function getAllMeetup() {
+const getAllMeetup = () => {
   showOverlay();
   // meetup endpoint url
   const url = 'https://meet-up-questioner.herokuapp.com/api/v1/meetups/';
@@ -66,7 +66,7 @@ function getAllMeetup() {
       }
     })
     .catch(err => err);
-}
+};
 
 // fetch all meetup record
 getAllMeetup();
