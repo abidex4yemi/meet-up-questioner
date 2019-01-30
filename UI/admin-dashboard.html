@@ -84,7 +84,7 @@
                       <a href="" class="question__item-link question-link">How to in macOS</a>
                     </h3>
 
-                    <div class="tags">
+                    <div class="meetup-tags">
                       <a href="" class="question__item-link post-tag" title="show questions tagged 'macos'" rel="tag">macos</a>
                       <a href="" class="question__item-link post-tag" title="show questions tagged 'protocol-buffers'"
                         rel="tag">protocol-buffers</a>
@@ -143,40 +143,62 @@
       <div class="form__container modal-content" id="create-meetup-form">
         <form action="" class="form form-s-w">
           <span class="close">&times;</span></span>
+
+          <ul class="feedback-message">
+
+          </ul>
+
           <div class="form__input__group">
-            <label for="meetup-topic" class="form__label">Meet Up Topic <span class="required">*</span></label>
-            <input type="text" class="form__input" id="meetup-topic" placeholder="Using GitFlow" required autofocus>
+            <label for="meetup-topic" class="form__label">Meetup Topic <span class="required">*</span></label>
+            <input type="text" class="form__input topic" id="meetup-topic" placeholder="Using GitFlow" required
+              autofocus>
+            <small class="error"></small>
           </div>
           <!--/.form__input__container-->
 
           <div class="form__input__group">
             <label for="meetup-location" class="form__label">location <span class="required">*</span></label>
-            <input type="text" class="form__input" id="meetup-location" placeholder="Kano" required>
+            <input type="text" class="form__input location" id="meetup-location" placeholder="Kano" required>
+            <small class="error"></small>
           </div>
           <!--/.form__input__container-->
 
           <div class="form__input__group">
             <label for="meetup-tags" class="form__label">Tags <span class="required">*</span></label>
-            <input type="text" class="form__input" id="meetup-tags" placeholder="workflow, branching">
+            <input type="text" class="form__input tags" id="meetup-tags" placeholder="workflow, branching">
+            <small class="error"></small>
           </div>
           <!--/.form__input__container-->
 
           <div class="form__input__group">
-            <label for="meetup-date" class="form__label">Date &amp; Time<span class="required">*</span></label>
-            <input type="datetime-local" class="form__input" id="meetup-date" required>
+            <label for="meetup-date" class="form__label">Date &amp; Time</label>
+            <input type="datetime-local" class="form__input happeningOn" id="meetup-date" required>
+            <small class="error"></small>
           </div>
           <!--/.form__input__container-->
 
           <div class="form__input__group">
             <label for="meetup-image" class="form__label">Upload Image </label>
-            <input type="file" class="form__input" id="meetup-image">
+            <input type="file" class="form__input images" id="meetup-images" multiple>
+            <small class="error"></small>
           </div>
           <!--/.form__input__container-->
 
-          <button type="submit" class="btn btn__primary--color btn__primary--color--submit" id="create-btn">Create Meet
+          <button type="submit" class="btn btn__primary--color btn__primary--color--submit" id="create-meetup-btn">Create
+            Meet
             up</button>
         </form>
       </div>
+
+      <div class="overlay">
+        <div class="spinner-icon-container">
+          <svg version="1.2" class="spinner-icon" height="80" width="125" xmlns="http://www.w3.org/2000/svg" viewport="0 0 125 80"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <path fill="none" stroke="#ffffff" stroke-miterlimit="20" d="M52,21 L81,40 L52,60 Z"></path>
+          </svg>
+        </div>
+      </div>
+      <!--/.overlay-->
     </div>
   </div>
   <!--/.modal-->
@@ -210,6 +232,7 @@
 
   <script src="js/admin-dashboard.js"></script>
   <script src="js/dashboard.js"></script>
+  <script src="js/create-meetup.js"></script>
 </body>
 
 </html>
