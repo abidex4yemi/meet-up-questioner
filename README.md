@@ -4,6 +4,7 @@ Crowd-source questions for a meetup. Questioner helps the meetup organizer prior
 
 [![Build Status](https://travis-ci.org/abidex4yemi/meet-up-questioner.svg?branch=develop)](https://travis-ci.org/abidex4yemi/meet-up-questioner)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/abidex4yemi/meet-up-questioner/badge.svg?branch=develop)](https://coveralls.io/github/abidex4yemi/meet-up-questioner?branch=develop)
 
 ## Required Features
 
