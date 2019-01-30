@@ -113,7 +113,11 @@ const createMeetup = (e) => {
           Object.keys(formData).forEach((key) => {
             if (element.key === key) {
               document.querySelector(`.${element.key}`).style.border = '0.7px solid #dc3545';
-              document.querySelector(`.${element.key}`).nextElementSibling.innerHTML = element.Rule;
+              if (element.key === 'tags') {
+                document.querySelector(`.${element.key}`).nextElementSibling.innerHTML = 'Tags is required (e.g) tag1, tag2, tag3';
+              } else {
+                document.querySelector(`.${element.key}`).nextElementSibling.innerHTML = element.Rule;
+              }
             }
           });
         });
