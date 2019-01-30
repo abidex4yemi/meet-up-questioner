@@ -41,79 +41,24 @@
     <section class="upcoming padding-top-fix">
       <div class="container">
         <h1 class="upcoming__content__title">Checkout All Our Upcoming Meetups</h1>
-        <div class="upcoming__content">
-          <div class="upcoming__meetup__container">
-            <a href="view-meetup-details.html" class="upcoming__meetup br">
-              <figure class="upcoming__media">
-                <img src="./img/question_img/thumbnail_meetup.jpg" alt="" class="upcoming__img">
-              </figure>
+        <ul class="feedback-message">
 
-              <header class="upcoming__header">
-                <span class="upcoming__category">Technology</span>
-                <h3 class="upcoming__meetup__topic">Why Express is the best framework for building API ?</h3>
-              </header>
+        </ul>
+        <div class="upcoming__content" id="all-upcoming-meetup-container">
 
-              <div class="upcoming__body">
-                <span class="accept__btn">View details</span>
-              </div>
-            </a>
-          </div>
-          <!--/.upcoming__meetup__container-->
-
-          <div class="upcoming__meetup__container">
-            <a href="view-meetup-details.html" class="upcoming__meetup br">
-              <figure class="upcoming__media">
-                <img src="./img/question_img/thumbnail_meetup.jpg" alt="" class="upcoming__img">
-              </figure>
-
-              <header class="upcoming__header">
-                <span class="upcoming__category">Travel</span>
-                <h3 class="upcoming__meetup__topic">Reason Why I Love Malta</h3>
-              </header>
-
-              <div class="upcoming__body">
-                <span class="accept__btn">View details</span>
-              </div>
-            </a>
-          </div>
-          <!--/.upcoming__meetup__container-->
-
-          <div class="upcoming__meetup__container">
-            <a href="view-meetup-details.html" class="upcoming__meetup br">
-              <figure class="upcoming__media">
-                <img src="./img/question_img/thumbnail_meetup.jpg" alt="" class="upcoming__img">
-              </figure>
-
-              <header class="upcoming__header">
-                <span class="upcoming__category">Programming</span>
-                <h3 class="upcoming__meetup__topic">PHP is not dieing</h3>
-              </header>
-
-              <div class="upcoming__body">
-                <span class="accept__btn">View details</span>
-              </div>
-            </a>
-          </div>
-          <!--/.upcoming__meetup__container-->
-
-          <div class="upcoming__meetup__container">
-            <a href="view-meetup-details.html" class="upcoming__meetup br">
-              <figure class="upcoming__media">
-                <img src="./img/question_img/thumbnail_meetup.jpg" alt="" class="upcoming__img">
-              </figure>
-
-              <header class="upcoming__header">
-                <span class="upcoming__category">Programming</span>
-                <h3 class="upcoming__meetup__topic">Why java is such a verbose language</h3>
-              </header>
-
-              <div class="upcoming__body">
-                <span class="accept__btn">View details</span>
-              </div>
-            </a>
-          </div>
           <!--/.upcoming__meetup__container-->
         </div>
+
+        <div class="overlay">
+          <div class="spinner-icon-container">
+            <svg version="1.2" class="spinner-icon" height="80" width="125" xmlns="http://www.w3.org/2000/svg" viewport="0 0 125 80"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+              <path fill="none" stroke="#ffffff" stroke-miterlimit="20" d="M52,21 L81,40 L52,60 Z"></path>
+            </svg>
+          </div>
+        </div>
+        <!--/.overlay-->
+
       </div>
       <!--/.container-->
   </div>
@@ -139,7 +84,10 @@
     </div>
   </section>
   <!--/.footer-->
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
   <script src="js/script.js"></script>
+  <script src="js/upcoming.js"></script>
 </body>
 
 </html>
