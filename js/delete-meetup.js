@@ -1,3 +1,37 @@
+/**
+ * Fetch all meetup record
+ */
+const getAllMeetup = () => {
+  // meetup endpoint url
+  const url = 'https://meet-up-questioner.herokuapp.com/api/v1/meetups/';
+
+  // make a GET request to meetups
+  fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(res => res.json())
+    .then((body) => {
+      if (body.status === 200) {
+        let output = '<option value="" selected>Choose</option>';
+        body.data.forEach((meetup) => {
+          output += `<option value="${meetup.id}">${meetup.topic}</option>`;
+        });
+
+        // get meetup container (select option)
+        const meetupContainer = document.getElementById('delete-meetup-container');
+
+        // Display all meetup record
+        meetupContainer.innerHTML = output;
+      }
+    })
+    .catch(err => err);
+};
+// fetch all meetup record
+getAllMeetup();
+
 const showOverlay = () => {
   document.querySelector('.overlay').style.display = 'block';
 };
@@ -17,16 +51,6 @@ const resetFields = () => {
   });
 };
 
-// check if token has expired
-const checkExpiredToken = (responseBody) => {
-  if (responseBody.error.expiredAt) {
-    // Redirect user to home page
-    setTimeout(() => {
-      window.location.href = 'sign-in.html';
-    }, 2000);
-  }
-};
-
 /**
  * Display user feedback
  *
@@ -38,12 +62,8 @@ const displayFeedback = (responseData) => {
   let listItem = '';
 
   if (responseData.status === 400 && typeof responseData.error !== 'string') {
-    if (responseData.error.expiredAt) {
-      listItem += '<li class=\'feedback-list-item\'>Session expired, Please Login.</li>';
-    } else {
-      listItem += '<li class=\'feedback-list-item\'>Please fill the required field below.</li>';
-    }
-  } else if (responseData.status === 201) {
+    listItem += '<li class=\'feedback-list-item\'>Please fill the required field below.</li>';
+  } else if (responseData.status === 200 || responseData.status === 201) {
     listItem += `<li class='feedback-list-item'>${responseData.message}</li>`;
   } else {
     listItem += `<li class='feedback-list-item'>${responseData.error}</li>`;
@@ -52,33 +72,25 @@ const displayFeedback = (responseData) => {
   return listItem;
 };
 
-// Create new user account
-const createMeetup = (e) => {
+const postQuestion = (e) => {
   e.preventDefault();
   resetFields();
   showOverlay();
+
   // get all user input values
-  const meetupLocation = document.getElementById('meetup-location').value;
-  const meetupTags = document.getElementById('meetup-tags').value;
-  const meetupImages = ['http://lorempixel.com/640/480/nature'];
-  const meetupTopic = document.getElementById('meetup-topic').value;
-  const meetupDate = document.getElementById('meetup-date').value;
-
-  // convert user input (string) to Array
-  const meetupTagsArray = meetupTags.split(',');
-
+  const meetupTopic = document.getElementById('meetup-q-topic').value;
+  const questionTitle = document.getElementById('q-title').value;
+  const questionBody = document.getElementById('post-q-body').value;
   const feedbackContainer = document.querySelector('.feedback-message');
 
   // sign up API-endpoint url
-  const url = 'https://meet-up-questioner.herokuapp.com/api/v1/meetups';
+  const url = 'https://meet-up-questioner.herokuapp.com/api/v1/questions';
 
   // User input data object
   const formData = {
-    location: meetupLocation,
-    tags: meetupTagsArray,
-    images: meetupImages,
-    topic: meetupTopic,
-    happeningOn: meetupDate,
+    meetup: parseInt(meetupTopic, 10),
+    title: questionTitle,
+    body: questionBody,
   };
 
   // get user object from
@@ -91,6 +103,7 @@ const createMeetup = (e) => {
 
     userToken = token;
   }
+
 
   // Make a post request to sign up endpoint
   fetch(url, {
@@ -112,16 +125,14 @@ const createMeetup = (e) => {
         feedbackContainer.classList.add('feedback-message-success');
         window.scrollTo(0, 0);
 
+        // Redirect user to home page
         setTimeout(() => {
-          window.location.href = 'upcoming.html';
+          window.location.href = 'index.html';
         }, 2000);
       } else {
         feedbackContainer.innerHTML = displayFeedback(body);
         feedbackContainer.classList.add('feedback-message-error');
         window.scrollTo(0, 0);
-
-        // redirect to login if token has expired
-        checkExpiredToken(body);
 
         // cycle over each element in the error array
         // cycle over each form field next sibling
@@ -130,8 +141,8 @@ const createMeetup = (e) => {
           Object.keys(formData).forEach((key) => {
             if (element.key === key) {
               document.querySelector(`.${element.key}`).style.border = '0.7px solid #dc3545';
-              if (element.key === 'tags') {
-                document.querySelector(`.${element.key}`).nextElementSibling.innerHTML = 'Tags is required (e.g) tag1, tag2, tag3';
+              if (element.key === 'meetup') {
+                document.querySelector(`.${element.key}`).nextElementSibling.innerHTML = 'Select meetup topic.';
               } else {
                 document.querySelector(`.${element.key}`).nextElementSibling.innerHTML = element.Rule;
               }
@@ -143,8 +154,6 @@ const createMeetup = (e) => {
     .catch(err => err);
 };
 
-// Get sign up button
-const createMeetupBtn = document.getElementById('create-meetup-btn');
+const deleteMeetupBtn = document.getElementById('delete-meetup-btn');
 
-// bind click event to sign up button
-createMeetupBtn.addEventListener('click', createMeetup);
+deleteMeetupBtn.addEventListener('click', postQuestion);

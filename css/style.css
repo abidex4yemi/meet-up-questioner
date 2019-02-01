@@ -124,7 +124,10 @@ textarea {
   line-height: 1.15;
   /* 1 */
   margin: 0;
-  /* 2 */
+}
+
+option {
+  font-weight: bold;
 }
 
 /**
@@ -437,7 +440,6 @@ body {
   cursor: pointer;
 }
 
-.btn__danger--color,
 .btn__primary--color,
 .btn__success--color {
   transition: 0.4s;
@@ -445,10 +447,6 @@ body {
 
 .btn__primary--color {
   background-color: #fb406f;
-}
-
-.btn__danger--color {
-  background: rgba(255, 0, 1, .7);
 }
 
 .btn__success--color {
@@ -459,11 +457,6 @@ body {
   background-color: #f4f4f4;
   border: #fb406f;
   color: #fb406f;
-}
-
-.btn__danger--color:hover {
-  color: rgba(255, 0, 1, .8);
-  background: #f4f4f4;
 }
 
 .btn__success--color:hover {
@@ -481,7 +474,6 @@ body {
   background-color: rgba(241, 78, 131, .8);
 }
 
-.btn__danger--color:active,
 .btn__success--color:active {
   top: 2px;
 }
@@ -589,131 +581,10 @@ body {
   Question summary styles: user dashboard
   ========================================================================== */
 
-.question-list {
-  background-color: #F2EFF3;
-  padding-top: 1em;
-  min-height: 400px;
-}
 
-.question-list__content,
-.question__vote__count,
-.question__info__summary,
-.question-summary {
-  display: flex;
-}
-
-.question-list__content {
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.question-summary {
-  flex-direction: column;
-  border: 0.6px solid #0f1721;
-  padding: 12px 8px;
-  border-radius: 2px;
-  margin-bottom: 1.3em;
-}
-
-.question__info__summary {
-  flex-direction: column;
-  flex-basis: 70%;
-}
-
-.started {
-  align-self: flex-end;
-}
-
-.question__vote__count {
-  text-align: center;
-}
-
-.votes,
-.status,
-.views {
-  height: 60px;
-  min-width: 60px;
-  margin: 0 5px 0 0;
-  font-size: 0.9em;
-  padding: 7px 6px;
-  border-radius: 3px;
-  border: 0.5px solid #FF8926;
-}
-
-.question__title {
-  margin: 0.5em 0 0.5em;
-  font-size: 1em;
-}
-
-.question__item-link {
-  color: #142532;
-  font-weight: 500;
-  font-size: bold;
-  text-decoration: none;
-  position: relative;
-}
-
-.question__item-link:hover {
-  color: rgba(241, 78, 131, .9);
-}
-
-.question__item-link:active {
-  top: 2px;
-}
-
-.question-link {
-  color: #005999;
-}
-
-.started-link {
-  font-size: 14px;
-  color: #9199a1;
-}
-
-.question__user--link {
-  font-size: 16px;
-  color: rgba(241, 78, 131, .9);
-  font-weight: bold;
-}
-
-.post-tag {
-  background: rgba(41, 77, 107, .12);
-  color: #2e3e48;
-  border-radius: 5px;
-  padding: 0.3em 0.5em;
-  font-weight: normal;
-  letter-spacing: 0.07em;
-}
-
-.meetup__status__heading {
-  font-size: 1em;
-  font-weight: bold;
-  margin: 0;
-  margin-bottom: 0.8rem;
-}
-
-.meetup_status {
-  color: #0f1721;
-  margin: 10px;
-  font-weight: bold;
-  padding: 10px;
-}
-
-.meetup_status:hover {
-  color: #fb406f;
-}
-
-.meetup__status_container {
-  margin-left: auto;
-}
-
-.meetup__info,
-.location {
-  font-weight: bold;
-}
 
 /*=========================================================================
-  Question feed section styles
+  Question feed section styles (Home page)
   ========================================================================*/
 .question-feeds__content {
   display: flex;
@@ -1224,6 +1095,138 @@ body {
   margin: 10px auto;
 }
 
+/* ---------Table styles ----*/
+/* 
+Generic Styling, for Desktops/Laptops 
+*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr {
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+tr:hover {
+  background: #f4f4f4;
+}
+
+/* Zebra striping */
+tr:nth-of-type(even) {
+  background: #eee;
+}
+
+td,
+th {
+  padding: 10px;
+  border: 1px solid #0f1721;
+  text-align: left;
+}
+
+th {
+  background: #0f1721e8;
+  color: white;
+  font-weight: bold;
+  padding: .8em;
+}
+
+/* table content styles */
+.all-meetup-record-table,
+.scheduled-upcoming-meetup-table {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, .125);
+  border-radius: .25rem;
+}
+
+.card-header,
+.card-footer {
+  padding: .75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, .03);
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+  font-weight: bold;
+}
+
+.card-header {
+  margin: 0;
+}
+
+.card-footer {
+  color: #6c757d;
+  border-top: 1px solid rgba(0, 0, 0, .125);
+  border-bottom: 0;
+  font-size: 70%;
+  font-weight: bold;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3em;
+}
+
+.pagination-info {
+  font-weight: bold;
+  margin: 0;
+  color: #0f1721;
+}
+
+.pagination-link {
+  padding: 8px 16px;
+  margin-right: -4px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #0f1721;
+  transition: 0.3s;
+  border: 0.6px solid #0f1721;
+}
+
+.pagination-link:hover,
+.active {
+  background: #0f1721;
+  color: white;
+  border: 0.6px solid #0f1721;
+}
+
+.table-action-link {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+}
+
+.edit-btn {
+  text-align: center;
+  padding: 0;
+  min-width: 50px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+  background: rgb(248, 181, 0);
+}
+
+.delete-btn {
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+  background-color: #dc3545;
+}
+
+.edit-btn .table-action-link:hover {
+  color: rgb(248, 181, 0);
+}
+
+.delete-btn .table-action-link:hover {
+  color: #dc3545;
+}
 /*  Modal styles
    -------------------------------------------------------------------
   */
@@ -1413,35 +1416,7 @@ body {
     margin-bottom: 0.5em;
   }
 
-  /* user dashboard */
-
-  .question-summary {
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .question__vote__count {
-    order: 2;
-  }
-
-  .question__info__summary {
-    order: 1;
-    margin-bottom: 1.5em;
-  }
-
-  .meetup__status_container {
-    display: block;
-  }
-
-  .meetup-tags {
-    margin-bottom: 1em;
-  }
-
-  .featured__content {
-    flex-direction: column;
-    align-content: center;
-  }
-
+  /* Home page questions */
   .ask,
   .featured__questions {
     align-self: flex-start;
