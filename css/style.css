@@ -1156,6 +1156,7 @@ th {
 
 .card-header {
   margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
 }
 
 .card-footer {
@@ -1227,6 +1228,7 @@ th {
 .delete-btn .table-action-link:hover {
   color: #dc3545;
 }
+
 /*  Modal styles
    -------------------------------------------------------------------
   */
@@ -1578,6 +1580,101 @@ th {
     margin-bottom: .6em;
   }
 
+}
+
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px) {
+
+  /* Force table to not be like tables anymore and stack each row*/
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+  tr {
+    border: 1px solid #0f1721;
+    border-bottom: 0;
+    margin-bottom: 40px;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr:last-child {
+    border-bottom: 1px solid #0f1721;
+  }
+
+  td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    color: #dc3545;
+  }
+
+  /*
+	Label the data
+	*/
+  td:nth-of-type(1):before {
+    content: "Meetup Topic";
+  }
+
+  td:nth-of-type(2):before {
+    content: "Location";
+  }
+
+  td:nth-of-type(3):before {
+    content: "Date";
+  }
+
+  td:nth-of-type(4):before {
+    content: "Tags";
+  }
+
+  .question-td:before {
+    content: "Question";
+  }
+
+  .edit-btn,
+  .delete-btn {
+    text-align: center;
+    padding: 8px 0;
+  }
+
+  /* table style */
+  .pagination-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pagination-info {
+    margin-bottom: 2em;
+  }
 }
 
 /* feedback section */
