@@ -74,12 +74,15 @@ const createMeetup = (e) => {
   // get all user input values
   const meetupLocation = document.getElementById('meetup-location').value;
   const meetupTags = document.getElementById('meetup-tags').value;
-  const meetupImages = ['http://lorempixel.com/640/480/nature'];
+  const meetupImages = document.getElementById('meetup-images').value;
   const meetupTopic = document.getElementById('meetup-topic').value;
   const meetupDate = document.getElementById('meetup-date').value;
 
   // convert user input (string) to Array
   const meetupTagsArray = meetupTags.split(',');
+
+  // convert user input (string) to Array
+  const meetupImagesArray = meetupImages.split(',');
 
   const feedbackContainer = document.querySelector('.feedback-message');
 
@@ -90,7 +93,7 @@ const createMeetup = (e) => {
   const formData = {
     location: meetupLocation,
     tags: meetupTagsArray,
-    images: meetupImages,
+    images: meetupImagesArray,
     topic: meetupTopic,
     happeningOn: meetupDate,
   };

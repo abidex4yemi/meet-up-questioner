@@ -46,7 +46,7 @@ createMeetupButton.addEventListener('click', () => {
 
 // log a user out and redirect back to home page
 const logout = () => {
-  localStorage.setItem('user', null);
+  this.localStorage.setItem('user', '');
 };
 
 const logoutBtn = document.querySelector('.logout');
