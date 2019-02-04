@@ -17,13 +17,12 @@
     <header class="header">
       <div class="dashboard__container">
         <div class="header__content">
-          <a href="index.html" class="header__logo header__logo__dashboard--back">
-            &LeftArrow; Back-To-Home</a>
+          <a href="index.html" class="header__logo header__logo__dashboard--back">&twoheadleftarrow;Back</a>
           <!--/.header__logo-->
           <nav class="nav">
             <ul class="nav__item">
               <li class="nav__list"><i class="fas fa-user"></i> <span class="dashboard-username">Abidex4yemi</span></li>
-              <li class="nav__list"><a href="index.html" class="nav__link btn btn__primary--color">Logout</a></li>
+              <li class="nav__list"><a href="index.html" class="nav__link btn btn__primary--color logout">Logout</a></li>
             </ul>
           </nav>
           <!--/.nav-->
@@ -72,38 +71,7 @@
                     </thead>
 
                     <tbody class="table-body">
-                      <tr>
-                        <td>Why learn Go in 2019?</td>
-                        <td>Abuja</td>
-                        <td>Tuesday, January 1st 2019, 2:30:00 pm</td>
-                        <td>web, programing</td>
-                        <td class="edit-btn"><a href="#" class="table-action-link">Edit</a></td>
-                        <td class="delete-btn"><a href="#" class="table-action-link">Delete</a></td>
-                      </tr>
-                      <tr>
-                        <td>Why learn JAVA in 2019?</td>
-                        <td>Lagos</td>
-                        <td>Tuesday, January 1st 2019, 2:30:00 pm</td>
-                        <td>Native-app, programing</td>
-                        <td class="edit-btn"><a href="#" class="table-action-link">Edit</a></td>
-                        <td class="delete-btn"><a href="#" class="table-action-link">Delete</a></td>
-                      </tr>
-                      <tr>
-                        <td>Why learn Restful API</td>
-                        <td>Lagos</td>
-                        <td>Tuesday, January 1st 2019, 2:30:00 pm</td>
-                        <td>web, programing</td>
-                        <td class="edit-btn"><a href="#" class="table-action-link">Edit</a></td>
-                        <td class="delete-btn"><a href="#" class="table-action-link">Delete</a></td>
-                      </tr>
-                      <tr>
-                        <td>Why learn Node in 2019?</td>
-                        <td>Kano</td>
-                        <td>Tuesday, January 1st 2019, 2:30:00 pm</td>
-                        <td>Framework, programing</td>
-                        <td class="edit-btn"><a href="#" class="table-action-link">Edit</a></td>
-                        <td class="delete-btn"><a href="#" class="table-action-link">Delete</a></td>
-                      </tr>
+
                     </tbody>
 
                   </table>
@@ -131,6 +99,17 @@
             </div>
           </div>
           <!--/.dashboard-content__main__content-->
+
+          <div class="overlay">
+            <div class="spinner-icon-container">
+              <svg version="1.2" class="spinner-icon" height="80" width="125" xmlns="http://www.w3.org/2000/svg"
+                viewport="0 0 125 80" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path fill="none" stroke="#ffffff" stroke-miterlimit="20" d="M52,21 L81,40 L52,60 Z"></path>
+              </svg>
+            </div>
+          </div>
+          <!--/.overlay-->
+
         </div>
         <!--/.dashboard__content-->
       </div>
@@ -213,23 +192,32 @@
             up</button>
         </form>
       </div>
-
-      <div class="overlay">
-        <div class="spinner-icon-container">
-          <svg version="1.2" class="spinner-icon" height="80" width="125" xmlns="http://www.w3.org/2000/svg" viewport="0 0 125 80"
-            xmlns:xlink="http://www.w3.org/1999/xlink">
-            <path fill="none" stroke="#ffffff" stroke-miterlimit="20" d="M52,21 L81,40 L52,60 Z"></path>
-          </svg>
-        </div>
-      </div>
-      <!--/.overlay-->
     </div>
   </div>
   <!--/.modal-->
 
+  <!--==========create-meetup-modal Modal window body======================-->
+  <div class="modal delete-meetup-modal" id="delete-meetup-modal">
+    <div class="delete-meetup-content-container">
+      <div class="modal-content delete-modal-content">
+        <ul class="feedback-message-delete">
+
+        </ul>
+        <div class="modal-header">
+          <h4 class="modal-title">Are you sure you want to delete meetup?</h4>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-footer">
+          <a href="" class="confirm-cancel-btn confirm-btn">Cancel</a>
+          <a class="confirm-delete-btn confirm-btn" href="#">Yes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
   <script src="js/admin-dashboard.js"></script>
-  <script src="js/dashboard.js"></script>
-  <script src="js/create-meetup.js"></script>
+  <script src="js/admin.js"></script>
 </body>
 
 </html>

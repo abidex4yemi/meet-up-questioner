@@ -98,11 +98,11 @@ const signUp = (e) => {
         if (body.data[0].user.access) {
           setTimeout(() => {
             window.location.href = 'admin-dashboard.html';
-          }, 2000);
+          }, 1000);
         } else {
           setTimeout(() => {
             window.location.href = 'user-dashboard.html';
-          }, 2000);
+          }, 1000);
         }
       } else {
         feedbackContainer.innerHTML = displayFeedback(body);

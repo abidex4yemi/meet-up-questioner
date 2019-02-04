@@ -1123,6 +1123,7 @@ th {
   padding: 10px;
   border: 1px solid #0f1721;
   text-align: left;
+  text-transform: capitalize;
 }
 
 th {
@@ -1273,6 +1274,86 @@ th {
 
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Delete meetup modal */
+.delete-meetup-content-container {
+  display: flex;
+  justify-content: center;
+}
+
+.delete-modal-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-radius: .3rem;
+  outline: 0;
+  color: #0f1721;
+  font-weight: bold;
+  padding: 1em 0;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2em;
+  border-bottom: 1px solid #e9ecef;
+
+}
+
+.modal-title {
+  margin: 0;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em 0.5em 0 1em;
+}
+
+.confirm-delete-btn {
+  margin-left: 0.5em;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  width: 70px;
+}
+
+.confirm-delete-btn:hover {
+  background-color: #f0031bf6;
+  border-color: #f0031bf6;
+}
+
+.confirm-cancel-btn {
+  background: #6c757d;
+}
+
+.confirm-cancel-btn:hover {
+  background: #5c6063;
+  border-color: #5c6063;
+}
+
+.confirm-btn {
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out,
 }
 
 /* Upcoming meetup details */
@@ -1472,6 +1553,15 @@ th {
   .meetup-img-1 {
     max-width: 20em;
   }
+
+  /* table modal */
+  .delete-modal-content {
+    width: 100%;
+  }
+
+  .modal-header {
+    padding: 6px;
+  }
 }
 
 
@@ -1613,16 +1703,16 @@ and also iPads specifically.
     left: -9999px;
   }
 
-  tr:last-child {
-    border-bottom: 1px solid #0f1721;
-  }
-
   td {
     /* Behave  like a "row" */
     border: none;
     border-bottom: 1px solid #ccc;
     position: relative;
     padding-left: 50%;
+  }
+
+  td:last-child {
+    border-bottom: 1px solid #0f1721;
   }
 
   td:before {
@@ -1656,10 +1746,6 @@ and also iPads specifically.
     content: "Tags";
   }
 
-  .question-td:before {
-    content: "Question";
-  }
-
   .edit-btn,
   .delete-btn {
     text-align: center;
@@ -1675,10 +1761,16 @@ and also iPads specifically.
   .pagination-info {
     margin-bottom: 2em;
   }
+
+  /* table modal */
+  .delete-modal-content {
+    width: 60%;
+  }
 }
 
 /* feedback section */
-.feedback-message {
+.feedback-message,
+.feedback-message-delete {
   font-weight: bold;
   font-size: 0.8em;
   margin: 20px auto;

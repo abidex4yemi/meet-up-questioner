@@ -57,7 +57,7 @@ const checkExpiredToken = (responseBody) => {
     // Redirect user to home page
     setTimeout(() => {
       window.location.href = 'sign-in.html';
-    }, 2000);
+    }, 1000);
   }
 };
 
@@ -142,7 +142,7 @@ const postQuestion = (e) => {
         // Redirect user to home page
         setTimeout(() => {
           window.location.href = 'index.html';
-        }, 2000);
+        }, 1000);
       } else {
         feedbackContainer.innerHTML = displayFeedback(body);
         feedbackContainer.classList.add('feedback-message-error');
