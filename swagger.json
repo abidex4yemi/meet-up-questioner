@@ -713,9 +713,6 @@
         "phonenumber": {
           "type": "string"
         },
-        "othernames": {
-          "type": "string"
-        },
         "email": {
           "type": "string"
         },
@@ -752,7 +749,7 @@
           "type": "integer",
           "format": "int64"
         },
-        "errors": {
+        "error": {
           "type": "string"
         }
       }
@@ -805,7 +802,7 @@
           "type": "integer",
           "format": "int64"
         },
-        "errors": {
+        "error": {
           "type": "string"
         },
         "message": {
@@ -832,21 +829,8 @@
     "SignupSuccessData": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "firstname": {
+        "token": {
           "type": "string"
-        },
-        "lastname": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "phonenumber": {
-          "type": "integer"
         },
         "username": {
           "type": "string"
@@ -856,21 +840,8 @@
     "LoginSuccessData": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "firstname": {
+        "token": {
           "type": "string"
-        },
-        "lastname": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "phonenumber": {
-          "type": "integer"
         },
         "username": {
           "type": "string"

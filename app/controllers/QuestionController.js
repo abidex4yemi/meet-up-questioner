@@ -55,7 +55,7 @@ class QuestionController {
    */
   static async getAllQuestion(req, res) {
     try {
-      const queryString = 'SELECT * FROM questions ORDER BY createdon DESC';
+      const queryString = 'SELECT meetups.id AS meetupid, meetups.topic as meetuptopic, questions.id as questionid, questions.title, questions.body, questions.createdOn, questions.votes FROM questions LEFT JOIN meetups ON meetups.id = questions.meetup ORDER BY questions.votes DESC';
 
       const {
         rows,

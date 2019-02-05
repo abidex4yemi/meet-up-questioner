@@ -1,4 +1,3 @@
-
 /**
  * Fetch all meetup record
  */
@@ -52,6 +51,16 @@ const resetFields = () => {
   });
 };
 
+// check if token has expired
+const checkExpiredToken = (responseBody) => {
+  if (responseBody.error.expiredAt) {
+    // Redirect user to home page
+    setTimeout(() => {
+      window.location.href = 'sign-in.html';
+    }, 1000);
+  }
+};
+
 /**
  * Display user feedback
  *
@@ -63,7 +72,11 @@ const displayFeedback = (responseData) => {
   let listItem = '';
 
   if (responseData.status === 400 && typeof responseData.error !== 'string') {
-    listItem += '<li class=\'feedback-list-item\'>Please fill the required field below.</li>';
+    if (responseData.error.expiredAt) {
+      listItem += '<li class=\'feedback-list-item\'>Session expired, Please Login.</li>';
+    } else {
+      listItem += '<li class=\'feedback-list-item\'>Please fill the required field below.</li>';
+    }
   } else if (responseData.status === 200 || responseData.status === 201) {
     listItem += `<li class='feedback-list-item'>${responseData.message}</li>`;
   } else {
@@ -129,11 +142,14 @@ const postQuestion = (e) => {
         // Redirect user to home page
         setTimeout(() => {
           window.location.href = 'index.html';
-        }, 2000);
+        }, 1000);
       } else {
         feedbackContainer.innerHTML = displayFeedback(body);
         feedbackContainer.classList.add('feedback-message-error');
         window.scrollTo(0, 0);
+
+        // redirect to login if token has expired
+        checkExpiredToken(body);
 
         // cycle over each element in the error array
         // cycle over each form field next sibling

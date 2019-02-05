@@ -832,7 +832,7 @@ describe('POST  /api/v1/meetups/:meetup_id/rsvps (valid)', () => {
   it('Should create new meet up rsvp record', (done) => {
     chai
       .request(app)
-      .post('/api/v1/meetups/1/rsvps')
+      .post('/api/v1/meetups/2/rsvps')
       .set('token', defaultTokenUser)
       .send({ response: 'yes' })
       .end((err, res) => {

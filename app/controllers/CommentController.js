@@ -30,7 +30,7 @@ class CommentController {
       } = await db.query(queryString, values);
 
       // fetch record from database
-      const fetchQuery = 'SELECT questions.id, questions.title, questions.body, comments.commentbody FROM questions LEFT JOIN comments ON comments.questionid = questions.id WHERE questions.id = $1 AND comments.id = $2';
+      const fetchQuery = 'SELECT questions.id AS question, questions.title, questions.body, comments.commentbody AS comment FROM questions LEFT JOIN comments ON comments.questionid = questions.id WHERE questions.id = $1 AND comments.id = $2';
 
       const allRows = await db.query(fetchQuery, [req.value.body.questionId, rows[0].id]);
 
@@ -55,7 +55,7 @@ class CommentController {
    */
   static async getAllComment(req, res) {
     try {
-      const queryString = 'SELECT comments.questionid, comments.userid, comments.commentbody, questions.title, questions.body AS questionbody, questions.createdOn, questions.votes FROM questions LEFT JOIN comments ON comments.questionid = questions.id WHERE questions.id = comments.questionid ORDER BY comments.id DESC';
+      const queryString = 'SELECT comments.questionid, comments.userid, comments.commentbody AS comment, questions.title, questions.body AS body, questions.createdOn, questions.votes FROM questions LEFT JOIN comments ON comments.questionid = questions.id WHERE questions.id = comments.questionid ORDER BY comments.id DESC';
 
       const {
         rows,

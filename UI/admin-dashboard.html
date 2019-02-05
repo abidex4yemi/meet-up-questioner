@@ -17,13 +17,12 @@
     <header class="header">
       <div class="dashboard__container">
         <div class="header__content">
-          <a href="index.html" class="header__logo header__logo__dashboard--back">
-            &LeftArrow; Back-To-Home</a>
+          <a href="index.html" class="header__logo header__logo__dashboard--back">&twoheadleftarrow;Back</a>
           <!--/.header__logo-->
           <nav class="nav">
             <ul class="nav__item">
               <li class="nav__list"><i class="fas fa-user"></i> <span class="dashboard-username">Abidex4yemi</span></li>
-              <li class="nav__list"><a href="index.html" class="nav__link btn btn__primary--color">Logout</a></li>
+              <li class="nav__list"><a href="index.html" class="nav__link btn btn__primary--color logout">Logout</a></li>
             </ul>
           </nav>
           <!--/.nav-->
@@ -48,65 +47,69 @@
             </ul>
 
             <div class="meetup-action-container">
-              <button type="button" class="btn btn__success--color btn-block" id="create-meetup">Create Meet
-                UP</button>
-
-              <button type="button" class="btn btn__danger--color btn-block" id="delete-meetup">Delete Meet
-                UP</button>
+              <button type="button" class="btn btn__success--color btn-block" id="create-meetup">Create Meetup</button>
             </div>
           </div>
           <!--/.dashboard-content__sidebar-->
 
           <div class="dashboard-content__main__content">
-            <div class="dashboard__content">
-              <div class="question-list__content">
-                <div class="question-summary">
-                  <div class="question__vote__count">
-                    <div class="votes">
-                      <div class="mini-counts"><span title="0 votes">0</span></div>
-                      <div class="vote__text">votes</div>
-                    </div>
+            <div class="all-meetup-record-table">
+              <h3 class="card-header">All Created Meetup Record</h3>
+              <!--/.card-header-->
 
-                    <div class="status">
-                      <div class="mini-counts"><span title="0 answers">0</span></div>
-                      <div class="vote__text">answers</div>
-                    </div>
+              <div class="card-body">
+                <div class="table-container">
+                  <table class="table">
+                    <thead class="table-head">
+                      <tr>
+                        <th>Meetup Topic</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Tags</th>
+                        <th colspan="2">Action</th>
+                      </tr>
+                    </thead>
 
-                    <div class="views">
-                      <div class="mini-counts"><span title="1 view">1</span></div>
-                      <div class="vote__text">view</div>
-                    </div>
-                  </div>
-                  <!--/.question__vote__count-->
+                    <tbody class="table-body">
 
-                  <div class="question__info__summary">
-                    <h3 class="question__title">
-                      <a href="" class="question__item-link question-link">How to in macOS</a>
-                    </h3>
+                    </tbody>
 
-                    <div class="meetup-tags">
-                      <a href="" class="question__item-link post-tag" title="show questions tagged 'macos'" rel="tag">macos</a>
-                      <a href="" class="question__item-link post-tag" title="show questions tagged 'protocol-buffers'"
-                        rel="tag">protocol-buffers</a>
-                    </div>
-
-                    <div class="started">
-                      <a href="" class="question__item-link started-link">asked <span title="2018-12-16 09:28:25Z"
-                          class="relative__time">1
-                          min ago</span></a>
-                      <a href="" class="question__item-link question__user--link"> James Janet </a><span class="reputation-score"
-                        title="reputation score">
-                        531 </span>
-                    </div>
-
-                  </div>
-                  <!--/.question__info__summary-->
+                  </table>
                 </div>
-                <!--/.question-summary-->
+                <!--/.table-container-->
+
+                <div class="pagination-container">
+                  <div class="pagination-info">
+                    Showing 1 to 10 of 16 entries
+                  </div>
+                  <div class="pagination">
+                    <a href="#" class="pagination-link">&laquo;</a>
+                    <a href="#" class="pagination-link active">1</a>
+                    <a href="#" class="pagination-link">2</a>
+                    <a href="#" class="pagination-link">3</a>
+                    <a href="#" class="pagination-link">4</a>
+                    <a href="#" class="pagination-link">&raquo;</a>
+                  </div>
+                </div>
+              </div>
+              <!--/.card-body-->
+              <div class="card-footer">
+                Updated Today at 11:59 PM
               </div>
             </div>
           </div>
           <!--/.dashboard-content__main__content-->
+
+          <div class="overlay">
+            <div class="spinner-icon-container">
+              <svg version="1.2" class="spinner-icon" height="80" width="125" xmlns="http://www.w3.org/2000/svg"
+                viewport="0 0 125 80" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <path fill="none" stroke="#ffffff" stroke-miterlimit="20" d="M52,21 L81,40 L52,60 Z"></path>
+              </svg>
+            </div>
+          </div>
+          <!--/.overlay-->
+
         </div>
         <!--/.dashboard__content-->
       </div>
@@ -178,8 +181,8 @@
           <!--/.form__input__container-->
 
           <div class="form__input__group">
-            <label for="meetup-image" class="form__label">Upload Image </label>
-            <input type="file" class="form__input images" id="meetup-images" multiple>
+            <label for="meetup-image" class="form__label">Upload image </label>
+            <input type="file" class="form__input images" id="meetup-images">
             <small class="error"></small>
           </div>
           <!--/.form__input__container-->
@@ -189,50 +192,32 @@
             up</button>
         </form>
       </div>
+    </div>
+  </div>
+  <!--/.modal-->
 
-      <div class="overlay">
-        <div class="spinner-icon-container">
-          <svg version="1.2" class="spinner-icon" height="80" width="125" xmlns="http://www.w3.org/2000/svg" viewport="0 0 125 80"
-            xmlns:xlink="http://www.w3.org/1999/xlink">
-            <path fill="none" stroke="#ffffff" stroke-miterlimit="20" d="M52,21 L81,40 L52,60 Z"></path>
-          </svg>
+  <!--==========create-meetup-modal Modal window body======================-->
+  <div class="modal delete-meetup-modal" id="delete-meetup-modal">
+    <div class="delete-meetup-content-container">
+      <div class="modal-content delete-modal-content">
+        <ul class="feedback-message-delete">
+
+        </ul>
+        <div class="modal-header">
+          <h4 class="modal-title">Are you sure you want to delete meetup?</h4>
+          <span class="close close-align-end">&times;</span>
+        </div>
+        <div class="modal-footer">
+          <a href="" class="confirm-cancel-btn confirm-btn">Cancel</a>
+          <a class="confirm-delete-btn confirm-btn" href="#">Yes</a>
         </div>
       </div>
-      <!--/.overlay-->
     </div>
   </div>
-  <!--/.modal-->
 
-
-  <!--==========delete-meetup-modal Modal window body======================-->
-  <!-- Modal -->
-  <div id="delete-meetup-modal" class="modal">
-    <!-- Modal content -->
-    <div class="">
-      <div class="form__container modal-content" id="delete-meetup-form">
-        <form action="" class="form form-s-w">
-          <span class="close">&times;</span></span>
-          <div class="form__input__group">
-            <label for="meetup-topic-delete" class="form__label">Select Meet Up Topic <span class="required">*</span></label>
-            <select name="" id="" class="form__input form__input-select" id="meetup-topic-delete" required>
-              <option value="">Choose Topic</option>
-              <option value="1">Using GitFlow</option>
-              <option value="2">Web development</option>
-            </select>
-          </div>
-          <!--/.form__input__container-->
-
-          <button type="submit" class="btn btn__primary--color btn__primary--color--submit" id="delete-btn">Delete Meet
-            Up</button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!--/.modal-->
-
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
   <script src="js/admin-dashboard.js"></script>
-  <script src="js/dashboard.js"></script>
-  <script src="js/create-meetup.js"></script>
+  <script src="js/admin.js"></script>
 </body>
 
 </html>
