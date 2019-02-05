@@ -11,14 +11,14 @@ const router = express.Router();
 
 // POST meet up route /meetups
 router.post('/meetups',
-  validate.validateBody(schema.createMeetup),
   Auth.verifyToken,
+  validate.validateBody(schema.createMeetup),
   MeetupController.create);
 
 // POST meet up RSVPS route /meetups/meetupId/rsvps
 router.post('/meetups/:meetupId/rsvps',
-  validate.validateBody(schema.rsvps),
   Auth.verifyToken,
+  validate.validateBody(schema.rsvps),
   MeetupController.meetupResponse);
 
 // POST meetup images route /meetups/meetupId/images

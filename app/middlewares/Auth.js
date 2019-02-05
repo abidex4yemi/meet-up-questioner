@@ -7,8 +7,6 @@ class Auth {
    *
    * @param {*} id
    * @param {*} isAdmin
-   * @param {*} firstname
-   * @param {*} email
    */
   static generateToken(id, isAdmin) {
     const token = jwt.sign({
@@ -51,7 +49,6 @@ class Auth {
       const {
         rows,
       } = await db.query(queryString, [decoded.id]);
-      // console.log(rows);
 
       // check for valid app users
       if (!rows[0]) {

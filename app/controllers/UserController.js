@@ -1,5 +1,5 @@
 import moment from 'moment';
-import jwt from '../middlewares/Auth';
+import Auth from '../middlewares/Auth';
 import db from '../db';
 import Helper from '../helper/Helper';
 
@@ -32,7 +32,7 @@ class UserController {
       // insert record into database
       const { rows } = await db.query(queryString, values);
 
-      const token = jwt.generateToken(
+      const token = Auth.generateToken(
         rows[0].id,
         rows[0].isadmin,
       );
@@ -101,7 +101,7 @@ class UserController {
       }
 
       // generate token
-      const token = jwt.generateToken(
+      const token = Auth.generateToken(
         rows[0].id,
         rows[0].isadmin,
       );

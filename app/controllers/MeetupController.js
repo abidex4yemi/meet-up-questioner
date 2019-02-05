@@ -90,10 +90,16 @@ class MeetupController {
         rows,
       } = await db.query(queryString, values);
 
+
+      // fetch record from database
+      const fetchQuery = 'SELECT meetups.id AS meetup, meetups.topic, rsvps.response AS status FROM meetups LEFT JOIN rsvps ON meetups.id = rsvps.meetupid WHERE rsvps.userid = $1';
+
+      const allRows = await db.query(fetchQuery, [rows[0].userid]);
+
       return res.status(201).json({
         message: 'Meetup RSVP record created',
         status: 201,
-        data: rows,
+        data: allRows.rows,
       });
     } catch (errors) {
       return res.status(404).json({
