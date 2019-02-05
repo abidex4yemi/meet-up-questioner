@@ -38,6 +38,10 @@ const checkExpiredToken = (responseBody) => {
   }
 };
 
+
+// const meetupImageElement = document.getElementById('meetup-images');
+// meetupImageElement.addEventListener('change', handleImageUpload);
+
 /**
  * Display user feedback
  *
@@ -67,33 +71,52 @@ const displayFeedback = (responseData) => {
  * Create new user account
  * @param {*} e
  */
-const createMeetup = (e) => {
+const createMeetup = async (e) => {
   e.preventDefault();
   resetFields();
   showOverlay();
+
   // get all user input values
   const meetupLocation = document.getElementById('meetup-location').value;
   const meetupTags = document.getElementById('meetup-tags').value;
-  const meetupImages = document.getElementById('meetup-images').value;
   const meetupTopic = document.getElementById('meetup-topic').value;
   const meetupDate = document.getElementById('meetup-date').value;
-
-  // convert user input (string) to Array
-  const meetupTagsArray = meetupTags.split(',');
-
-  // convert user input (string) to Array
-  const meetupImagesArray = meetupImages.split(',');
-
+  const file = document.getElementById('meetup-images').files[0];
   const feedbackContainer = document.querySelector('.feedback-message');
 
+  // upload image to cloudinary server
+  const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/din5avzpb/image/upload';
+  const cloudinaryUploadPreset = 'yhi2c0zc';
+
+  // instantiate fordData object
+  const imageFile = new FormData();
+  imageFile.append('file', file);
+  imageFile.append('upload_preset', cloudinaryUploadPreset);
+
+  // make a post request to the server
+  const result = await fetch(cloudinaryUrl, {
+    method: 'POST',
+    body: imageFile,
+  })
+    .then(res => res.json())
+    .then(data => data.secure_url)
+    .catch(err => err);
+
+  // convert user input (string) to Array
+  const meetupTagsArray = meetupTags.split();
+  let imageArray = [];
+  if (result) {
+    imageArray = result.split();
+  }
+
   // sign up API-endpoint url
-  const url = 'https://meet-up-questioner.herokuapp.com/api/v1/meetups';
+  const url = 'https://meet-up-questioner.herokuapp.com/api/v1/meetups/';
 
   // User input data object
   const formData = {
     location: meetupLocation,
     tags: meetupTagsArray,
-    images: meetupImagesArray,
+    images: imageArray,
     topic: meetupTopic,
     happeningOn: meetupDate,
   };
