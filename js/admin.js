@@ -266,6 +266,7 @@ tableContainer.addEventListener('click', (e) => {
  */
 const deleteMeetup = (e) => {
   e.preventDefault();
+  showOverlay();
   // check if button click is a delete button
   if (e.target.className === 'confirm-delete-btn confirm-btn') {
     // delete meetup endpoint url
