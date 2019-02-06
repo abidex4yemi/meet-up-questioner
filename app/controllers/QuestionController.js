@@ -85,6 +85,32 @@ class QuestionController {
   }
 
   /**
+   * Get total number of posted questions by user id
+   *
+   * @param {*} req
+   * @param {*} res
+   */
+  static async getQuestionByUserId(req, res) {
+    try {
+      const queryString = 'SELECT COUNT(*) FROM questions WHERE questions.createdby = $1';
+
+      const {
+        rows,
+      } = await db.query(queryString, [req.user.id]);
+
+      return res.status(200).json({
+        status: 200,
+        data: rows,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Something went wrong, try again',
+      });
+    }
+  }
+
+  /**
    *
    * Upvote a specific question record
    *

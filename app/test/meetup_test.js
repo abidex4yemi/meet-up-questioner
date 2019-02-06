@@ -75,6 +75,8 @@ describe('POST api/v1/auth/signup', () => {
         const {
           body,
         } = res;
+
+        defaultTokenUser = body.data[0].token;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(201);
@@ -181,9 +183,6 @@ describe('POST api/v1/auth/login', () => {
         const {
           body,
         } = res;
-
-        defaultTokenUser = body.data[0].token;
-
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(200);
@@ -643,6 +642,24 @@ describe('GET /api/v1/questions', () => {
   });
 });
 
+describe('GET /api/v1/questions/user', () => {
+  it('Should return total number of question posted by a user', (done) => {
+    chai.request(app)
+      .get('/api/v1/questions/user')
+      .set('token', adminToken)
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(200);
+        expect(body).to.haveOwnProperty('data');
+        done();
+      });
+  });
+});
+
 describe('POST /api/v1/comments', () => {
   it('Should return an error if question record not found', (done) => {
     chai.request(app)
@@ -700,6 +717,25 @@ describe('GET /api/v1/comments', () => {
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.message).to.be.equal('These are users comments');
+        expect(body.status).to.be.equal(200);
+        expect(body).to.haveOwnProperty('data');
+        done();
+      });
+  });
+});
+
+
+describe('GET /api/v1/comments/user', () => {
+  it('Should return total number of commented question by a user', (done) => {
+    chai.request(app)
+      .get('/api/v1/comments/user')
+      .set('token', adminToken)
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
         expect(body.status).to.be.equal(200);
         expect(body).to.haveOwnProperty('data');
         done();
@@ -832,9 +868,9 @@ describe('POST  /api/v1/meetups/:meetup_id/rsvps (valid)', () => {
   it('Should create new meet up rsvp record', (done) => {
     chai
       .request(app)
-      .post('/api/v1/meetups/2/rsvps')
+      .post('/api/v1/meetups/200/rsvps')
       .set('token', defaultTokenUser)
-      .send({ response: 'yes' })
+      .send({ response: 'No' })
       .end((err, res) => {
         const {
           body,
@@ -867,6 +903,69 @@ describe('POST  /api/v1/meetups/:meetup_id/rsvps (inValid)', () => {
         expect(body.status).to.be.equal(400);
         expect(body).to.haveOwnProperty('error');
         expect(body.error).to.be.an('array');
+        done();
+      });
+  });
+});
+
+
+// GET Test for valid request GET /api/v1/meetups/rsvps
+describe('GET /api/v1/meetups/rsvps (Invalid)', () => {
+  it('Should return error if user is not logged in', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/meetups/rsvps')
+      .set('token', '')
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(403);
+        expect(body).to.haveOwnProperty('error');
+        expect(body.error).to.be.equal('Unauthorized!, you have to login');
+        done();
+      });
+  });
+});
+
+// GET Test for valid request GET /api/v1/meetups/rsvps
+describe('GET  /api/v1/meetups/rsvps (valid)', () => {
+  it('Should return user scheduled upcoming meetups', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/meetups/rsvps')
+      .set('token', adminToken)
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(200);
+        expect(body).to.haveOwnProperty('data');
+        expect(body.data).to.be.an('array');
+        done();
+      });
+  });
+});
+
+// POST Test for valid request POST /api/v1/meetups/:meetups_id/rsvps
+describe('GET /api/v1/meetups/rsvps (no record found)', () => {
+  it('Should return Not found message no users scheduled upcoming record found', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/meetups/rsvps')
+      .set('token', defaultTokenUser)
+      .end((err, res) => {
+        const {
+          body,
+        } = res;
+        expect(body).to.be.an('object');
+        expect(body.status).to.be.a('number');
+        expect(body.status).to.be.equal(404);
+        expect(body).to.haveOwnProperty('error');
         done();
       });
   });
