@@ -38,10 +38,6 @@ const checkExpiredToken = (responseBody) => {
   }
 };
 
-
-// const meetupImageElement = document.getElementById('meetup-images');
-// meetupImageElement.addEventListener('change', handleImageUpload);
-
 /**
  * Display user feedback
  *
@@ -169,7 +165,11 @@ const createMeetup = async (e) => {
         });
       }
     })
-    .catch(err => err);
+    .catch((err) => {
+      if (err) {
+        window.location.href = 'admin-dashboard.html';
+      }
+    });
 };
 
 // Get sign up button

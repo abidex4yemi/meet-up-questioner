@@ -110,6 +110,44 @@ class MeetupController {
   }
 
   /**
+   * get all users scheduled upcoming meetup
+   *
+   * @param {*} req
+   * @param {*} res
+   */
+  static async getAllRsvps(req, res) {
+    try {
+      // Get a single meet up record
+      const queryString = 'SELECT meetups.topic, meetups.location, meetups.happeningon, meetups.tags FROM meetups LEFT JOIN rsvps ON meetups.id = rsvps.meetupid WHERE rsvps.userid = $1 AND rsvps.response = $2 AND meetups.happeningOn >= $3 ORDER BY happeningon DESC';
+
+      // get current date-time in iso format
+      const today = new Date(moment()).toISOString();
+
+      const {
+        rows,
+      } = await db.query(queryString, [req.user.id, 'yes', today]);
+
+      if (!rows[0]) {
+        return res.status(404).json({
+          status: 404,
+          error: 'No scheduled upcoming meetup found',
+        });
+      }
+
+      // On success
+      return res.status(200).json({
+        status: 200,
+        data: rows,
+      });
+    } catch (errors) {
+      return res.status(404).json({
+        status: 404,
+        error: 'Something went wrong, try again',
+      });
+    }
+  }
+
+  /**
    *
    * Get specific meet up record
    *
@@ -232,6 +270,12 @@ class MeetupController {
     }
   }
 
+  /**
+   * Delete a specific meetup record
+   *
+   * @param {*} req
+   * @param {*} res
+   */
   static async deleteMeetup(req, res) {
     // check for admin user
     if (!req.user.isAdmin) {
