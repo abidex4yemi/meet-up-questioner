@@ -57,12 +57,16 @@ export default {
   }),
   signUp: Joi.object().keys({
     // firname must be a valid string and is required
-    firstname: Joi.string().max(100)
+    firstname: Joi.string()
+      .regex(/^[a-zA-Z]+$/).error(() => 'Firstname is required and must be alphabet')
+      .max(100)
       .label('Firstname')
       .trim()
       .required(),
     // lastname must be a valid string and is required
-    lastname: Joi.string().max(100)
+    lastname: Joi.string()
+      .regex(/^[a-zA-Z]+$/).error(() => 'Lastname is required and must be alphabet')
+      .max(100)
       .label('Lastname')
       .trim()
       .required(),
@@ -94,12 +98,16 @@ export default {
       .trim()
       .required(),
     // phoneNumber must be a valid string and is required
-    phonenumber: Joi.string()
+    phonenumber: Joi.number()
+      .integer()
       .label('Phonenumber')
-      .trim()
       .optional(),
     // username must be a valid string and is required
-    username: Joi.string().trim().label('Username').optional(),
+    username: Joi.string()
+      .min(3)
+      .trim()
+      .label('Username')
+      .optional(),
   }),
   logIn: Joi.object().keys({
     // email must be a valid string and is required
@@ -118,7 +126,7 @@ export default {
   }),
   rsvps: Joi.object().keys({
     // password must be a valid string and is required
-    response: Joi.string()
+    response: Joi.string().regex(/^[a-zA-Z]+$/).error(() => 'Response is required and must be alphabet')
       .label('Response')
       .trim()
       .required(),
