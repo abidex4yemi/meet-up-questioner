@@ -83,88 +83,25 @@
 
     <section class="question-feeds">
       <div class="container">
-        <div class="question-feeds__content">
-          <div class="single__question">
-            <div class="single__question__info">
-              <div class="question__header">
-                <span class="media__img"><i class="fas fa-user-circle"></i></span>
-                <h3 class="single__question__topic">Why Andela is the best place to work in Africa?</h3>
-              </div>
-              <div class="question__body">
-                <p class="posted_by"><span>Asked</span> <span>January 07, 2019</span> By <span>John Doe</span></p>
-                <div id="msg_container-0" class="msg_container-0">
-                  <textarea class="msg_input" contenteditable="true" dir="auto" role="textbox" id="msg_input-0"
-                    placeholder="leave your comment..." cols="80" rows="2"></textarea>
-                  <a href="#" class="nav__link btn btn__primary--color btn__primary--color--outline comment-btn">Send</a>
-                </div>
-              </div>
-            </div>
+        <ul class="feedback-message">
 
-            <div class="single__question__vote" id="question-0">
-              <div class="votes__container">
-                <a href="#" class="vote-up tooltip"><i class="fas fa-angle-up"></i><span class="tooltiptext">Up Vote</span></a>
-                <span class="vote-count">10</span>
-                <a href="#" class="vote-down tooltip"><i class="fas fa-angle-down"></i><span class="tooltiptext">Down
-                    Vote</span></a>
-              </div>
-            </div>
-          </div>
-          <!--/.question-feeds__content-->
+        </ul>
 
-          <div class="single__question">
-            <div class="single__question__info">
-              <div class="question__header">
-                <span class="media__img"><i class="fas fa-user-circle"></i></span>
-                <h3 class="single__question__topic">Why Mindset Matters in everyday life?</h3>
-              </div>
-              <div class="question__body">
-                <p class="posted_by"><span>Asked</span> <span>January 06, 2019</span> By <span>Yemi Doe</span></p>
-                <div id="msg_container-1" class="msg_container-1">
-                  <textarea class="msg_input" contenteditable="true" dir="auto" role="textbox" id="msg_input-1"
-                    placeholder="leave your comment..." cols="80" rows="2"></textarea>
-                  <a href="#" class="nav__link btn btn__primary--color btn__primary--color--outline comment-btn">Send</a>
-                </div>
-              </div>
-            </div>
+        <div class="question-feeds__content question-feeds__container">
 
-            <div class="single__question__vote" id="question-1">
-              <div class="votes__container">
-                <a href="#" class="vote-up tooltip"><i class="fas fa-angle-up"></i><span class="tooltiptext">Up Vote</span></a>
-                <span class="vote-count">20</span>
-                <a href="#" class="vote-down tooltip"><i class="fas fa-angle-down"></i><span class="tooltiptext">Down
-                    Vote</span></a>
-              </div>
-            </div>
-          </div>
-          <!--/.question-feeds__content-->
-
-          <div class="single__question">
-            <div class="single__question__info">
-              <div class="question__header">
-                <span class="media__img"><i class="fas fa-user-circle"></i></span>
-                <h3 class="single__question__topic">Why Java is popular in Enterprise environment?</h3>
-              </div>
-              <div class="question__body">
-                <p class="posted_by"><span>Asked</span> <span>January 05, 2019</span> By <span>Steven Yale</span></p>
-                <div id="msg_container-2" class="msg_container-2">
-                  <textarea class="msg_input" contenteditable="true" dir="auto" role="textbox" id="msg_input-2"
-                    placeholder="leave your comment..." cols="80" rows="2"></textarea>
-                  <a href="#" class="nav__link btn btn__primary--color btn__primary--color--outline comment-btn">Send</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="single__question__vote" id="question-2">
-              <div class="votes__container">
-                <a href="#" class="vote-up tooltip"><i class="fas fa-angle-up"></i><span class="tooltiptext">Up Vote</span></a>
-                <span class="vote-count">-1</span>
-                <a href="#" class="vote-down tooltip"><i class="fas fa-angle-down"></i><span class="tooltiptext">Down
-                    Vote</span></a>
-              </div>
-            </div>
-          </div>
           <!--/.question-feeds__content-->
         </div>
+
+        <div class="overlay">
+          <div class="spinner-icon-container">
+            <svg version="1.2" class="spinner-icon" height="80" width="125" xmlns="http://www.w3.org/2000/svg" viewport="0 0 125 80"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+              <path fill="none" stroke="#ffffff" stroke-miterlimit="20" d="M52,21 L81,40 L52,60 Z"></path>
+            </svg>
+          </div>
+        </div>
+        <!--/.overlay-->
+
       </div>
       <!--/.container-->
     </section>
@@ -190,7 +127,9 @@
   </section>
   <!--/.footer-->
 
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
   <script src="js/script.js"></script>
+  <script src="js/get-questions.js"></script>
 </body>
 
 </html>

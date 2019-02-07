@@ -1,3 +1,9 @@
+const baseUrl = 'https://meet-up-questioner.herokuapp.com/api/v1';
+// feedback container
+const feedbackContainer = document.querySelector('.feedback-message');
+// get meetup container
+const meetupContainer = document.getElementById('meetup-details-container');
+
 /**
  * get meetup id from url parameter
  *
@@ -13,15 +19,22 @@ const getId = () => {
   return meetupId;
 };
 
-// get meetup details container
-const feedbackContainer = document.querySelector('.feedback-message');
-
 const showOverlay = () => {
   document.querySelector('.overlay').style.display = 'block';
 };
 
 const hideOverlay = () => {
   document.querySelector('.overlay').style.display = 'none';
+};
+
+// check if token has expired
+const checkExpiredToken = (responseBody) => {
+  if (responseBody.error.expiredAt) {
+    // Redirect user to home page
+    setTimeout(() => {
+      window.location.href = 'sign-in.html';
+    }, 1000);
+  }
 };
 
 /**
@@ -31,9 +44,15 @@ const hideOverlay = () => {
  * @returns void
  */
 const displayFeedback = (responseData) => {
-  feedbackContainer.innerHTML = `<li class='feedback-list-item'>${responseData.error}</li>`;
-  feedbackContainer.classList.add('feedback-message-error');
-  window.scrollTo(0, 0);
+  let listItem = '';
+
+  if (responseData.status === 200 || responseData.status === 201) {
+    listItem += `<li class='feedback-list-item'>${responseData.message}</li>`;
+  } else {
+    listItem += `<li class='feedback-list-item'>${responseData.error}</li>`;
+  }
+
+  return listItem;
 };
 
 /**
@@ -45,7 +64,7 @@ const getMeetupDetails = () => {
 
   showOverlay();
   // meetup endpoint url
-  const url = `https://meet-up-questioner.herokuapp.com/api/v1/meetups/${meetupId}`;
+  const url = `${baseUrl}/meetups/${meetupId}`;
 
   // make a GET request to meetups
   fetch(url, {
@@ -92,20 +111,14 @@ const getMeetupDetails = () => {
               <li class="meetup-action-list">
                 <button class="meetup-action-button maybe" data-meetup-id="${body.data[0].id}">MAYBE</button>
               </li>
-
-              <li class="meetup-action-list">
-                
-              </li>
             </ul>
           </div>`;
-
-        // get meetup container (select option)
-        const meetupContainer = document.getElementById('meetup-details-container');
 
         // Display all meetup record
         meetupContainer.innerHTML = output;
       } else {
-        displayFeedback(body);
+        feedbackContainer.innerHTML = displayFeedback(body);
+        feedbackContainer.classList.add('feedback-message-error');
       }
     })
     .catch(err => err);
@@ -113,3 +126,120 @@ const getMeetupDetails = () => {
 
 // fetch all meetup record
 getMeetupDetails();
+
+/**
+ *
+ *
+ * @param {*} e
+ * @param {*} meetupId
+ * @param {*} meetupData
+ */
+const userResponse = (e, meetupId, meetupData) => {
+  let userToken = '';
+
+  // check if user is logged in
+  if (localStorage.getItem('user')) {
+    const userData = JSON.parse(localStorage.getItem('user'));
+    const {
+      token,
+    } = userData;
+
+    userToken = token;
+  } else {
+    window.location.href = 'sign-in.html';
+  }
+
+  // meetup rsvps endpoint url
+  const url = `${baseUrl}/meetups/${meetupId}/rsvps`;
+
+  // make a POST request to meetups/:meetupId/rsvps endpoint
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      token: userToken,
+    },
+    body: JSON.stringify(meetupData),
+  })
+    .then(res => res.json())
+    .then((body) => {
+      // check for success status
+      if (body.status === 201) {
+        // get all response button
+        const allButtons = document.querySelectorAll('.meetup-action-button');
+
+        // cycle over all buttons and enable them
+        const allButtonsArray = Array.prototype.slice.call(allButtons);
+        allButtonsArray.forEach((element) => {
+          const currentButton = element;
+          currentButton.disabled = false;
+          currentButton.classList.remove('disabled');
+        });
+
+        // disable current button that is being click
+        e.target.disabled = true;
+
+        // add disable class to current button
+        e.target.classList.add('disabled');
+
+        // display success message
+        feedbackContainer.innerHTML = displayFeedback(body);
+        feedbackContainer.classList.remove('feedback-message-error');
+        feedbackContainer.classList.add('feedback-message-success');
+        window.scrollTo(0, 0);
+      } else {
+        feedbackContainer.innerHTML = displayFeedback(body);
+        feedbackContainer.classList.add('feedback-message-error');
+
+        // redirect to login if token has expired
+        checkExpiredToken(body);
+      }
+    })
+    .catch(err => err);
+};
+
+const meetupResponse = (e) => {
+  // check for yes button
+  if (e.target.classList.contains('yes')) {
+    // get meetup id
+    const meetupId = parseInt(e.target.getAttribute('data-meetup-id'), 10);
+
+    // user response
+    const meetupStatus = 'yes';
+
+    const data = {
+      response: meetupStatus,
+    };
+    userResponse(e, meetupId, data);
+  }
+
+  // check for no button
+  if (e.target.classList.contains('no')) {
+    // get meetup id
+    const meetupId = parseInt(e.target.getAttribute('data-meetup-id'), 10);
+
+    // user response
+    const meetupStatus = 'no';
+
+    const data = {
+      response: meetupStatus,
+    };
+    userResponse(e, meetupId, data);
+  }
+
+  // check for maybe button
+  if (e.target.classList.contains('maybe')) {
+    // get meetup id
+    const meetupId = parseInt(e.target.getAttribute('data-meetup-id'), 10);
+
+    // user response
+    const meetupStatus = 'maybe';
+
+    const data = {
+      response: meetupStatus,
+    };
+    userResponse(e, meetupId, data);
+  }
+};
+
+meetupContainer.addEventListener('click', meetupResponse);
