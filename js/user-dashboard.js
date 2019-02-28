@@ -7,10 +7,10 @@ if (localStorage.getItem('user')) {
     // set username
     userName.innerHTML = userData.username;
   } else {
-    window.location.href = 'sign-in.html';
+    window.location.href = 'admin-dashboard.html';
   }
 } else {
-  window.location.href = 'sign-in.html';
+  window.location.href = 'admin-dashboard.html';
 }
 
 // get user token
@@ -180,3 +180,12 @@ const getAllRsvps = () => {
     });
 };
 getAllRsvps();
+
+// log a user out and redirect back to home page
+const logout = () => {
+  localStorage.removeItem('user');
+};
+
+const logoutBtn = document.querySelector('.logout');
+
+logoutBtn.addEventListener('click', logout);

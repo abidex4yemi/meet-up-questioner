@@ -165,11 +165,7 @@ const createMeetup = async (e) => {
         });
       }
     })
-    .catch((err) => {
-      if (err) {
-        window.location.href = 'admin-dashboard.html';
-      }
-    });
+    .catch(err => err);
 };
 
 // Get sign up button

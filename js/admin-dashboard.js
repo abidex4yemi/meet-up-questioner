@@ -8,10 +8,10 @@ if (localStorage.getItem('user')) {
     // set username
     userName.innerHTML = userData.username;
   } else {
-    window.location.href = 'sign-in.html';
+    window.location.href = 'user-dashboard.html';
   }
 } else {
-  window.location.href = 'sign-in.html';
+  window.location.href = 'user-dashboard.html';
 }
 
 /**
@@ -46,7 +46,7 @@ createMeetupButton.addEventListener('click', () => {
 
 // log a user out and redirect back to home page
 const logout = () => {
-  this.localStorage.setItem('user', '');
+  localStorage.removeItem('user');
 };
 
 const logoutBtn = document.querySelector('.logout');
